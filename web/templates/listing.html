@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card, stars %}
+{% block title %}{{ l.name }} — {{ l.city }}, {{ l.state }} | {{ SITE_NAME }}{% endblock %}
+{% block description %}{{ l.name }} in {{ l.city }}, {{ l.state }}{% if l.rating %} — rated {{ "%.1f"|format(l.rating) }}/5 from {{ l.reviews }} reviews{% endif %}. {{ l.category }}. Get a free quote.{% endblock %}
+{% block canonical %}/listing/{{ l.slug }}{% endblock %}
+
+{% block content %}
+<div class="bg-gradient-to-br from-primaryDark to-primary text-white">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <nav class="text-sm text-white/70 mb-4"><a href="/" class="hover:text-white">Home</a> / <a href="/{{ l.state|lower }}/{{ cat_slug(l.city) }}" class="hover:text-white">{{ l.city }}, {{ l.state }}</a> / <span class="text-white">{{ l.name }}</span></nav>
+    <div class="flex items-start gap-4">
+      {% if l.website %}<img src="https://www.google.com/s2/favicons?domain={{ l.website }}&sz=128" class="w-16 h-16 rounded-xl bg-white p-1" alt="" onerror="this.style.display='none'">{% endif %}
+      <div>
+        <h1 class="text-3xl font-extrabold">{{ l.name }}</h1>
+        <div class="mt-2 flex items-center gap-3 text-white/90">
+          {% if l.rating %}<span>{{ stars(l.rating) }} <b>{{ "%.1f"|format(l.rating) }}</b> ({{ l.reviews }} reviews)</span>{% endif %}
+          <span class="px-2.5 py-0.5 rounded-full bg-white/15 text-sm">{{ l.category }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid md:grid-cols-3 gap-8">
+  <div class="md:col-span-2 space-y-8">
+    {% if copy and copy.intro %}
+    <section class="prose max-w-none"><p class="text-gray-700 leading-relaxed">{{ copy.intro }}</p></section>
+    {% else %}
+    <p class="text-gray-700 leading-relaxed">{{ l.name }} provides {{ l.category|lower }} services in {{ l.city }}, {{ l.state }}. Contact them for a free quote, or request quotes from up to 3 local pros below.</p>
+    {% endif %}
+
+    {% if copy and copy.faq %}
+    <section>
+      <h2 class="text-xl font-extrabold mb-4">Frequently asked questions</h2>
+      <div class="space-y-3">
+        {% for f in copy.faq %}
+        <details class="bg-white border rounded-xl p-4"><summary class="font-semibold cursor-pointer">{{ f.q }}</summary><p class="mt-2 text-gray-600 text-sm">{{ f.a }}</p></details>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if nearby %}
+    <section>
+      <h2 class="text-xl font-extrabold mb-4">More pest control in {{ l.city }}</h2>
+      <div class="grid sm:grid-cols-2 gap-4">{% for n in nearby %}{{ card(n) }}{% endfor %}</div>
+    </section>
+    {% endif %}
+  </div>
+
+  <aside class="space-y-4">
+    <div class="bg-white border rounded-2xl p-5 sticky top-20">
+      <h3 class="font-bold mb-3">Contact</h3>
+      <ul class="space-y-3 text-sm">
+        {% if l.address %}<li><i class="fas fa-location-dot text-primary w-5"></i> {{ l.address }}</li>{% endif %}
+        {% if l.phone %}<li><i class="fas fa-phone text-primary w-5"></i> <a href="tel:{{ l.phone }}" class="text-primary font-semibold">{{ l.phone }}</a></li>{% endif %}
+        {% if l.website %}<li><i class="fas fa-globe text-primary w-5"></i> <a href="{{ l.website }}" target="_blank" rel="nofollow noopener" class="text-primary break-all">Website</a></li>{% endif %}
+      </ul>
+      <div class="grid gap-2 mt-4">
+        {% if l.phone %}<a href="tel:{{ l.phone }}" class="bg-primary hover:bg-primaryDark text-white text-center font-semibold py-2.5 rounded-xl"><i class="fas fa-phone mr-1"></i> Call now</a>{% endif %}
+        {% if l.lat and l.lng %}<a href="https://maps.google.com/maps/dir/?api=1&destination={{ l.lat }},{{ l.lng }}" target="_blank" rel="noopener" class="border text-center font-semibold py-2.5 rounded-xl hover:border-primary hover:text-primary"><i class="fas fa-diamond-turn-right mr-1"></i> Directions</a>{% endif %}
+        <a href="/#quote" class="border text-center font-semibold py-2.5 rounded-xl hover:border-primary hover:text-primary"><i class="fas fa-clipboard-list mr-1"></i> Get free quotes</a>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"LocalBusiness",
+  "name":{{ l.name|tojson }},"telephone":{{ (l.phone or "")|tojson }},
+  {% if l.website %}"url":{{ l.website|tojson }},{% endif %}
+  "address":{"@type":"PostalAddress","addressLocality":{{ l.city|tojson }},"addressRegion":{{ l.state|tojson }}}
+  {% if l.rating %},"aggregateRating":{"@type":"AggregateRating","ratingValue":"{{ l.rating }}","reviewCount":"{{ l.reviews or 0 }}"}{% endif %}
+}
+</script>
+{% endblock %}

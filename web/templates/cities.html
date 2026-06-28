@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Browse Pest Control by City | {{ SITE_NAME }}{% endblock %}
+{% block canonical %}/cities{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <h1 class="text-3xl font-extrabold mb-2">Pest control by city</h1>
+  <p class="text-gray-500 mb-8">{{ rows|length }} cities with local pest control pros.</p>
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+    {% for c in rows %}
+    <a href="/{{ c.state|lower }}/{{ cat_slug(c.city) }}" class="flex justify-between items-center px-4 py-2.5 bg-white border rounded-lg hover:border-primary hover:text-primary text-sm">
+      <span>{{ c.city }}, {{ c.state }}</span><span class="text-gray-400">{{ c.n }}</span></a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

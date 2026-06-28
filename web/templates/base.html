@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+  <meta name="description" content="{% block description %}Find trusted local pest control, exterminators, termite, bed bug, rodent, mosquito and wildlife removal services near you.{% endblock %}">
+  <link rel="canonical" href="{% block canonical %}{% endblock %}">
+
+  <!-- Tailwind (Play CDN for dev; compile to /static/css/output.css for prod) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {
+      colors: { primary: '#15803d', primaryDark: '#166534', accent: '#65a30d' },
+      fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+    } } }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>body{font-family:'Inter',sans-serif}</style>
+
+  {% if GA_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ID }}"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+    gtag('js',new Date());gtag('config','{{ GA_ID }}');</script>
+  {% endif %}
+  {% if ADSENSE_CLIENT %}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ ADSENSE_CLIENT }}" crossorigin="anonymous"></script>
+  {% endif %}
+</head>
+<body class="h-full flex flex-col bg-gray-50 text-gray-900">
+
+<header class="bg-white shadow-sm border-b sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="/" class="flex items-center space-x-2 font-extrabold text-lg">
+        <span class="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center">
+          <i class="fa-solid fa-shield-halved"></i></span>
+        <span>Pest Control <span class="text-primary">Directory</span></span>
+      </a>
+      <nav class="hidden md:flex items-center space-x-1">
+        <a href="/search" class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-search mr-1"></i> Search</a>
+        <div class="relative group">
+          <button class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-tags mr-1"></i> Services <i class="fas fa-chevron-down text-xs"></i></button>
+          <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 border">
+            {% for c in ALL_CATEGORIES %}
+            <a href="/category/{{ cat_slug(c) }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary">
+              <i class="fa-solid {{ CATEGORY_ICONS.get(c,'fa-bug') }} mr-3"></i>{{ c }}</a>
+            {% endfor %}
+            <div class="border-t my-1"></div>
+            <a href="/categories" class="flex items-center px-4 py-2.5 text-sm text-primary font-semibold"><i class="fas fa-th mr-3"></i> All services</a>
+          </div>
+        </div>
+        <a href="/cities" class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-city mr-1"></i> Cities</a>
+        <a href="/#quote" class="ml-2 px-4 py-2 rounded-xl bg-primary text-white font-semibold shadow-md hover:bg-primaryDark text-sm"><i class="fas fa-clipboard-list mr-1"></i> Get Quotes</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="flex-1">{% block content %}{% endblock %}</main>
+
+<footer class="bg-gray-900 text-gray-300 mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-4 gap-8">
+    <div>
+      <div class="text-white font-extrabold text-lg mb-3"><i class="fa-solid fa-shield-halved text-primary mr-2"></i>Pest Control Directory</div>
+      <p class="text-sm text-gray-400">Find trusted local pest control pros across the USA. Compare reviews, get free quotes.</p>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-3">Services</h4>
+      <ul class="space-y-1.5 text-sm">
+        {% for c in ALL_CATEGORIES %}<li><a href="/category/{{ cat_slug(c) }}" class="hover:text-primary">{{ c }}</a></li>{% endfor %}
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-3">Explore</h4>
+      <ul class="space-y-1.5 text-sm">
+        <li><a href="/cities" class="hover:text-primary">Browse cities</a></li>
+        <li><a href="/categories" class="hover:text-primary">All services</a></li>
+        <li><a href="/search" class="hover:text-primary">Search</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-semibold mb-3">For businesses</h4>
+      <ul class="space-y-1.5 text-sm">
+        <li><a href="/#quote" class="hover:text-primary">Add your listing</a></li>
+        <li><a href="/#quote" class="hover:text-primary">Get local leads</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-gray-800 py-5 text-center text-sm text-gray-500">
+    &copy; {{ 2026 }} Pest Control Directory. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>

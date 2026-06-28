@@ -29,6 +29,15 @@ CREATE TABLE IF NOT EXISTS listings (
 CREATE INDEX IF NOT EXISTS idx_city  ON listings(city, state);
 CREATE INDEX IF NOT EXISTS idx_cat   ON listings(category);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_cid ON listings(cid) WHERE cid IS NOT NULL;
+
+-- Gemini-generated SEO copy, cached so we never call the API per pageview.
+CREATE TABLE IF NOT EXISTS content (
+    key          TEXT PRIMARY KEY,   -- e.g. city:austin-tx, category:termite-control
+    kind         TEXT,               -- city | category | listing
+    intro        TEXT,
+    faq          TEXT,               -- JSON [{q,a},...]
+    generated_at TEXT DEFAULT (datetime('now'))
+);
 """
 
 

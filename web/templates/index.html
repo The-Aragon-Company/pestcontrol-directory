@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card %}
+{% block canonical %}/{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="bg-gradient-to-br from-primaryDark via-primary to-accent text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 text-center">
+    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">Find Trusted Pest Control Near You</h1>
+    <p class="mt-4 text-lg text-white/90 max-w-2xl mx-auto">Compare {{ "{:,}".format(total) }}+ local exterminators &amp; pest pros. Read real reviews, get free quotes from up to 3 pros.</p>
+    <form action="/search" method="get" class="mt-8 max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-2 flex flex-col sm:flex-row gap-2">
+      <div class="flex-1 flex items-center px-3">
+        <i class="fas fa-bug text-gray-400 mr-2"></i>
+        <select name="category" class="w-full py-3 text-gray-700 outline-none bg-transparent">
+          <option value="">All services</option>
+          {% for c in ALL_CATEGORIES %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="flex-1 flex items-center px-3 border-t sm:border-t-0 sm:border-l">
+        <i class="fas fa-location-dot text-gray-400 mr-2"></i>
+        <input name="city" placeholder="City or state" class="w-full py-3 text-gray-700 outline-none">
+      </div>
+      <button class="bg-primary hover:bg-primaryDark text-white font-semibold px-8 py-3 rounded-xl"><i class="fas fa-search mr-1"></i> Search</button>
+    </form>
+  </div>
+</section>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <!-- Categories -->
+  <h2 class="text-2xl font-extrabold mb-6">Browse by service</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    {% for c in cats %}
+    <a href="/category/{{ cat_slug(c.category) }}" class="bg-white rounded-2xl border p-5 hover:shadow-lg hover:border-primary/30 transition-all text-center">
+      <span class="w-12 h-12 mx-auto rounded-xl bg-primary/10 text-primary flex items-center justify-center text-xl mb-3"><i class="fa-solid {{ CATEGORY_ICONS.get(c.category,'fa-bug') }}"></i></span>
+      <div class="font-semibold text-sm">{{ c.category }}</div>
+      <div class="text-xs text-gray-400 mt-1">{{ c.n }} pros</div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <!-- Featured -->
+  <h2 class="text-2xl font-extrabold mt-14 mb-6">Top-rated pest control pros</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {% for l in featured %}{{ card(l) }}{% endfor %}
+  </div>
+
+  <!-- Cities -->
+  <h2 class="text-2xl font-extrabold mt-14 mb-6">Popular cities</h2>
+  <div class="flex flex-wrap gap-2">
+    {% for c in cities %}
+    <a href="/{{ c.state|lower }}/{{ cat_slug(c.city) }}" class="px-4 py-2 bg-white border rounded-full text-sm hover:border-primary hover:text-primary">{{ c.city }}, {{ c.state }} <span class="text-gray-400">({{ c.n }})</span></a>
+    {% endfor %}
+  </div>
+
+  <!-- Quote CTA -->
+  <section id="quote" class="mt-16 bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl text-white p-8 md:p-12">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-3xl font-extrabold">Get free quotes from up to 3 pest pros</h2>
+        <p class="mt-3 text-gray-300">Tell us what's bugging you. Local pros respond fast — compare prices and book with confidence.</p>
+        <ul class="mt-5 space-y-2 text-gray-300 text-sm">
+          <li><i class="fas fa-check text-accent mr-2"></i>100% free, no obligation</li>
+          <li><i class="fas fa-check text-accent mr-2"></i>Vetted local professionals</li>
+          <li><i class="fas fa-check text-accent mr-2"></i>Fast response times</li>
+        </ul>
+      </div>
+      <form action="/quote" method="post" class="bg-white rounded-2xl p-6 text-gray-900 grid gap-3">
+        <div class="grid sm:grid-cols-2 gap-3">
+          <input name="name" required placeholder="Your name" class="border rounded-lg px-3 py-2.5 outline-none focus:border-primary">
+          <input name="phone" required placeholder="Phone" class="border rounded-lg px-3 py-2.5 outline-none focus:border-primary">
+        </div>
+        <input name="email" type="email" placeholder="Email" class="border rounded-lg px-3 py-2.5 outline-none focus:border-primary">
+        <div class="grid sm:grid-cols-2 gap-3">
+          <select name="service" class="border rounded-lg px-3 py-2.5 outline-none focus:border-primary">
+            {% for c in ALL_CATEGORIES %}<option>{{ c }}</option>{% endfor %}
+          </select>
+          <input name="city" placeholder="Your city" class="border rounded-lg px-3 py-2.5 outline-none focus:border-primary">
+        </div>
+        <textarea name="details" rows="2" placeholder="Describe the problem" class="border rounded-lg px-3 py-2.5 outline-none focus:border-primary"></textarea>
+        <button class="bg-primary hover:bg-primaryDark text-white font-semibold py-3 rounded-xl">Request free quotes</button>
+      </form>
+    </div>
+  </section>
+</div>
+{% endblock %}

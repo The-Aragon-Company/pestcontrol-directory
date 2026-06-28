@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_macros.html" import card %}
+{% block title %}Search pest control{% if loc %} in {{ loc }}{% endif %} | {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <form action="/search" method="get" class="bg-white rounded-2xl shadow-sm border p-2 flex flex-col sm:flex-row gap-2 mb-8">
+    <input name="q" value="{{ q }}" placeholder="Business name" class="flex-1 px-4 py-3 outline-none">
+    <select name="category" class="px-4 py-3 outline-none border-t sm:border-t-0 sm:border-l">
+      <option value="">All services</option>
+      {% for c in ALL_CATEGORIES %}<option {% if c==cat %}selected{% endif %}>{{ c }}</option>{% endfor %}
+    </select>
+    <input name="city" value="{{ loc }}" placeholder="City or state" class="px-4 py-3 outline-none border-t sm:border-t-0 sm:border-l">
+    <button class="bg-primary hover:bg-primaryDark text-white font-semibold px-8 py-3 rounded-xl">Search</button>
+  </form>
+  <h1 class="text-xl font-bold mb-6">{{ rows|length }} result{{ '' if rows|length==1 else 's' }}</h1>
+  {% if rows %}
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{% for l in rows %}{{ card(l) }}{% endfor %}</div>
+  {% else %}
+  <div class="text-center py-20 text-gray-500"><i class="fas fa-magnifying-glass text-4xl mb-4 text-gray-300"></i><p>No matches. Try a broader search.</p></div>
+  {% endif %}
+</div>
+{% endblock %}

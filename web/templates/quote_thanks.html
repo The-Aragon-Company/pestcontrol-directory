@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Request received | {{ SITE_NAME }}{% endblock %}
+{% block content %}
+<div class="max-w-xl mx-auto px-4 py-24 text-center">
+  <span class="w-16 h-16 mx-auto rounded-full bg-primary/10 text-primary flex items-center justify-center text-2xl mb-6"><i class="fas fa-check"></i></span>
+  <h1 class="text-3xl font-extrabold">Thanks{% if lead.name %}, {{ lead.name }}{% endif %}!</h1>
+  <p class="mt-3 text-gray-600">Your request for {{ lead.service or 'pest control' }}{% if lead.city %} in {{ lead.city }}{% endif %} is in. Up to 3 local pros will reach out shortly.</p>
+  <a href="/" class="inline-block mt-8 bg-primary hover:bg-primaryDark text-white font-semibold px-8 py-3 rounded-xl">Back to home</a>
+</div>
+{% endblock %}
