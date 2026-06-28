@@ -5,7 +5,7 @@
 {% block canonical %}/category/{{ slug }}{% endblock %}
 
 {% block content %}
-<div class="bg-gradient-to-br from-primaryDark to-primary text-white">
+<div class="bg-gradient-to-br from-primary to-gradient text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <nav class="text-sm text-white/70 mb-3"><a href="/" class="hover:text-white">Home</a> / <a href="/categories" class="hover:text-white">Services</a> / <span class="text-white">{{ name }}</span></nav>
     <h1 class="text-3xl md:text-4xl font-extrabold"><i class="fa-solid {{ CATEGORY_ICONS.get(name,'fa-bug') }} mr-2"></i>{{ name }}</h1>

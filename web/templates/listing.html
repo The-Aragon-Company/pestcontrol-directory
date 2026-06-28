@@ -5,7 +5,7 @@
 {% block canonical %}/listing/{{ l.slug }}{% endblock %}
 
 {% block content %}
-<div class="bg-gradient-to-br from-primaryDark to-primary text-white">
+<div class="bg-gradient-to-br from-primary to-gradient text-white">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
     <nav class="text-sm text-white/70 mb-4"><a href="/" class="hover:text-white">Home</a> / <a href="/{{ l.state|lower }}/{{ cat_slug(l.city) }}" class="hover:text-white">{{ l.city }}, {{ l.state }}</a> / <span class="text-white">{{ l.name }}</span></nav>
     <div class="flex items-start gap-4">
