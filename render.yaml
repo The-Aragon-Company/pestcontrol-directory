@@ -1,0 +1,11 @@
+# Render.com blueprint — free tier. Push this repo, "New > Blueprint", done.
+services:
+  - type: web
+    name: pestcontrol-directory
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-web.txt
+    startCommand: gunicorn web.wsgi:app --bind 0.0.0.0:$PORT --workers 2 --timeout 60
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12"

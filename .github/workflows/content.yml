@@ -1,0 +1,54 @@
+name: generate-content
+
+# Fills unique Gemini SEO copy for city/category pages, caches it in the DB,
+# commits back. Free. Requires repo secret GEMINI_API_KEY (Settings > Secrets
+# > Actions > New repository secret).
+
+on:
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "city or category"
+        default: "city"
+      limit:
+        description: "max city pages this run"
+        default: "60"
+  schedule:
+    - cron: "30 1 * * *"      # daily, offset from the scraper
+
+concurrency:
+  group: content
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate copy
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "No GEMINI_API_KEY secret set — skipping."; exit 0
+          fi
+          KIND="${{ github.event.inputs.kind }}"; KIND=${KIND:-city}
+          LIMIT="${{ github.event.inputs.limit }}"; LIMIT=${LIMIT:-60}
+          python web/gen_content.py --kind category || true
+          python web/gen_content.py --kind "$KIND" --limit "$LIMIT" || true
+
+      - name: Commit content
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/pestcontrol.db
+          git commit -m "content: generate batch of SEO copy" || echo "nothing to commit"
+          git push

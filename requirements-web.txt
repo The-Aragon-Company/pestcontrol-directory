@@ -1,0 +1,3 @@
+# Web app only — no scraper deps (no playwright/chromium needed to serve pages).
+flask>=3.0
+gunicorn>=22.0

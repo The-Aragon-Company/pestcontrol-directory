@@ -63,11 +63,45 @@ PCD_MIN_POP=100000 python scraper/scrape.py     # only cities >100k (293 cities)
 PCD_MAX_CITIES=300 python scraper/scrape.py      # largest 300 cities only
 ```
 
-## Next steps
-- [ ] Build `web/` Flask app (homepage, /listing/<slug>, /cities, /categories, sitemap.xml)
-- [ ] Tailwind + Font Awesome theme (clone of the reference site)
-- [ ] Lead-capture quote form + AdSense slots
-- [ ] Deploy behind Cloudflare
+## Web app (BUILT)
+
+```bash
+pip install -r requirements-web.txt
+python web/app.py            # http://127.0.0.1:5000
+```
+Routes: `/`, `/listing/<slug>`, `/<state>/<city>`, `/category/<slug>`, `/cities`,
+`/categories`, `/search`, `/sitemap.xml`, `/robots.txt`, `POST /quote`.
+Set domain / AdSense / GA in the `app.config` block at the top of `web/app.py`.
+
+## SEO content (Gemini)
+Unique per-page copy, generated once and cached in the DB's `content` table:
+```bash
+set GEMINI_API_KEY=your_key
+python web/gen_content.py --kind category
+python web/gen_content.py --kind city --limit 60
+```
+Or let the **generate-content** GitHub Action do it daily — add repo secret
+`GEMINI_API_KEY` (Settings > Secrets > Actions).
+
+## Data quality
+```bash
+python scraper/clean.py       # drop big-box chains + no-contact ghosts
+```
+New scrapes are filtered automatically (see `JUNK_NAMES` in `scraper/db.py`).
+
+## Deploy (pick one — all free tier)
+- **Render**: push repo, New > Blueprint (uses `render.yaml`). Easiest.
+- **Railway / Fly.io**: uses the `Procfile` / `Dockerfile`.
+- **Any VPS + Docker**: `docker build -t pcd . && docker run -p 8080:8080 pcd`
+- Put **Cloudflare** in front for caching + the proxy look.
+
+The scraped `data/pestcontrol.db` is committed back by the Actions workflows,
+so the deploy host always has fresh data straight from the repo.
+
+## Remaining polish
+- [ ] Compile Tailwind to `/static/css/output.css` (now Play CDN — fine for dev)
+- [ ] Wire `POST /quote` to email/CRM (currently just logs the lead)
+- [ ] Point a real domain + fill AdSense/GA config
 
 ## Protecting your IP (READ THIS)
 

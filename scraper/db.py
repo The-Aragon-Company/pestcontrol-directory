@@ -41,6 +41,19 @@ CREATE TABLE IF NOT EXISTS content (
 """
 
 
+# Big-box stores / irrelevant chains that pollute "pest control" map searches.
+JUNK_NAMES = (
+    "home depot", "lowe's", "lowes", "walmart", "ace hardware", "true value",
+    "tractor supply", "menards", "target", "costco", "amazon", "harbor freight",
+    "do it best", "family dollar", "dollar general", "walgreens", "cvs",
+)
+
+
+def is_junk(name: str) -> bool:
+    n = (name or "").lower()
+    return any(j in n for j in JUNK_NAMES)
+
+
 def slugify(value: str) -> str:
     value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode()
     value = re.sub(r"[^\w\s-]", "", value).strip().lower()
@@ -56,6 +69,8 @@ def connect():
 
 def upsert(conn, row: dict) -> bool:
     """Insert a listing. Returns True if new, False if duplicate (by cid or slug)."""
+    if is_junk(row.get("name")):
+        return False
     base = slugify(row.get("name", "") or "unknown")
     if row.get("city"):
         base = f"{base}-{slugify(row['city'])}"
