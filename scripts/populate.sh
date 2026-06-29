@@ -16,7 +16,7 @@ echo "[populate] waiting for any in-flight runs to finish..."
 drain
 git pull --no-edit -q || true
 
-for off in 0 140 280 420; do
+for off in 700 980 1260 1540 1820; do
   echo "[populate] dispatching batch offset=$off"
   gh workflow run scrape.yml -f batch=140 -f max_results=15 -f offset="$off"
   sleep 30
