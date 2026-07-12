@@ -11,10 +11,10 @@ on:
     inputs:
       batch:
         description: "jobs per run"
-        default: "120"
+        default: "60"
       max_results:
         description: "places per query"
-        default: "10"
+        default: "30"
       offset:
         description: "force a start offset (blank = use saved)"
         default: ""
@@ -62,8 +62,8 @@ jobs:
         env:
           PCD_CLOUD_CI: "1"     # runner IP is disposable -> bare-IP allowed here
         run: |
-          BATCH="${{ github.event.inputs.batch }}"; BATCH=${BATCH:-120}
-          MAXR="${{ github.event.inputs.max_results }}"; MAXR=${MAXR:-10}
+          BATCH="${{ github.event.inputs.batch }}"; BATCH=${BATCH:-60}
+          MAXR="${{ github.event.inputs.max_results }}"; MAXR=${MAXR:-30}
           python scraper/scrape.py \
             --offset ${{ steps.off.outputs.offset }} \
             --limit "$BATCH" \
@@ -74,7 +74,7 @@ jobs:
 
       - name: Advance offset + commit data
         run: |
-          BATCH="${{ github.event.inputs.batch }}"; BATCH=${BATCH:-120}
+          BATCH="${{ github.event.inputs.batch }}"; BATCH=${BATCH:-60}
           NEXT=$(( ${{ steps.off.outputs.offset }} + BATCH ))
           if [ "$NEXT" -ge "${{ steps.off.outputs.total }}" ]; then NEXT=0; fi
           echo "$NEXT" > data/.offset
