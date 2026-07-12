@@ -64,12 +64,24 @@ def close_db(_exc):
 
 
 @app.after_request
-def edge_cache(resp):
-    """Let Vercel's CDN cache GET pages (content only changes on redeploy).
-    Big speed + crawl-budget win vs re-running the function every hit."""
+def add_headers(resp):
+    """Edge caching + baseline security headers."""
     if request.method == "GET" and resp.status_code == 200:
         resp.headers["Cache-Control"] = (
             "public, s-maxage=3600, stale-while-revalidate=86400")
+    resp.headers["X-Content-Type-Options"] = "nosniff"
+    resp.headers["X-Frame-Options"] = "SAMEORIGIN"
+    resp.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    resp.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+    resp.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com "
+        "https://pagead2.googlesyndication.com; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com "
+        "https://cdnjs.cloudflare.com; "
+        "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
+        "img-src 'self' data: https:; "
+        "connect-src 'self' https:; frame-ancestors 'self'")
     return resp
 
 
@@ -144,6 +156,22 @@ def listing(slug):
     return render_template("listing.html", l=row, nearby=nearby, copy=copy)
 
 
+PER_PAGE = 24
+
+
+def _page():
+    try:
+        return max(1, int(request.args.get("page", 1)))
+    except ValueError:
+        return 1
+
+
+def _pageinfo(page, total):
+    pages = max(1, (total + PER_PAGE - 1) // PER_PAGE)
+    return {"page": page, "pages": pages,
+            "has_prev": page > 1, "has_next": page < pages}
+
+
 @app.route("/category/<slug>")
 def category(slug):
     d = get_db()
@@ -152,29 +180,37 @@ def category(slug):
     name = cats.get(slug)
     if not name:
         abort(404)
+    page = _page()
+    total = d.execute("SELECT COUNT(*) FROM listings WHERE category = ?",
+                      (name,)).fetchone()[0]
     rows = d.execute(
         "SELECT * FROM listings WHERE category = ? ORDER BY reviews DESC "
-        "LIMIT 200", (name,)).fetchall()
+        "LIMIT ? OFFSET ?", (name, PER_PAGE, (page - 1) * PER_PAGE)).fetchall()
     copy = content_for(f"category:{slug}")
-    return render_template("category.html", name=name, slug=slug,
-                           rows=rows, copy=copy)
+    return render_template("category.html", name=name, slug=slug, rows=rows,
+                           total=total, copy=copy, pg=_pageinfo(page, total),
+                           base_url=f"/category/{slug}")
 
 
 @app.route("/<state>/<cityslug>")
 def city(state, cityslug):
     state = state.upper()
     d = get_db()
-    # match by slug of city
-    rows = d.execute(
+    # match by slug of city (filter in Python since slugify isn't in SQL)
+    allrows = d.execute(
         "SELECT * FROM listings WHERE state = ? ORDER BY reviews DESC",
         (state,)).fetchall()
-    rows = [r for r in rows if slugify(r["city"]) == cityslug]
+    rows = [r for r in allrows if slugify(r["city"]) == cityslug]
     if not rows:
         abort(404)
     cname = rows[0]["city"]
+    page = _page()
+    total = len(rows)
+    paged = rows[(page - 1) * PER_PAGE: page * PER_PAGE]
     copy = content_for(f"city:{cityslug}-{state.lower()}")
-    return render_template("city.html", city=cname, state=state,
-                           rows=rows[:200], copy=copy)
+    return render_template("city.html", city=cname, state=state, rows=paged,
+                           total=total, copy=copy, pg=_pageinfo(page, total),
+                           base_url=f"/{state.lower()}/{cityslug}")
 
 
 @app.route("/cities")
@@ -216,10 +252,33 @@ def search():
 
 @app.route("/quote", methods=["POST"])
 def quote():
-    # Lead capture. Wire to email/CRM/DB later. For now, acknowledge.
-    lead = {k: request.form.get(k) for k in
+    """Capture a lead. Vercel's FS is read-only, so we forward the lead to a
+    webhook (set LEAD_WEBHOOK to a Zapier/Make/Discord/Slack/Google-Sheet URL).
+    Always logs as a fallback so nothing is silently lost."""
+    import urllib.request
+    from datetime import datetime, timezone
+    lead = {k: (request.form.get(k) or "").strip() for k in
             ("name", "email", "phone", "city", "service", "details")}
-    print("LEAD:", lead)  # TODO persist + notify
+    lead["ts"] = datetime.now(timezone.utc).isoformat()
+    lead["ua"] = request.headers.get("User-Agent", "")[:200]
+    print("LEAD:", json.dumps(lead))  # shows in Vercel logs regardless
+
+    hook = os.environ.get("LEAD_WEBHOOK", "")
+    if hook:
+        try:
+            # Discord webhooks want {"content": ...}; generic hooks accept JSON too
+            if "discord.com" in hook:
+                body = {"content": (f"🐜 **New lead** — {lead['service']}\n"
+                                    f"{lead['name']} · {lead['phone']} · {lead['email']}\n"
+                                    f"{lead['city']} — {lead['details']}")}
+            else:
+                body = lead
+            req = urllib.request.Request(
+                hook, data=json.dumps(body).encode(),
+                headers={"Content-Type": "application/json"})
+            urllib.request.urlopen(req, timeout=8)
+        except Exception as e:
+            print("LEAD webhook failed:", e)
     return render_template("quote_thanks.html", lead=lead)
 
 

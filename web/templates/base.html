@@ -7,6 +7,7 @@
   <meta name="description" content="{% block description %}Find trusted local pest control, exterminators, termite, bed bug, rodent, mosquito and wildlife removal services near you.{% endblock %}">
   {% set _path = request.path %}
   <link rel="canonical" href="{{ DOMAIN }}{{ _path }}">
+  {% block head_extra %}{% endblock %}
   <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
   {% if GSC_VERIFICATION %}<meta name="google-site-verification" content="{{ GSC_VERIFICATION }}">{% endif %}
 

@@ -1,21 +1,26 @@
 {% extends "base.html" %}
-{% from "_macros.html" import card %}
-{% block title %}{{ name }} Services Near You ({{ rows|length }}) | {{ SITE_NAME }}{% endblock %}
-{% block description %}Find {{ name|lower }} pros near you. Compare {{ rows|length }} providers with reviews and ratings. Get free quotes today.{% endblock %}
+{% from "_macros.html" import card, pager %}
+{% block title %}{{ name }} Services Near You ({{ total }}){% if pg.page>1 %} — Page {{ pg.page }}{% endif %} | {{ SITE_NAME }}{% endblock %}
+{% block description %}Find {{ name|lower }} pros near you. Compare {{ total }} providers with reviews and ratings. Get free quotes today.{% endblock %}
 {% block canonical %}/category/{{ slug }}{% endblock %}
+{% block head_extra %}
+  {% if pg.has_prev %}<link rel="prev" href="{{ DOMAIN }}{{ base_url }}{% if pg.page>2 %}?page={{ pg.page-1 }}{% endif %}">{% endif %}
+  {% if pg.has_next %}<link rel="next" href="{{ DOMAIN }}{{ base_url }}?page={{ pg.page+1 }}">{% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="bg-gradient-to-br from-primary to-gradient text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <nav class="text-sm text-white/70 mb-3"><a href="/" class="hover:text-white">Home</a> / <a href="/categories" class="hover:text-white">Services</a> / <span class="text-white">{{ name }}</span></nav>
     <h1 class="text-3xl md:text-4xl font-extrabold"><i class="fa-solid {{ CATEGORY_ICONS.get(name,'fa-bug') }} mr-2"></i>{{ name }}</h1>
-    <p class="mt-2 text-white/90">{{ rows|length }} providers &middot; reviews &middot; free quotes</p>
+    <p class="mt-2 text-white/90">{{ total }} providers &middot; reviews &middot; free quotes</p>
   </div>
 </div>
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  {% if copy and copy.intro %}<p class="text-gray-700 leading-relaxed max-w-3xl mb-8">{{ copy.intro }}</p>{% endif %}
+  {% if copy and copy.intro and pg.page==1 %}<p class="text-gray-700 leading-relaxed max-w-3xl mb-8">{{ copy.intro }}</p>{% endif %}
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{% for l in rows %}{{ card(l) }}{% endfor %}</div>
-  {% if copy and copy.faq %}
+  {{ pager(pg, base_url) }}
+  {% if copy and copy.faq and pg.page==1 %}
   <h2 class="text-2xl font-extrabold mt-14 mb-4">{{ name }} — FAQ</h2>
   <div class="space-y-3 max-w-3xl">{% for f in copy.faq %}<details class="bg-white border rounded-xl p-4"><summary class="font-semibold cursor-pointer">{{ f.q }}</summary><p class="mt-2 text-gray-600 text-sm">{{ f.a }}</p></details>{% endfor %}</div>
   {% endif %}

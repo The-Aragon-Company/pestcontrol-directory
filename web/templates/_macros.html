@@ -7,6 +7,16 @@
   {% endfor %}
 {% endmacro %}
 
+{% macro pager(pg, base_url) %}
+{% if pg.pages > 1 %}
+<nav class="flex items-center justify-center gap-2 mt-10" aria-label="Pagination">
+  {% if pg.has_prev %}<a href="{{ base_url }}?page={{ pg.page-1 }}" class="px-4 py-2 rounded-lg border bg-white text-gray-700 hover:border-primary hover:text-primary text-sm">&larr; Prev</a>{% endif %}
+  <span class="px-4 py-2 text-sm text-gray-500">Page {{ pg.page }} of {{ pg.pages }}</span>
+  {% if pg.has_next %}<a href="{{ base_url }}?page={{ pg.page+1 }}" class="px-4 py-2 rounded-lg border bg-white text-gray-700 hover:border-primary hover:text-primary text-sm">Next &rarr;</a>{% endif %}
+</nav>
+{% endif %}
+{% endmacro %}
+
 {% macro card(l) %}
 <!-- Logo Compact Card Layout (reference clone) -->
 <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100">
