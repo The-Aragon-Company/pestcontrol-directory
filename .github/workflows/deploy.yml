@@ -1,14 +1,20 @@
 name: deploy
 
-# Auto-deploy to Vercel on every push to main (replaces the Vercel GitHub App).
-# The scrape/content workflows commit fresh data to main, which fires this and
-# pushes the new DB live — fully hands-off. Uses repo secrets VERCEL_TOKEN,
-# VERCEL_ORG_ID, VERCEL_PROJECT_ID.
+# Ships main to Vercel by firing the project's deploy hook. No Vercel CLI and
+# no token needed — the hook URL is the credential, so it lives in the repo
+# secret VERCEL_DEPLOY_HOOK (Settings > Secrets and variables > Actions).
+#
+# Fires on:
+#   - a human push to main (the `push` trigger below)
+#   - the end of scrape.yml / content.yml, which call this workflow directly.
+#     They have to: pushes made with the default GITHUB_TOKEN do NOT fire
+#     `push` events, so their data commits would otherwise never deploy.
 
 on:
   push:
     branches: [main]
   workflow_dispatch:        # allow manual test runs
+  workflow_call:            # let scrape.yml / content.yml reuse this
 
 # only one deploy at a time; newest push wins
 concurrency:
@@ -18,21 +24,20 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Deploy to Vercel
+      - name: Fire Vercel deploy hook
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
         run: |
-          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
-            echo "VERCEL_TOKEN not set — skipping deploy."; exit 0
+          if [ -z "$HOOK" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK secret is not set — nothing was deployed."
+            exit 1
           fi
-          npm i -g vercel@latest
-          T="${{ secrets.VERCEL_TOKEN }}"
-          if ! vercel pull --yes --environment=production --token="$T"; then
-            echo "::warning::Vercel token rejected — set a long-lived token from vercel.com/account/tokens as the VERCEL_TOKEN secret. Skipping deploy."
-            exit 0
+          CODE=$(curl -sS -X POST "$HOOK" -o body.json -w '%{http_code}')
+          echo "HTTP $CODE"; cat body.json; echo
+          if [ "$CODE" -ge 300 ]; then
+            echo "::error::Deploy hook rejected the request (HTTP $CODE). Check that the"
+            echo "::error::hook still exists in Vercel and that the project has a Git repo connected."
+            exit 1
           fi
-          vercel deploy --prod --yes --token="$T" \
-            || echo "::warning::Vercel deploy failed; check VERCEL_TOKEN."
+          echo "Deploy triggered — watch it at https://vercel.com/dashboard"
