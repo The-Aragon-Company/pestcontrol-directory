@@ -27,8 +27,6 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 60
-    outputs:
-      pushed: ${{ steps.commit.outputs.pushed }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -49,25 +47,14 @@ jobs:
           python web/gen_content.py --kind "$KIND" --limit "$LIMIT" || true
 
       - name: Commit content
-        id: commit
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f data/pestcontrol.db
-          if ! git commit -m "content: generate batch of SEO copy"; then
-            echo "nothing to commit"; echo "pushed=false" >> "$GITHUB_OUTPUT"; exit 0
-          fi
+          git commit -m "content: generate batch of SEO copy" || echo "nothing to commit"
           for i in 1 2 3 4 5; do
-            if git push; then echo "pushed=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+            git push && break
             echo "push rejected, rebasing (attempt $i)..."
             git pull --rebase --autostash -X theirs origin main || true
             sleep $((RANDOM % 5 + 2))
           done
-          echo "::error::could not push the DB after 5 attempts"; exit 1
-
-  # bot pushes don't fire `push`, so ship the new content explicitly
-  deploy:
-    needs: generate
-    if: needs.generate.outputs.pushed == 'true'
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit

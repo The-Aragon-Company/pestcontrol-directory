@@ -140,8 +140,10 @@ def run(kind, limit, only, force):
     done = 0
 
     if kind == "category":
-        rows = conn.execute("SELECT category, COUNT(*) n FROM listings "
-                            "WHERE category IS NOT NULL GROUP BY category").fetchall()
+        rows = conn.execute(
+            f"SELECT category, COUNT(*) n FROM listings "
+            f"WHERE category IS NOT NULL AND {dbmod.ACTIVE} "
+            f"GROUP BY category").fetchall()
         for name, n in rows:
             key = f"category:{dbmod.slugify(name)}"
             if only and dbmod.slugify(name) != only:
@@ -157,8 +159,9 @@ def run(kind, limit, only, force):
 
     elif kind == "city":
         rows = conn.execute(
-            "SELECT city, state, COUNT(*) n, GROUP_CONCAT(DISTINCT category) "
-            "FROM listings GROUP BY city, state ORDER BY n DESC").fetchall()
+            f"SELECT city, state, COUNT(*) n, GROUP_CONCAT(DISTINCT category) "
+            f"FROM listings WHERE {dbmod.ACTIVE} "
+            f"GROUP BY city, state ORDER BY n DESC").fetchall()
         for city, state, n, cats in rows:
             key = f"city:{dbmod.slugify(city)}-{state.lower()}"
             if only and key.split(':')[1] != only:

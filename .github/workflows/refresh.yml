@@ -1,0 +1,80 @@
+name: refresh-listings
+
+# Maintenance, not growth. The directory is built out, so this is the job that
+# keeps it honest: every Monday it reopens the ~2,000 least-recently-verified
+# places on Google Maps, writes back changed phone/site/rating/review data, and
+# hides businesses that have permanently closed.
+#
+# At 2,000/week the full ~24k DB turns over roughly every 12 weeks, so nothing
+# on the site is ever more than a quarter stale.
+#
+# New-listing discovery now lives in scrape.yml, manual-dispatch only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "listings to re-check this run"
+        default: "2000"
+      offset:
+        description: "skip the N stalest (sharding)"
+        default: "0"
+      dry_run:
+        description: "report changes without writing (true/false)"
+        default: "false"
+  schedule:
+    - cron: "0 5 * * 1"       # weekly, Monday 00:00 EST (05:00 UTC)
+
+# never let two DB-writing runs overlap (scrape + content share this group)
+concurrency:
+  group: db-writer
+  cancel-in-progress: false
+
+permissions:
+  contents: write             # to push the DB back
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps + Chromium
+        run: |
+          pip install -r requirements-scrape.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Re-check the stalest listings
+        env:
+          PCD_CLOUD_CI: "1"     # runner IP is disposable -> bare-IP allowed here
+        run: |
+          LIMIT="${{ github.event.inputs.limit }}"; LIMIT=${LIMIT:-2000}
+          OFFSET="${{ github.event.inputs.offset }}"; OFFSET=${OFFSET:-0}
+          DRY=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then DRY="--dry-run"; fi
+          python scraper/refresh.py --limit "$LIMIT" --offset "$OFFSET" $DRY
+
+      - name: Clean (junk, ghosts, duplicates)
+        if: github.event.inputs.dry_run != 'true'
+        run: python scraper/clean.py
+
+      - name: Commit refreshed data
+        if: github.event.inputs.dry_run != 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -f data/pestcontrol.db
+          STATS=$(python -c "import sys; sys.path.insert(0,'scraper'); import db; c=db.connect(); print(f'{db.count(c)} live / {db.count_all(c)} total')")
+          git commit -m "refresh: re-verified batch -> ${STATS}" || echo "nothing to commit"
+          # resilient push: rebase + retry to survive concurrent commits
+          for i in 1 2 3 4 5; do
+            git push && break
+            echo "push rejected, rebasing (attempt $i)..."
+            git pull --rebase --autostash -X theirs origin main || true
+            sleep $((RANDOM % 5 + 2))
+          done
