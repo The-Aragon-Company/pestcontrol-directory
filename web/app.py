@@ -105,6 +105,11 @@ def slugify(s):
     return dbmod.slugify(s or "")
 
 
+# Closed/gone businesses stay in the DB for audit but must never reach a page.
+# Every listings query below carries this filter — see scraper/refresh.py.
+LIVE = dbmod.ACTIVE
+
+
 # make slugify usable inside macros (which don't inherit context processors)
 app.jinja_env.filters["slugify"] = slugify
 
@@ -124,8 +129,8 @@ def content_for(key):
 @app.context_processor
 def inject_globals():
     cats = [r["category"] for r in get_db().execute(
-        "SELECT DISTINCT category FROM listings WHERE category IS NOT NULL "
-        "ORDER BY category")]
+        f"SELECT DISTINCT category FROM listings WHERE category IS NOT NULL "
+        f"AND {LIVE} ORDER BY category")]
     return {
         "SITE_NAME": app.config["SITE_NAME"],
         "ALL_CATEGORIES": cats,
@@ -147,13 +152,14 @@ def home():
     order = {"reviews": "reviews DESC", "rating": "rating DESC, reviews DESC",
              "name": "name ASC"}.get(sort, "reviews DESC")
     listings = d.execute(
-        f"SELECT * FROM listings ORDER BY {order} LIMIT 24").fetchall()
+        f"SELECT * FROM listings WHERE {LIVE} ORDER BY {order} LIMIT 24").fetchall()
     cities = d.execute(
-        "SELECT city, state, COUNT(*) n FROM listings "
-        "GROUP BY city, state ORDER BY n DESC LIMIT 24").fetchall()
+        f"SELECT city, state, COUNT(*) n FROM listings WHERE {LIVE} "
+        f"GROUP BY city, state ORDER BY n DESC LIMIT 24").fetchall()
     cats = d.execute(
-        "SELECT category, COUNT(*) n FROM listings "
-        "WHERE category IS NOT NULL GROUP BY category ORDER BY n DESC").fetchall()
+        f"SELECT category, COUNT(*) n FROM listings "
+        f"WHERE category IS NOT NULL AND {LIVE} "
+        f"GROUP BY category ORDER BY n DESC").fetchall()
     total = dbmod.count(d)
     return render_template("index.html", listings=listings, cities=cities,
                            cats=cats, total=total, sort=sort)
@@ -162,12 +168,12 @@ def home():
 @app.route("/listing/<slug>")
 def listing(slug):
     row = get_db().execute(
-        "SELECT * FROM listings WHERE slug = ?", (slug,)).fetchone()
+        f"SELECT * FROM listings WHERE slug = ? AND {LIVE}", (slug,)).fetchone()
     if not row:
         abort(404)
     nearby = get_db().execute(
-        "SELECT * FROM listings WHERE city = ? AND state = ? AND slug != ? "
-        "ORDER BY reviews DESC LIMIT 6",
+        f"SELECT * FROM listings WHERE city = ? AND state = ? AND slug != ? "
+        f"AND {LIVE} ORDER BY reviews DESC LIMIT 6",
         (row["city"], row["state"], slug)).fetchall()
     copy = content_for(f"listing:{slug}")
     return render_template("listing.html", l=row, nearby=nearby, copy=copy)
@@ -193,24 +199,29 @@ def _pageinfo(page, total):
 def category(slug):
     d = get_db()
     cats = {slugify(r["category"]): r["category"] for r in d.execute(
-        "SELECT DISTINCT category FROM listings WHERE category IS NOT NULL")}
+        f"SELECT DISTINCT category FROM listings "
+        f"WHERE category IS NOT NULL AND {LIVE}")}
     name = cats.get(slug)
     if not name:
         abort(404)
     page = _page()
-    total = d.execute("SELECT COUNT(*) FROM listings WHERE category = ?",
-                      (name,)).fetchone()[0]
+    total = d.execute(
+        f"SELECT COUNT(*) FROM listings WHERE category = ? AND {LIVE}",
+        (name,)).fetchone()[0]
     rows = d.execute(
-        "SELECT * FROM listings WHERE category = ? ORDER BY reviews DESC "
-        "LIMIT ? OFFSET ?", (name, PER_PAGE, (page - 1) * PER_PAGE)).fetchall()
+        f"SELECT * FROM listings WHERE category = ? AND {LIVE} "
+        f"ORDER BY reviews DESC LIMIT ? OFFSET ?",
+        (name, PER_PAGE, (page - 1) * PER_PAGE)).fetchall()
     copy = content_for(f"category:{slug}")
     stats = d.execute(
-        "SELECT ROUND(AVG(rating),1) avg, COUNT(DISTINCT city||state) cities, "
-        "SUM(reviews) revs FROM listings WHERE category = ? AND rating IS NOT NULL",
+        f"SELECT ROUND(AVG(rating),1) avg, COUNT(DISTINCT city||state) cities, "
+        f"SUM(reviews) revs FROM listings "
+        f"WHERE category = ? AND rating IS NOT NULL AND {LIVE}",
         (name,)).fetchone()
     top_cities = d.execute(
-        "SELECT city, state, COUNT(*) n FROM listings WHERE category = ? "
-        "GROUP BY city, state ORDER BY n DESC LIMIT 5", (name,)).fetchall()
+        f"SELECT city, state, COUNT(*) n FROM listings "
+        f"WHERE category = ? AND {LIVE} "
+        f"GROUP BY city, state ORDER BY n DESC LIMIT 5", (name,)).fetchall()
     facts = {"avg": stats["avg"], "cities": stats["cities"],
              "reviews": stats["revs"] or 0, "top_cities": top_cities}
     return render_template("category.html", name=name, slug=slug, rows=rows,
@@ -224,8 +235,8 @@ def city(state, cityslug):
     d = get_db()
     # match by slug of city (filter in Python since slugify isn't in SQL)
     allrows = d.execute(
-        "SELECT * FROM listings WHERE state = ? ORDER BY reviews DESC",
-        (state,)).fetchall()
+        f"SELECT * FROM listings WHERE state = ? AND {LIVE} "
+        f"ORDER BY reviews DESC", (state,)).fetchall()
     rows = [r for r in allrows if slugify(r["city"]) == cityslug]
     if not rows:
         abort(404)
@@ -255,15 +266,16 @@ def state(st):
         abort(404)
     d = get_db()
     cities_ = d.execute(
-        "SELECT city, COUNT(*) n FROM listings WHERE state = ? "
-        "GROUP BY city ORDER BY n DESC", (st,)).fetchall()
+        f"SELECT city, COUNT(*) n FROM listings WHERE state = ? AND {LIVE} "
+        f"GROUP BY city ORDER BY n DESC", (st,)).fetchall()
     if not cities_:
         abort(404)
-    total = d.execute("SELECT COUNT(*) FROM listings WHERE state = ?",
-                      (st,)).fetchone()[0]
+    total = d.execute(
+        f"SELECT COUNT(*) FROM listings WHERE state = ? AND {LIVE}",
+        (st,)).fetchone()[0]
     top = d.execute(
-        "SELECT * FROM listings WHERE state = ? ORDER BY reviews DESC LIMIT 12",
-        (st,)).fetchall()
+        f"SELECT * FROM listings WHERE state = ? AND {LIVE} "
+        f"ORDER BY reviews DESC LIMIT 12", (st,)).fetchall()
     return render_template("state.html", st=st, name=STATE_NAMES[st],
                            cities=cities_, total=total, top=top)
 
@@ -272,16 +284,17 @@ def state(st):
 def cities():
     # group by state -> lighter page + links to state hubs
     rows = get_db().execute(
-        "SELECT state, COUNT(DISTINCT city) c, COUNT(*) n FROM listings "
-        "GROUP BY state ORDER BY n DESC").fetchall()
+        f"SELECT state, COUNT(DISTINCT city) c, COUNT(*) n FROM listings "
+        f"WHERE {LIVE} GROUP BY state ORDER BY n DESC").fetchall()
     return render_template("cities.html", rows=rows)
 
 
 @app.route("/categories")
 def categories():
     rows = get_db().execute(
-        "SELECT category, COUNT(*) n FROM listings WHERE category IS NOT NULL "
-        "GROUP BY category ORDER BY n DESC").fetchall()
+        f"SELECT category, COUNT(*) n FROM listings "
+        f"WHERE category IS NOT NULL AND {LIVE} "
+        f"GROUP BY category ORDER BY n DESC").fetchall()
     return render_template("categories.html", rows=rows)
 
 
@@ -345,7 +358,7 @@ def search():
     q = (request.args.get("q") or "").strip()
     cat = (request.args.get("category") or "").strip()
     loc = (request.args.get("city") or "").strip()
-    where = "WHERE 1=1"
+    where = f"WHERE {LIVE}"
     args = []
     if q:
         where += " AND (name LIKE ? OR city LIKE ?)"
@@ -383,18 +396,18 @@ def sitemap():
             (base + "/search", "0.5", "weekly"),
             (base + "/cities", "0.7", "weekly"),
             (base + "/categories", "0.7", "weekly")]
-    for r in d.execute("SELECT DISTINCT category FROM listings "
-                       "WHERE category IS NOT NULL"):
+    for r in d.execute(f"SELECT DISTINCT category FROM listings "
+                       f"WHERE category IS NOT NULL AND {LIVE}"):
         urls.append((f"{base}/category/{slugify(r['category'])}", "0.8", "weekly"))
     urls.append((base + "/guides", "0.7", "weekly"))
     for r in d.execute("SELECT slug FROM guides"):
         urls.append((f"{base}/guides/{r['slug']}", "0.7", "monthly"))
-    for r in d.execute("SELECT DISTINCT state FROM listings"):
+    for r in d.execute(f"SELECT DISTINCT state FROM listings WHERE {LIVE}"):
         urls.append((f"{base}/state/{r['state'].lower()}", "0.7", "weekly"))
-    for r in d.execute("SELECT DISTINCT city, state FROM listings"):
+    for r in d.execute(f"SELECT DISTINCT city, state FROM listings WHERE {LIVE}"):
         urls.append((f"{base}/{r['state'].lower()}/{slugify(r['city'])}",
                      "0.7", "weekly"))
-    for r in d.execute("SELECT slug FROM listings"):
+    for r in d.execute(f"SELECT slug FROM listings WHERE {LIVE}"):
         urls.append((f"{base}/listing/{r['slug']}", "0.6", "monthly"))
     xml = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']

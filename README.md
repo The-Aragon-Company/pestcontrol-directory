@@ -9,6 +9,8 @@ scrape Google Maps → store in DB → render thousands of SEO pages with Flask.
 pestcontrol-directory/
 ├── scraper/            # data harvester (BUILT)
 │   ├── scrape.py       # Playwright Google Maps scraper -> SQLite
+│   ├── refresh.py      # re-verify existing listings (the recurring job)
+│   ├── clean.py        # purge chains, ghosts, duplicates
 │   ├── db.py           # schema + slugify + dedup upsert
 │   ├── targets.py      # categories x cities to search
 │   └── export.py       # dump DB to CSV/JSON
@@ -42,7 +44,33 @@ python scraper/scrape.py --proxy http://user:pass@host:port
 
 Resumable — dedups on Google place CID, so re-running tops up the DB.
 
-## 4. Export
+> The directory is built out (~24k listings), so harvesting is **no longer
+> scheduled**. Run `scrape.yml` from the Actions tab only when you deliberately
+> want to grow coverage (new categories, more cities). The recurring job is now
+> maintenance — see below.
+
+## 4. Maintenance (the recurring job)
+
+`refresh.py` reopens listings we already have and writes back what changed —
+phone numbers, websites, ratings, review counts — and retires businesses that
+have shut down. It works oldest-first, so nothing goes stale indefinitely.
+
+```bash
+python scraper/refresh.py --limit 25 --dry-run   # see what would change
+python scraper/refresh.py --limit 250            # re-check a batch
+```
+
+Outcomes per listing: `updated` · `same` · `closed` · `fail`. Three consecutive
+failed re-checks retire a listing as `gone`.
+
+Closed and gone rows stay in the DB (auditable, reversible) but are filtered out
+of every page and the sitemap via the `status` column.
+
+The **refresh-listings** Action runs this every Monday at 00:00 EST over the
+~2,000 least-recently-verified listings, so the full DB turns over about every
+12 weeks.
+
+## 5. Export
 
 ```bash
 python scraper/export.py     # writes data/listings.csv + listings.json

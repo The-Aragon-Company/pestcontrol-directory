@@ -1,10 +1,15 @@
-name: scrape-pestcontrol
+name: scrape-pestcontrol (manual)
 
-# Free nationwide scraping on GitHub's runners. The runner's disposable IP
-# touches Google, never yours. Each run does one batch of jobs, advances a
-# saved offset, and commits the growing SQLite DB back to the repo.
+# DISCOVERY OF NEW LISTINGS — NO LONGER SCHEDULED.
 #
-# Make the repo PUBLIC for unlimited free Actions minutes (private = 2,000/mo).
+# The directory is built out (~24k listings), so the recurring job is now
+# refresh.yml, which re-verifies what we already have. This workflow stays
+# around for deliberate expansion only: new categories in targets.py, a wider
+# city list, or backfilling a region that came up thin. Run it from the
+# Actions tab when you actually want the DB to grow.
+#
+# The runner's disposable IP touches Google, never yours. Each run does one
+# batch of jobs, advances a saved offset, and commits the DB back to the repo.
 
 on:
   workflow_dispatch:          # run manually from the Actions tab
@@ -18,8 +23,6 @@ on:
       offset:
         description: "force a start offset (blank = use saved)"
         default: ""
-  schedule:
-    - cron: "0 */2 * * *"     # every 2 hours
 
 # never let two DB-writing runs overlap (scrape + content share this group)
 concurrency:

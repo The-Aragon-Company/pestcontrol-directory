@@ -18,13 +18,14 @@ def main():
         "AND (website IS NULL OR website='')").rowcount
 
     # de-dupe same business (name+city+state); keep the richest record
-    # (most reviews, then has website/phone, then lowest id)
+    # (still live, then most reviews, then has website/phone, then lowest id)
     dupes = conn.execute("""
         SELECT id FROM listings WHERE id NOT IN (
           SELECT id FROM (
             SELECT id, ROW_NUMBER() OVER (
               PARTITION BY lower(name), city, state
-              ORDER BY COALESCE(reviews,0) DESC,
+              ORDER BY (status = 'active') DESC,
+                       COALESCE(reviews,0) DESC,
                        (website IS NOT NULL) DESC,
                        (phone IS NOT NULL) DESC, id ASC) rn
             FROM listings
@@ -35,7 +36,8 @@ def main():
                          [(r[0],) for r in dupes])
     conn.commit()
     print(f"Removed {len(junk)} chains + {ghosts} no-contact + {len(dupes)} "
-          f"duplicates. {before} -> {db.count(conn)}")
+          f"duplicates. {before} -> {db.count(conn)} live "
+          f"({db.status_counts(conn)})")
 
 
 if __name__ == "__main__":
