@@ -108,6 +108,16 @@ def slugify(s):
     return dbmod.slugify(s or "")
 
 
+def phone_display(raw):
+    """+18663380533 -> (866) 338-0533. Non-US shapes pass through as-is."""
+    digits = re.sub(r"\D", "", raw or "")
+    if len(digits) == 11 and digits.startswith("1"):
+        digits = digits[1:]
+    if len(digits) != 10:
+        return raw or ""
+    return f"({digits[:3]}) {digits[3:6]}-{digits[6:]}"
+
+
 # Closed/gone businesses stay in the DB for audit but must never reach a page.
 # Every listings query below carries this filter — see scraper/refresh.py.
 LIVE = dbmod.ACTIVE
@@ -143,6 +153,7 @@ def inject_globals():
         "DOMAIN": app.config["DOMAIN"],
         "GSC_VERIFICATION": app.config["GSC_VERIFICATION"],
         "CTA_PHONE": app.config["CTA_PHONE"],
+        "CTA_PHONE_DISPLAY": phone_display(app.config["CTA_PHONE"]),
         "STATE_NAMES": STATE_NAMES,
         "cat_slug": slugify,
     }
