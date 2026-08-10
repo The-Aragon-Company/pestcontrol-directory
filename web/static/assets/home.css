@@ -1,0 +1,105 @@
+/* Homepage design system.
+   Scoped to .home so it can't leak into the shared header/footer, which are
+   still Tailwind (web/static/css/output.css). Linked from templates/index.html. */
+.home{
+  --navy:#112231;
+  --navy-soft:rgba(17,34,49,0.62);
+  --navy-mute:rgba(17,34,49,0.45);
+  --hairline:rgba(17,34,49,0.14);
+  --page-bg:#FAFAFA;
+  --star:#E3A62F;
+  background:var(--page-bg);
+  color:var(--navy);
+}
+
+/* ---- hero ---- */
+.home .hero{background:#fff;border-bottom:1px solid var(--hairline);padding:56px 24px 48px}
+.home .hero-inner{max-width:1180px;margin:0 auto;text-align:center}
+.home .hero h1{font-size:38px;font-weight:800;letter-spacing:-0.015em;margin:0 0 12px;line-height:1.15}
+.home .hero .lede{font-size:15.5px;color:var(--navy-soft);margin:0 0 28px}
+.home .search-widget{max-width:720px;margin:0 auto;display:flex;gap:10px;background:#fff;
+  border:1px solid var(--hairline);border-radius:8px;padding:8px}
+.home .search-widget select,
+.home .search-widget input{border:none;font-family:inherit;font-size:14px;color:var(--navy);
+  padding:10px 12px;background:transparent;outline:none}
+.home .search-widget select{border-right:1px solid var(--hairline);border-radius:0;flex:0 0 180px}
+.home .search-widget input{flex:1;min-width:0}
+.home .search-widget button{background:var(--navy);color:#fff;border:none;border-radius:6px;
+  padding:10px 22px;font-family:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.home .search-widget button:hover{opacity:.9}
+
+/* ---- 24/7 CTA card ---- */
+.home .cta-insert-wrap{padding:40px 24px 8px}
+.home .cta-card{max-width:1180px;margin:0 auto;background:var(--navy);border-radius:10px;
+  padding:30px 34px;color:#fff;display:flex;align-items:center;justify-content:space-between;
+  gap:32px;flex-wrap:wrap}
+.home .cta-copy{max-width:480px}
+.home .eyebrow{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:600;
+  letter-spacing:0.09em;text-transform:uppercase;color:rgba(255,255,255,0.68);margin:0 0 12px}
+.home .pulse-dot{position:relative;width:6px;height:6px;border-radius:50%;background:#fff;flex-shrink:0}
+.home .pulse-dot::after{content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid #fff;opacity:0;animation:home-pulse 2.4s ease-out infinite}
+@keyframes home-pulse{0%{transform:scale(0.6);opacity:.55}100%{transform:scale(1.8);opacity:0}}
+.home .cta-card h2{font-size:24px;font-weight:700;line-height:1.22;margin:0 0 10px;letter-spacing:-0.01em}
+.home .cta-card p{font-size:14px;line-height:1.55;color:rgba(255,255,255,0.68);margin:0;max-width:42ch}
+.home .cta-actions{flex-shrink:0;width:240px}
+.home .cta-actions .primary{background:#fff;color:var(--navy);border:none;border-radius:6px;
+  padding:13px 18px;font-weight:600;font-size:14px;display:flex;align-items:center;
+  justify-content:center;gap:8px;cursor:pointer}
+.home .cta-actions .primary:hover{opacity:.9}
+
+/* ---- section shell ---- */
+.home .home-section{max-width:1180px;margin:0 auto;padding:44px 24px}
+.home .home-section.bordered{border-bottom:1px solid var(--hairline)}
+.home .section-title{font-size:20px;font-weight:700;margin:0 0 18px}
+.home .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+  flex-wrap:wrap;margin:0 0 18px}
+.home .section-head .section-title{margin:0}
+.home .section-head .count{font-size:13px;color:var(--navy-soft);margin:6px 0 0}
+.home .sort-form{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--navy-soft)}
+.home .sort-form select{font-family:inherit;font-size:13px;color:var(--navy);background:#fff;
+  border:1px solid var(--hairline);border-radius:6px;padding:8px 10px;outline:none}
+
+/* ---- services / cities chips ---- */
+.home .two-col{display:grid;grid-template-columns:1fr 1fr;gap:44px}
+.home .chip-grid{display:flex;flex-wrap:wrap;gap:10px}
+.home .chip{border:1px solid var(--hairline);border-radius:20px;padding:8px 16px;font-size:13px;
+  font-weight:500;color:var(--navy);background:#fff;display:inline-flex;align-items:center;gap:8px}
+.home .chip:hover{border-color:rgba(17,34,49,0.4)}
+.home .chip .n{color:var(--navy-mute);font-weight:400}
+
+/* ---- listing cards ---- */
+.home .listing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.home .listing-card{border:1px solid var(--hairline);border-radius:10px;padding:18px;background:#fff}
+.home .listing-card:hover{border-color:rgba(17,34,49,0.3)}
+.home .listing-card .row-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.home .listing-card .favicon{width:28px;height:28px;border-radius:6px;object-fit:contain;flex-shrink:0}
+.home .listing-card .favicon-fallback{width:28px;height:28px;border-radius:6px;flex-shrink:0;
+  background:rgba(17,34,49,0.08);color:var(--navy-soft);display:flex;align-items:center;
+  justify-content:center;font-size:12px}
+.home .listing-card h4{font-size:14.5px;margin:0;font-weight:600;min-width:0}
+.home .listing-card h4 a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.home .listing-card h4 a:hover{text-decoration:underline}
+.home .listing-card .city{font-size:12px;color:var(--navy-soft);margin:0 0 8px}
+.home .listing-card .city a:hover{text-decoration:underline}
+.home .listing-card .desc{font-size:12.5px;color:var(--navy-soft);line-height:1.5;margin:0 0 10px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.home .listing-card .meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;
+  font-weight:600;color:var(--navy)}
+.home .listing-card .meta .star{color:var(--star)}
+.home .listing-card .meta a:hover{text-decoration:underline}
+.home .empty{border:1px solid var(--hairline);border-radius:10px;background:#fff;padding:64px 24px;
+  text-align:center;color:var(--navy-soft);font-size:14px}
+
+@media (max-width:860px){
+  .home .hero{padding:40px 20px 36px}
+  .home .hero h1{font-size:28px}
+  .home .two-col,.home .listing-grid{grid-template-columns:1fr}
+  .home .cta-card{flex-direction:column;align-items:flex-start;padding:26px 22px}
+  .home .cta-actions{width:100%}
+  .home .search-widget{flex-direction:column}
+  .home .search-widget select{border-right:none;border-bottom:1px solid var(--hairline);flex:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .home .pulse-dot::after{animation:none;opacity:0}
+}

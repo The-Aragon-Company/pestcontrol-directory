@@ -1,88 +1,119 @@
 {% extends "base.html" %}
-{% from "_macros.html" import card %}
 {% block canonical %}/{% endblock %}
 
+{% block head_extra %}
+<link rel="stylesheet" href="/static/assets/home.css">
+{% endblock %}
+
 {% block content %}
-<!-- Hero Section (exact reference structure) -->
-<section class="bg-gradient-to-br from-primary to-gradient text-white py-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-4xl md:text-6xl font-heading font-bold mb-6">Pest Control Services Near You</h1>
-    <p class="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">Search {{ "{:,}".format(total) }}+ Pest Control Pros by city and service type</p>
-    <div class="max-w-4xl mx-auto">
-      <form method="GET" action="/search" class="flex flex-col md:flex-row gap-4 bg-white rounded-lg p-4 shadow-lg">
-        <div class="flex-1 relative">
-          <select name="category" class="w-full px-4 py-3 text-gray-900 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none bg-white">
-            <option value="">All Services</option>
-            {% for c in ALL_CATEGORIES %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
-          </select>
-        </div>
-        <div class="flex-1 relative">
-          <input name="city" placeholder="Zip code or City, State" class="w-full px-4 py-3 text-gray-900 rounded-lg border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none">
-        </div>
-        <button class="bg-primary hover:opacity-90 text-white font-semibold px-8 py-3 rounded-lg whitespace-nowrap"><i class="fas fa-search mr-2"></i>Search</button>
+<div class="home">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-inner">
+      <h1>Pest Control Services Near You</h1>
+      <p class="lede">Search {{ "{:,}".format(total) }}+ Pest Control Pros by city and service type</p>
+      <form method="GET" action="/search" class="search-widget">
+        <select name="category" aria-label="Service type">
+          <option value="">All Services</option>
+          {% for c in ALL_CATEGORIES %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+        </select>
+        <input name="city" placeholder="Zip code or City, State" aria-label="City or zip code">
+        <button type="submit">Search</button>
       </form>
     </div>
   </div>
-</section>
 
-<!-- Main Content Area -->
-<section class="py-16 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-      <!-- Sidebar -->
-      <aside class="lg:col-span-1 space-y-6">
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-          <h3 class="font-heading font-bold text-secondary mb-3">Services</h3>
-          <ul class="space-y-1">
-            {% for c in cats %}
-            <li><a href="/category/{{ cat_slug(c.category) }}" class="flex items-center justify-between text-sm text-gray-700 hover:text-primary py-1.5">
-              <span><i class="fa-solid {{ CATEGORY_ICONS.get(c.category,'fa-bug') }} mr-2 text-primary/70 w-4"></i>{{ c.category }}</span>
-              <span class="text-gray-400">{{ c.n }}</span></a></li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-5">
-          <h3 class="font-heading font-bold text-secondary mb-3">Top Cities</h3>
-          <ul class="space-y-1">
-            {% for c in cities[:12] %}
-            <li><a href="/{{ c.state|lower }}/{{ cat_slug(c.city) }}" class="flex items-center justify-between text-sm text-gray-700 hover:text-primary py-1.5">
-              <span><i class="fas fa-map-marker-alt mr-2 text-primary/70 w-4"></i>{{ c.city }}, {{ c.state }}</span>
-              <span class="text-gray-400">{{ c.n }}</span></a></li>
-            {% endfor %}
-          </ul>
-        </div>
-      </aside>
-
-      <!-- Listings -->
-      <div class="lg:col-span-3">
-        <div class="listings-container">
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
-            <div>
-              <h2 class="text-2xl font-heading font-bold text-secondary mb-2">All Pest Control Services</h2>
-              <p class="text-gray-600">{{ "{:,}".format(total) }} listings found</p>
-            </div>
-            <div class="mt-4 sm:mt-0">
-              <form method="GET" class="flex items-center space-x-2">
-                <label class="text-sm text-gray-600">Sort:</label>
-                <select name="sort" onchange="this.form.submit()" class="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:border-primary outline-none bg-white">
-                  <option value="reviews" {% if sort=='reviews' %}selected{% endif %}>Most Reviewed</option>
-                  <option value="rating" {% if sort=='rating' %}selected{% endif %}>Highest Rated</option>
-                  <option value="name" {% if sort=='name' %}selected{% endif %}>Name (A–Z)</option>
-                </select>
-              </form>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {% for l in listings %}{{ card(l) }}{% endfor %}
-          </div>
-          {% if not listings %}<div class="text-center py-16 text-gray-500 bg-white rounded-lg border">Listings are being added — check back soon.</div>{% endif %}
-        </div>
+  <!-- 24/7 CTA -->
+  <div class="cta-insert-wrap">
+    <div class="cta-card">
+      <div class="cta-copy">
+        <p class="eyebrow"><span class="pulse-dot"></span>Available around the clock</p>
+        <h2>Get 24/7 help from a pest professional</h2>
+        <p>Pests don't wait for business hours, and neither do we. Talk to a licensed pro right now, day or night.</p>
+      </div>
+      <div class="cta-actions">
+        <a class="primary" href="{% if CTA_PHONE %}tel:{{ CTA_PHONE }}{% else %}/search{% endif %}">
+          <i class="fas fa-phone"></i>
+          {% if CTA_PHONE %}Talk to a Pro Now{% else %}Find a Pro Now{% endif %}
+        </a>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- Services / Top Cities -->
+  <section class="home-section bordered">
+    <div class="two-col">
+      <div>
+        <h3 class="section-title">Services</h3>
+        <div class="chip-grid">
+          {% for c in cats %}
+          <a class="chip" href="/category/{{ cat_slug(c.category) }}">
+            <i class="fa-solid {{ CATEGORY_ICONS.get(c.category,'fa-bug') }}"></i>{{ c.category }}
+            <span class="n">{{ "{:,}".format(c.n) }}</span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div>
+        <h3 class="section-title">Top Cities</h3>
+        <div class="chip-grid">
+          {% for c in cities[:12] %}
+          <a class="chip" href="/{{ c.state|lower }}/{{ cat_slug(c.city) }}">
+            {{ c.city }}, {{ c.state }}<span class="n">{{ c.n }}</span>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Listings -->
+  <section class="home-section">
+    <div class="section-head">
+      <div>
+        <h3 class="section-title">All Pest Control Services</h3>
+        <p class="count">{{ "{:,}".format(total) }} listings found</p>
+      </div>
+      <form method="GET" class="sort-form">
+        <label for="home-sort">Sort:</label>
+        <select id="home-sort" name="sort" onchange="this.form.submit()">
+          <option value="reviews" {% if sort=='reviews' %}selected{% endif %}>Most Reviewed</option>
+          <option value="rating" {% if sort=='rating' %}selected{% endif %}>Highest Rated</option>
+          <option value="name" {% if sort=='name' %}selected{% endif %}>Name (A–Z)</option>
+        </select>
+      </form>
+    </div>
+
+    {% if listings %}
+    <div class="listing-grid">
+      {% for l in listings %}
+      <div class="listing-card">
+        <div class="row-top">
+          {% if l.website %}
+          <img class="favicon" src="https://www.google.com/s2/favicons?domain={{ l.website }}&sz=128"
+               alt="" loading="lazy"
+               onerror="this.outerHTML='<div class=&quot;favicon-fallback&quot;><i class=&quot;fa-solid fa-shield-halved&quot;></i></div>'">
+          {% else %}
+          <div class="favicon-fallback"><i class="fa-solid fa-shield-halved"></i></div>
+          {% endif %}
+          <h4><a href="/listing/{{ l.slug }}">{{ l.name }}</a></h4>
+        </div>
+        <p class="city"><a href="/{{ l.state|lower }}/{{ l.city|slugify }}">{{ l.city }}, {{ l.state }}</a></p>
+        <p class="desc">{{ l.category or 'Pest control' }} services in {{ l.city }}, {{ l.state }}. Trusted local pros offering inspections, treatment and prevention.</p>
+        <div class="meta">
+          {% if l.reviews %}<span><span class="star">&#9733;</span> {{ "%.1f"|format(l.rating) }} ({{ "{:,}".format(l.reviews) }})</span>{% endif %}
+          {% if l.phone %}<a href="tel:{{ l.phone|trim }}"><i class="fas fa-phone"></i> {{ l.phone|trim }}</a>{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty">Listings are being added — check back soon.</div>
+    {% endif %}
+  </section>
+
+</div>
 
 <script type="application/ld+json">
 {
