@@ -33,10 +33,17 @@
         <p>Pests don't wait for business hours, and neither do we. Talk to a licensed pro right now, day or night.</p>
       </div>
       <div class="cta-actions">
-        <a class="primary" href="{% if CTA_PHONE %}tel:{{ CTA_PHONE }}{% else %}/search{% endif %}">
-          <i class="fas fa-phone"></i>
-          {% if CTA_PHONE %}Talk to a Pro Now{% else %}Find a Pro Now{% endif %}
+        {% if CTA_PHONE %}
+        <a class="primary" href="tel:{{ CTA_PHONE }}">
+          <span class="cta-label"><i class="fas fa-phone"></i> Talk to a Pro Now</span>
+          <span class="cta-number">{{ CTA_PHONE_DISPLAY }}</span>
         </a>
+        {% else %}
+        <a class="primary" href="/search">
+          <i class="fas fa-phone"></i>
+          Find a Pro Now
+        </a>
+        {% endif %}
       </div>
     </div>
   </div>
