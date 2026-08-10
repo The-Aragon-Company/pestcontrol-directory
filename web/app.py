@@ -33,6 +33,9 @@ app.config["ADSENSE_CLIENT"] = os.environ.get("ADSENSE_CLIENT", "")  # ca-pub-XX
 app.config["GA_ID"] = os.environ.get("GA_ID", "")                    # G-XXXXXXXX
 # Google Search Console verification token (the string in the meta-tag method).
 app.config["GSC_VERIFICATION"] = os.environ.get("GSC_VERIFICATION", "")
+# 24/7 call-tracking number for the homepage CTA. Override with env CTA_PHONE;
+# set it empty to fall back to linking at /search instead of a tel: link.
+app.config["CTA_PHONE"] = os.environ.get("CTA_PHONE", "+18663380533")
 
 STATE_NAMES = {
     "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas",
@@ -139,6 +142,7 @@ def inject_globals():
         "GA_ID": app.config["GA_ID"],
         "DOMAIN": app.config["DOMAIN"],
         "GSC_VERIFICATION": app.config["GSC_VERIFICATION"],
+        "CTA_PHONE": app.config["CTA_PHONE"],
         "STATE_NAMES": STATE_NAMES,
         "cat_slug": slugify,
     }
