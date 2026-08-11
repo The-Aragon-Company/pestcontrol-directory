@@ -1,4 +1,4 @@
-"""Pest Control Directory — Flask app.
+"""National Pest Directory — Flask app.
 
 Server-rendered SEO directory over the scraped SQLite DB. Same playbook as
 mobiledetailing.io: thousands of city/category/listing pages, sitemap, quote
@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT / "scraper"))
 import db as dbmod  # noqa: E402  (schema + slugify live here)
 
 app = Flask(__name__)
-app.config["SITE_NAME"] = "Pest Control Directory"
+app.config["SITE_NAME"] = "National Pest Directory"
 # Canonical host for sitemap/canonicals/OG. Override with env DOMAIN when a
 # custom domain is attached (no trailing slash).
 app.config["DOMAIN"] = os.environ.get(
