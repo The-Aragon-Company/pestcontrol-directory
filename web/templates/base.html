@@ -40,14 +40,14 @@
   <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
   <meta property="og:image" content="{{ DOMAIN }}/static/og.png">
 
-  {% if GA_ID %}
+  {% comment %} {% if GA_ID %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ID }}"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
     gtag('js',new Date());gtag('config','{{ GA_ID }}');</script>
   {% endif %}
   {% if ADSENSE_CLIENT %}
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ ADSENSE_CLIENT }}" crossorigin="anonymous"></script>
-  {% endif %}
+  {% endif %} {% endcomment %}
 </head>
 <body class="h-full flex flex-col bg-gray-50 text-gray-900">
 
