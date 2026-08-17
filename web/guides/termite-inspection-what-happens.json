@@ -1,0 +1,193 @@
+{
+ "title": "Termite Inspection & Treatment: What Happens",
+ "description": "What happens during a termite inspection and treatment, and why acting fast matters — termites cause damage the longer they're left alone.",
+ "slug": "termite-inspection-what-happens",
+ "kind": "Hiring Guide",
+ "h1": "Termite Inspection &amp; Treatment: What Happens",
+ "long_title": true,
+ "dek": "What happens during a termite inspection and treatment, and why acting fast matters — termites cause damage the longer they&#x27;re left alone.",
+ "read_time": "9 min",
+ "words": "1,962",
+ "answer": "A termite inspection involves a licensed technician checking your home's interior, exterior, crawl space, attic, and foundation for mud tubes, damaged wood, and live termites, usually taking 45–90 minutes. If termites are found, treatment (liquid soil treatment or bait stations) typically follows within days — termites cause ongoing structural damage, so speed matters more than with most other pests.",
+ "toc": [
+  {
+   "id": "what-happens-during-a-termite-inspection",
+   "label": "What happens during a termite inspection?"
+  },
+  {
+   "id": "what-happens-if-termites-are-found",
+   "label": "What happens if termites are found?"
+  },
+  {
+   "id": "why-does-speed-matter-with-termites",
+   "label": "Why does speed matter with termites?"
+  },
+  {
+   "id": "what-are-the-signs-you-might-have-termites",
+   "label": "What are the signs you might have termites?"
+  },
+  {
+   "id": "how-long-does-termite-treatment-take-and-does-it-work",
+   "label": "How long does termite treatment take, and does it work?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "is-a-termite-inspection-different-from-a-general-pest-inspec",
+   "label": "Is a termite inspection different from a general pest inspection?"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "pest-inspection-when-buying-home",
+   "kind": "Hiring Guide",
+   "title": "Pest Inspections When Buying a Home: What to Know"
+  },
+  {
+   "slug": "termite-treatment-cost",
+   "kind": "Cost Guide",
+   "title": "Termite Treatment Cost: 2026 Price Guide"
+  },
+  {
+   "slug": "bed-bug-extermination-cost",
+   "kind": "Cost Guide",
+   "title": "Bed Bug Extermination Cost: Heat vs. Chemical Guide"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "What Happens During a Termite Inspection and Treatment (and Why Speed Matters)",
+   "description": "What happens during a termite inspection and treatment, and why acting fast matters — termites cause damage the longer they're left alone.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/termite-inspection-what-happens"
+   },
+   "url": "__DOMAIN__/guides/termite-inspection-what-happens"
+  },
+  {
+   "@type": "HowTo",
+   "name": "What happens during a termite inspection",
+   "step": [
+    {
+     "@type": "HowToStep",
+     "name": "Exterior check",
+     "text": "The inspector walks the foundation perimeter looking for mud tubes, wood-to-soil contact, and moisture issues."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Interior check",
+     "text": "Baseboards, window and door frames, and plumbing penetration areas are checked for hollow-sounding wood or small holes."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Crawl space and basement check",
+     "text": "These areas are inspected closely since they are common termite entry points."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Attic check",
+     "text": "Roof framing and eaves are inspected, particularly in homes with a history of moisture issues."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Written report",
+     "text": "You receive a summary of findings, including active infestation, past damage, conducive conditions, or no evidence found."
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much does a termite inspection cost?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Costs vary by region and home size, and many companies offer free termite inspections as a way to assess whether treatment is needed. Ask when you book whether the inspection itself carries a fee, since this differs company to company."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does a termite inspection take?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most inspections take 45 to 90 minutes, depending on the home's size and how accessible the crawl space, attic, and foundation are. Homes with finished basements or additions may take longer to fully inspect."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I treat termites myself?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Store-bought products can kill visible termites but usually don't reach or eliminate the full colony, which can be located deep in soil or wall voids. Because termites cause ongoing structural damage, professional treatment with monitoring is the standard recommendation rather than a DIY approach."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How urgent is a termite problem really?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Very — termites feed continuously and damage tends to be gradual and hidden until it's significant. Booking an inspection within days of noticing signs, rather than waiting, is the safest approach given how structural damage compounds over time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does where I live change how much termites matter?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Quite a bit. In our analysis of 18,941 homeowner calls to pest control companies, termite calls ended with an appointment 38.8% of the time in the desert Southwest, 33.1% in mixed-humid areas, and 32.8% across the Gulf South and Florida, versus 17.6% in the cold northern tier — the widest regional gap of any pest we measured. Termites are a year-round structural threat in warm regions and a less frequent one up north, but signs of activity are worth an inspection anywhere."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does every pest control company handle termites?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Termite work is a specialist trade. In the same call data, 10.6% of people calling about termites reached a company that doesn't handle termite work at all, compared with 3.8% of cockroach callers and 3.8% of mouse and rat callers. Ask directly whether the company does termite inspections and treatment before you book."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What's the difference between liquid treatment and bait stations?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Both target subterranean termites, which nest in soil. Liquid soil treatment creates a treated barrier around the foundation that termites can't cross safely, usually completed in a day. Bait stations sit in the soil around the perimeter, get checked on a schedule, and work more slowly by having workers carry bait back to the colony. Neither works on drywood termites, which need spot treatment or fumigation."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How often should you get a termite inspection?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Once a year is the standard recommendation for most homes, because a colony can be established for a year or more before anything is visible to an untrained eye. In high-pressure regions like the Gulf Coast, the Southeast and Hawaii, every six months is commonly advised instead. After a confirmed infestation and treatment, twice a year for at least two years is typical."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are all termites treated the same way?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Subterranean termites nest in soil and are treated with liquid soil barriers or bait stations. Drywood termites live entirely inside the wood they eat and never contact soil, so those methods don't work on them — they require spot treatment for localized activity or whole-structure fumigation for widespread infestations. Ask which species was found."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/termite-inspection-what-happens#faq"
+  }
+ ]
+}

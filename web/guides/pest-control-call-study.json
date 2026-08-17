@@ -1,0 +1,192 @@
+{
+ "title": "What 18,941 Pest Control Calls Reveal",
+ "description": "We analyzed 18,941 real calls from homeowners to pest control companies. What separates a call that gets an appointment from one that goes nowhere.",
+ "slug": "pest-control-call-study",
+ "kind": "Original Research",
+ "h1": "What 18,941 Pest Control Calls Reveal",
+ "long_title": true,
+ "dek": "We analyzed 18,941 real calls from homeowners to pest control companies. What separates a call that gets an appointment from one that goes nowhere.",
+ "read_time": "11 min",
+ "words": "2,474",
+ "answer": "We analyzed 18,941 calls from homeowners to pest control companies between January and July 2026. Across the 7,799 calls where we could identify the pest and see the outcome, 24.6% ended with an appointment being scheduled. The three things that mattered most weren't price or location — they were whether the caller owned the property, whether they could name their pest, and whether the company actually handled that kind of work.",
+ "toc": [
+  {
+   "id": "what-we-looked-at",
+   "label": "What we looked at"
+  },
+  {
+   "id": "finding-1-whoever-owns-the-property-has-to-be-the-one-saying",
+   "label": "Finding 1: Whoever owns the property has to be the one saying yes"
+  },
+  {
+   "id": "finding-2-callers-who-could-name-the-pest-did-dramatically-b",
+   "label": "Finding 2: Callers who could name the pest did dramatically better"
+  },
+  {
+   "id": "finding-3-pest-control-is-far-more-specialized-than-most-peo",
+   "label": "Finding 3: Pest control is far more specialized than most people expect"
+  },
+  {
+   "id": "finding-4-which-pest-you-have-changes-what-happens-next",
+   "label": "Finding 4: Which pest you have changes what happens next"
+  },
+  {
+   "id": "finding-5-with-wildlife-the-species-matters-more-than-the-ca",
+   "label": "Finding 5: With wildlife, the species matters more than the category"
+  },
+  {
+   "id": "finding-6-geography-matters-for-which-pest-not-for-whether-y",
+   "label": "Finding 6: Geography matters for which pest, not for whether you get help"
+  },
+  {
+   "id": "finding-7-some-pests-really-are-seasonal-and-some-aren-t-wha",
+   "label": "Finding 7: Some pests really are seasonal — and some aren't what people think"
+  },
+  {
+   "id": "methodology",
+   "label": "Methodology"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "frequently-asked-questions",
+   "label": "Frequently asked questions"
+  }
+ ],
+ "related": [
+  {
+   "slug": "what-to-expect-pest-inspection",
+   "kind": "Hiring Guide",
+   "title": "What to Expect During a Pest Inspection"
+  },
+  {
+   "slug": "questions-to-ask-pest-control-company",
+   "kind": "Hiring Guide",
+   "title": "15 Questions to Ask Before Hiring Pest Control"
+  },
+  {
+   "slug": "how-to-get-best-results-pest-control",
+   "kind": "Hiring Guide",
+   "title": "How to Get the Best Results From Pest Control"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "What 18,941 Pest Control Calls Reveal",
+   "description": "We analyzed 18,941 real calls from homeowners to pest control companies. What separates a call that gets an appointment from one that goes nowhere.",
+   "articleSection": "Research Study",
+   "keywords": "pest control call data study, pest control statistics, pest control appointment rate, pest control industry data",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   },
+   "about": [
+    {
+     "@type": "Thing",
+     "name": "Pest control"
+    },
+    {
+     "@type": "Thing",
+     "name": "Termite control"
+    },
+    {
+     "@type": "Thing",
+     "name": "Rodent control"
+    },
+    {
+     "@type": "Thing",
+     "name": "Wildlife removal"
+    }
+   ],
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/pest-control-call-study"
+   },
+   "url": "__DOMAIN__/guides/pest-control-call-study"
+  },
+  {
+   "@type": "Dataset",
+   "name": "National Pest Directory Homeowner Call Study, January–July 2026",
+   "description": "Outcome data from 18,941 calls placed by homeowners to 13 pest control companies across the United States, January 1 to July 27, 2026. Includes pest type, region, caller property-ownership status, and whether the call resulted in a scheduled appointment.",
+   "temporalCoverage": "2026-01-01/2026-07-27",
+   "spatialCoverage": {
+    "@type": "Place",
+    "name": "United States"
+   },
+   "variableMeasured": [
+    "Appointment rate by pest type",
+    "Appointment rate by property ownership status",
+    "Service-type mismatch rate by pest",
+    "Appointment rate by climate region",
+    "Monthly share of identified pest demand"
+   ],
+   "creator": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "isAccessibleForFree": true
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How often do pest control calls actually result in an appointment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "In our analysis of 7,799 calls where we could identify the pest and see the outcome, 24.6% ended with an appointment scheduled. Rates varied by pest, from 31.2% for mice and rats down to 19.6% for wildlife. The biggest factors weren't the pest at all — they were whether the caller owned the property and whether they could name what they were dealing with."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why does it matter whether I own my home?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Pest treatment requires someone to enter the property and often to do physical work like sealing entry points, which needs the owner's authorization. Confirmed homeowners in our data got appointments 36.0% of the time versus 11.6% when ownership never came up. If you rent, involve your landlord or property manager early rather than calling alone."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do all pest control companies handle all pests?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No, and this surprises most homeowners. General work like roaches, ants and rodents is widely available, but bats, termites, bed bugs and wasps are specialist trades. In our data, 19.3% of wildlife callers and roughly 1 in 10 termite, bed bug and wasp callers reached a company that doesn't do that work. Ask before you book."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which pest problems are most likely to need a professional?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Structural pests like termites, health-risk pests like bed bugs and rodents, stinging insects near living spaces, and anything that keeps coming back after you've treated it. Within wildlife, animals living in your structure — bats, raccoons, squirrels — lead to a scheduled visit far more often than one-off sightings like a snake in the yard, which frequently needs no visit at all."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "When are rodent problems worst?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Winter, clearly. Mice and rats made up 43.7% of identified pest calls in February, falling to 13.9% by July. This matches published NPMA guidance on rodents seeking indoor shelter in cold months. If you're hearing scratching in walls in late fall, call early — populations grow fast once they're established indoors."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are termites a risk everywhere in the US?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not equally. Termite appointment rates ran 38.8% in the desert Southwest, 32.8% in the Gulf South and Florida, and just 17.6% in cold northern states — a 21-point spread, the widest regional gap we measured for any pest. Termites are a serious structural threat across the southern half of the country and a much smaller concern in the far North."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/pest-control-call-study#faq"
+  }
+ ]
+}

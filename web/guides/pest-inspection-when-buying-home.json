@@ -1,0 +1,154 @@
+{
+ "title": "Pest Inspections When Buying a Home: What to Know",
+ "description": "Pest inspections when buying a home — what's covered, who typically pays, and what the report means for your purchase. General info, not legal advice.",
+ "slug": "pest-inspection-when-buying-home",
+ "kind": "Hiring Guide",
+ "h1": "Pest Inspections When Buying a Home: What to Know",
+ "long_title": true,
+ "dek": "Pest inspections when buying a home — what&#x27;s covered, who typically pays, and what the report means for your purchase. General info, not legal advice.",
+ "read_time": "7 min",
+ "words": "1,635",
+ "answer": "A pest inspection for a home purchase (often called a wood-destroying insect or organism report) checks for termites, wood-boring beetles, carpenter ants, and existing damage before closing. Who pays varies by state, loan type, and negotiation between buyer and seller. The report itself doesn't approve or deny a sale — it gives you facts to negotiate repairs, request treatment, or walk away.",
+ "toc": [
+  {
+   "id": "what-does-a-home-buying-pest-inspection-actually-check",
+   "label": "What does a home-buying pest inspection actually check?"
+  },
+  {
+   "id": "is-a-pest-inspection-required-to-buy-a-house",
+   "label": "Is a pest inspection required to buy a house?"
+  },
+  {
+   "id": "who-pays-for-the-pest-inspection-when-buying-a-home",
+   "label": "Who pays for the pest inspection when buying a home?"
+  },
+  {
+   "id": "what-does-the-inspection-report-actually-mean-for-the-sale",
+   "label": "What does the inspection report actually mean for the sale?"
+  },
+  {
+   "id": "what-should-you-do-if-the-report-finds-a-problem",
+   "label": "What should you do if the report finds a problem?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "what-if-you-re-selling-and-worried-about-the-inspection",
+   "label": "What if you're selling and worried about the inspection?"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "termite-treatment-cost",
+   "kind": "Cost Guide",
+   "title": "Termite Treatment Cost: 2026 Price Guide"
+  },
+  {
+   "slug": "bed-bug-extermination-cost",
+   "kind": "Cost Guide",
+   "title": "Bed Bug Extermination Cost: Heat vs. Chemical Guide"
+  },
+  {
+   "slug": "pest-control-cost",
+   "kind": "Cost Guide",
+   "title": "Pest Control Cost: One-Time vs. Quarterly Plans"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Pest Inspections When Buying a Home: What's Covered, Who Pays, and What the Report Means",
+   "description": "Pest inspections when buying a home — what's covered, who typically pays, and what the report means for your purchase. General info, not legal advice.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/pest-inspection-when-buying-home"
+   },
+   "url": "__DOMAIN__/guides/pest-inspection-when-buying-home"
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Who pays for a termite inspection when buying a house?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "This varies by region and is often negotiated as part of the purchase contract — in some markets sellers customarily cover it, in others buyers order it themselves. Ask your real estate agent about local custom in your specific market early in the process."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is a pest inspection legally required to buy a home?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not universally — requirements depend on your loan type, state, and sometimes the specific property. Some loan programs require a clear termite report in certain states, so check with your lender directly rather than assuming either way."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens if the inspection finds termites?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It doesn't automatically stop the sale — it typically opens negotiation between buyer and seller over treatment, repairs, or a credit. A licensed pest company can provide a treatment estimate to help ground that negotiation in real numbers."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does a termite inspection matter as much in a cold northern state?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Less, but it still has value. In our analysis of 18,941 homeowner calls to pest control companies, termite calls ended with an appointment 38.8% of the time in the desert Southwest, 33.1% in mixed-humid areas, and 32.8% across the Gulf South and Florida, versus 17.6% in the cold northern tier. Termite pressure is simply higher in warm regions. A wood-destroying insect report also covers carpenter ants, wood-boring beetles, and moisture damage, which show up in northern homes too."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is a general home inspector also a termite inspector?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Usually not. Wood-destroying insect inspection is its own specialty, and not every pest control company does it either — in the same call data, 10.6% of people calling about termites reached a company that doesn't handle termite work at all, compared with 3.8% of cockroach callers. Confirm that whoever you hire performs termite and wood-destroying insect reports for real estate transactions."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does a pest inspection for a home purchase take?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Similar to a standalone termite inspection, most take 45 to 90 minutes depending on home size and accessibility of crawl spaces, attics, and the foundation. It's often scheduled within the inspection contingency period of your purchase contract."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does a clean pest inspection mean the home will never get termites?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No — it means no evidence of current activity or damage was found at the time of inspection, not a permanent guarantee. Ongoing prevention, like fixing moisture issues and periodic monitoring, still matters after you move in."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Should I get my own pest inspection even if one isn't required?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Many buyers do, simply for peace of mind, since termite damage can be expensive to repair. Most standard homeowners policies exclude termite damage, treating it as preventable maintenance rather than sudden accidental damage. Coverage varies by policy and insurer, so check yours."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/pest-inspection-when-buying-home#faq"
+  }
+ ]
+}

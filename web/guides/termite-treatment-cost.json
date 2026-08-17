@@ -1,0 +1,131 @@
+{
+ "title": "Termite Treatment Cost: 2026 Price Guide",
+ "description": "How much does termite treatment cost? See typical price ranges by treatment type and severity, what drives the price, and how to get a fair quote.",
+ "slug": "termite-treatment-cost",
+ "kind": "Cost Guide",
+ "h1": "Termite Treatment Cost: 2026 Price Guide",
+ "long_title": true,
+ "dek": "How much does termite treatment cost? See typical price ranges by treatment type and severity, what drives the price, and how to get a fair quote.",
+ "read_time": "7 min",
+ "words": "1,475",
+ "answer": "Most homeowners pay between $275 and $1,600 for termite treatment, with published industry averages landing around $750 for a standard home. Spot treatments can run as low as $250–$500, while whole-house fumigation (tenting) for a serious infestation typically runs $2,000–$8,000 depending on home size and severity.",
+ "toc": [
+  {
+   "id": "what-factors-affect-termite-treatment-cost",
+   "label": "What factors affect termite treatment cost?"
+  },
+  {
+   "id": "how-much-does-each-type-of-termite-treatment-cost",
+   "label": "How much does each type of termite treatment cost?"
+  },
+  {
+   "id": "what-s-included-at-each-price-level",
+   "label": "What's included at each price level?"
+  },
+  {
+   "id": "is-it-worth-paying-a-pro-for-termite-treatment",
+   "label": "Is it worth paying a pro for termite treatment?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "bed-bug-extermination-cost",
+   "kind": "Cost Guide",
+   "title": "Bed Bug Extermination Cost: Heat vs. Chemical Guide"
+  },
+  {
+   "slug": "pest-control-cost",
+   "kind": "Cost Guide",
+   "title": "Pest Control Cost: One-Time vs. Quarterly Plans"
+  },
+  {
+   "slug": "mice-exterminator-cost",
+   "kind": "Cost Guide",
+   "title": "Mice &amp; Rat Exterminator Cost Guide"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Termite Treatment Cost: 2026 Price Guide",
+   "description": "How much does termite treatment cost? See typical price ranges by treatment type and severity, what drives the price, and how to get a fair quote.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "about": "Termite treatment cost",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/termite-treatment-cost"
+   },
+   "url": "__DOMAIN__/guides/termite-treatment-cost",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much does termite treatment cost for an average house?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most homeowners pay $275–$1,600 for a standard treatment on an average-size home, with published averages around $750, depending on the termite species and method used. Larger homes, severe infestations, or fumigation can push the total higher, sometimes to $2,000–$8,000."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is termite bait or liquid treatment cheaper?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Liquid barrier treatment usually costs more upfront but requires less ongoing spending. Bait stations cost less to install but need annual monitoring fees, so the total cost over several years can end up similar."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does homeowners insurance cover termite damage or treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Usually not. Most standard homeowners policies exclude termite damage, treating it as preventable maintenance rather than a sudden accident. There's a limited exception: if hidden termite damage causes a sudden collapse, some insurers may cover the collapse itself but not the damaged wood. Coverage varies by policy and insurer, so read your own policy or ask your agent."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does termite treatment take to work?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Liquid treatments often start reducing activity within a few weeks, while bait systems can take a few months since termites need to find and share the bait with the colony. Fumigation eliminates termites present at the time of tenting immediately, but doesn't prevent future infestations."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I treat termites myself to save money?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Minor, confirmed spot problems are sometimes DIY-manageable, but most infestations spread further than homeowners realize. A professional inspection first can save you from paying for the wrong treatment."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need a termite treatment warranty?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It's strongly recommended. A warranty or retreatment guarantee means you won't pay full price again if termites return within the coverage period, which is common with subterranean termites."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/termite-treatment-cost#faq"
+  }
+ ]
+}

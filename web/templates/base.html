@@ -12,7 +12,7 @@
   {% if GSC_VERIFICATION %}<meta name="google-site-verification" content="{{ GSC_VERIFICATION }}">{% endif %}
 
   <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
   <meta property="og:site_name" content="{{ SITE_NAME }}">
   <meta property="og:title" content="{{ self.title() | trim }}">
   <meta property="og:description" content="{{ self.description() | trim }}">
@@ -33,6 +33,8 @@
     /* Footer sits on a dark background, so the logo gets a white plate behind it. */
     .footer-logo{height:42px;width:auto;display:block}
   </style>
+  {# page-specific CSS — after Tailwind, so it can override the preflight #}
+  {% block head_css %}{% endblock %}
 
   <!-- Favicon (real crawlable files — required for Google Search favicons) -->
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -42,7 +44,9 @@
 
 
 </head>
-<body class="h-full flex flex-col bg-gray-50 text-gray-900">
+{# one background utility, overridable — two competing ones would resolve by
+   stylesheet order rather than by what the page asked for #}
+<body class="h-full flex flex-col {% block body_bg %}bg-gray-50{% endblock %} text-gray-900">
 
 <header class="bg-white shadow-sm border-b sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

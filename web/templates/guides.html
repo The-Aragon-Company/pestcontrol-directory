@@ -1,25 +1,41 @@
+{# /guides hub. Hero + the authored card sections, from web/guides/_hub.json. #}
 {% extends "base.html" %}
-{% block title %}Pest Control Guides & Resources | {{ SITE_NAME }}{% endblock %}
-{% block description %}Practical guides on getting rid of pests, pest control costs, prevention, and choosing a pro. Expert tips for common household pest problems.{% endblock %}
-{% block canonical %}/guides{% endblock %}
+{% from "_macros.html" import phone_icon %}
+{% block title %}{{ hub.title }}{% endblock %}
+{% block description %}{{ hub.description }}{% endblock %}
+{% block body_bg %}bg-white{% endblock %}
+{% block head_css %}<link rel="stylesheet" href="/static/css/guides.css">{% endblock %}
+{% block head_extra %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
+
 {% block content %}
-<div class="bg-gradient-to-br from-primary to-gradient text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <nav class="text-sm text-white/70 mb-3"><a href="/" class="hover:text-white">Home</a> / <span class="text-white">Guides</span></nav>
-    <h1 class="text-3xl md:text-4xl font-extrabold">Pest Control Guides</h1>
-    <p class="mt-2 text-white/90">Practical, no-nonsense advice for common pest problems.</p>
-  </div>
-</div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-    {% for g in rows %}
-    <a href="/guides/{{ g.slug }}" class="bg-white rounded-xl border border-gray-200 p-5 hover:border-primary hover:shadow-md transition-all">
-      <span class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3"><i class="fa-solid {{ CATEGORY_ICONS.get(g.category,'fa-book') }}"></i></span>
-      <h2 class="font-bold text-gray-900 leading-snug">{{ g.title }}</h2>
-      <p class="text-sm text-gray-500 mt-1.5 line-clamp-2">{{ g.description }}</p>
-      <span class="inline-block text-primary text-sm font-semibold mt-3">Read guide <i class="fas fa-arrow-right text-xs"></i></span>
-    </a>
+<div class="guide">
+ <div class="shell">
+  <section class="hero">
+   <h1>{{ hub.h1|safe }}</h1>
+   <p>{{ hub.dek|safe }}</p>
+   {% if CTA_PHONE %}
+   <a class="callbtn" href="tel:{{ CTA_PHONE }}" style="font-size:17px;padding:13px 24px">
+     {{ phone_icon(18) }}Talk to a pro now &mdash; {{ CTA_PHONE_DISPLAY }}</a>
+   {% endif %}
+  </section>
+
+  {% for sec in hub.sections %}
+  <section class="sec">
+   <h2>{{ sec.h2|safe }}</h2>
+   <p class="n">{{ sec.note|safe }}</p>
+   <div class="cgrid">
+    {% for c in sec.cards %}
+    <a class="ccard{{ ' feat' if c.featured }}" href="/guides/{{ c.slug }}">
+      <span class="k">{{ c.kind }}</span>
+      <h3>{{ c.title|safe }}</h3>
+      <p>{{ c.desc|safe }}</p>
+      <span class="rt">{{ c.read_time }}</span></a>
     {% endfor %}
-  </div>
+   </div>
+  </section>
+  {% endfor %}
+ </div>
 </div>
 {% endblock %}

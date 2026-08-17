@@ -1,0 +1,347 @@
+/* Guides — the article/hub styling lifted out of the 19 authored HTML files,
+   deduped into one sheet and scoped under .guide so it cannot touch the rest of
+   the site. Chrome (masthead, footer, sticky call bar) is gone: base.html owns
+   that now. Loaded only by templates/guide.html and guides.html.
+
+   Loads AFTER Tailwind's output.css, so rules the preflight resets — list
+   markers, heading sizes, link colour — are restated explicitly here. */
+
+/* Palette follows the site's Tailwind theme (see tailwind.config.js): slate
+   carries structure and type, emerald is the accent — brand #1f2937 = primary,
+   brand-dk #112231 = gradient/secondary, accent #10b981 = accent. Emerald text
+   and buttons use the 700/800 steps so white-on-accent and accent-on-white both
+   clear WCAG AA; #10b981 itself is reserved for non-text marks. */
+.guide {
+  --ink: #111827; --body: #374151; --muted: #6b7280;
+  --line: #e5e7eb; --line-soft: #f3f4f6;
+  --bg: #fff; --wash: #f9fafb; --wash2: #fbfcfd;
+  --brand: #1f2937; --brand-dk: #112231; --brand-soft: #f3f4f6;
+  --accent: #10b981; --accent-ink: #047857; --accent-dk: #065f46;
+  --accent-soft: #ecfdf5; --accent-line: #a7f3d0;
+  --cta: #047857; --cta-dk: #065f46; --cta-soft: #ecfdf5;
+  --radius: 12px; --maxw: 1080px;
+  --shadow: 0 1px 2px rgba(17, 24, 39, .04), 0 8px 24px rgba(17, 24, 39, .06);
+
+  background: var(--bg);
+  color: var(--body);
+  font-size: 18px;
+  line-height: 1.7;
+  text-rendering: optimizeLegibility;
+}
+/* Only guide pages link this sheet, so the bare html rule is page-scoped.
+   base.html's header is sticky 64px tall — keep anchor jumps clear of it. */
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+.guide .shell { max-width: var(--maxw); margin: 0 auto; padding: 0 22px; }
+.guide img { max-width: 100%; height: auto; }
+.guide :focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- phone CTA button ---------- */
+.guide .callbtn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--cta); color: #fff; text-decoration: none;
+  font-weight: 750; font-size: 15px; padding: 10px 16px; border-radius: 999px;
+  white-space: nowrap; box-shadow: 0 2px 10px rgba(4, 120, 87, .28); transition: .15s;
+}
+.guide .callbtn:hover { background: var(--cta-dk); transform: translateY(-1px); }
+
+/* ---------- article head ---------- */
+.guide .crumb { font-size: 13.5px; color: var(--muted); padding: 26px 0 0; }
+.guide .crumb a { color: var(--muted); text-decoration: none; }
+.guide .crumb a:hover { color: var(--accent-ink); text-decoration: underline; }
+.guide .crumb i { font-style: normal; padding: 0 7px; opacity: .5; }
+.guide .eyebrow {
+  display: inline-block; margin: 22px 0 12px; font-size: 11.5px; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink);
+  background: var(--accent-soft); padding: 5px 11px; border-radius: 999px;
+}
+.guide h1.title {
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); line-height: 1.14;
+  letter-spacing: -.028em; color: var(--ink); font-weight: 800;
+  margin: 0 0 16px; max-width: 16ch;
+}
+.guide h1.title.long { max-width: 22ch; }
+.guide .dek {
+  font-size: 19.5px; color: var(--muted); line-height: 1.6;
+  margin: 0 0 22px; max-width: 60ch;
+}
+.guide .meta {
+  display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center;
+  font-size: 14px; color: var(--muted); border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line); padding: 14px 0; margin: 0 0 34px;
+}
+.guide .meta b { color: var(--ink); font-weight: 700; }
+.guide .meta .dot {
+  width: 3px; height: 3px; border-radius: 50%;
+  background: var(--line); display: inline-block;
+}
+
+/* ---------- answer-first ---------- */
+.guide .answer {
+  background: linear-gradient(180deg, var(--wash), var(--line-soft));
+  border: 1px solid var(--line); border-left: 5px solid var(--accent);
+  border-radius: var(--radius); padding: 22px 26px; margin: 0 0 34px;
+}
+.guide .answer .lbl {
+  display: block; font-size: 11px; font-weight: 800; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--accent-ink); margin: 0 0 9px;
+}
+.guide .answer p {
+  margin: 0; font-size: 19px; line-height: 1.62;
+  color: var(--ink); font-weight: 600;
+}
+.guide .answer .callbtn { margin: 16px 0 0; }
+.guide .answer .sub {
+  display: block; margin-top: 10px; font-size: 13.5px;
+  color: var(--muted); font-weight: 500; line-height: 1.5;
+}
+.guide .answer .sub a {
+  color: var(--accent-ink); text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: 2px;
+}
+.guide .answer .sub a:hover { color: var(--accent-dk); }
+
+/* ---------- layout ---------- */
+.guide .grid {
+  display: grid; grid-template-columns: 235px minmax(0, 1fr);
+  gap: 52px; align-items: start; padding-bottom: 40px;
+}
+/* Capped at 300px so a long list can't run past the viewport while stuck at
+   top:88px. Flex column + min-height:0 on the list keeps the "On this page"
+   heading pinned and scrolls only the links. */
+.guide .toc {
+  position: sticky; top: 88px; background: var(--wash2);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px 20px; font-size: 14px; line-height: 1.5;
+  max-height: 300px; display: flex; flex-direction: column;
+}
+.guide .toc h2 {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .11em;
+  text-transform: uppercase; color: var(--accent-ink); margin: 0 0 11px;
+  padding: 0; border: 0;
+}
+/* padding-left has to clear a two-digit marker: markers hang in that gutter, and
+   overflow-y makes this a scroll container, so anything narrower clips "10." */
+.guide .toc ol {
+  margin: 0; padding-left: 2.2em; padding-right: 4px; list-style: decimal;
+  min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.guide .toc li { margin: .42em 0; }
+.guide .toc a { color: var(--body); text-decoration: none; }
+.guide .toc a:hover { color: var(--accent-ink); text-decoration: underline; }
+.guide main.body { min-width: 0; }
+.guide main.body > :first-child { margin-top: 0; }
+
+/* ---------- prose ---------- */
+.guide .body p { margin: 0 0 1.25em; }
+.guide .body h2 {
+  font-size: clamp(1.42rem, 1.2rem + .7vw, 1.72rem); line-height: 1.26;
+  font-weight: 780; color: var(--ink); letter-spacing: -.018em;
+  margin: 2.3em 0 .6em; padding-top: 1.5em;
+  border-top: 1px solid var(--line-soft); scroll-margin-top: 88px;
+}
+.guide .body h2:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+.guide .body h3 {
+  font-size: 1.18rem; font-weight: 730; color: var(--ink);
+  margin: 1.9em 0 .5em; letter-spacing: -.01em;
+}
+.guide .body h4 {
+  font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 1.6em 0 .4em;
+}
+.guide .body ul, .guide .body ol { margin: 0 0 1.25em; padding-left: 1.35em; }
+.guide .body ul { list-style: disc; }
+.guide .body ol { list-style: decimal; }
+.guide .body li { margin: .45em 0; }
+.guide .body li::marker { color: var(--accent); }
+.guide .body strong { font-weight: 700; color: var(--ink); }
+.guide .body a {
+  color: var(--accent-ink); text-decoration: underline;
+  text-decoration-thickness: 1px; text-underline-offset: 2px;
+}
+.guide .body a:hover { color: var(--accent-dk); }
+.guide .body hr { border: 0; border-top: 1px solid var(--line); margin: 2.6em 0; }
+
+/* ---------- tables ---------- */
+.guide .tw {
+  overflow-x: auto; margin: 1.7em 0; border: 1px solid var(--line);
+  border-radius: var(--radius); -webkit-overflow-scrolling: touch;
+}
+.guide .body table {
+  width: 100%; border-collapse: collapse; font-size: 15.5px; margin: 0;
+}
+.guide .body th {
+  background: var(--brand); color: #fff; text-align: left; font-weight: 650;
+  padding: 13px 15px; font-size: 12.5px; letter-spacing: .045em;
+  text-transform: uppercase; white-space: nowrap;
+}
+.guide .body td {
+  padding: 12px 15px; border-top: 1px solid var(--line); vertical-align: top;
+}
+.guide .body tbody tr:nth-child(even) { background: var(--wash); }
+.guide .body td strong { color: var(--brand-dk); }
+
+/* ---------- call cards ---------- */
+.guide .cta {
+  background: var(--cta-soft); border: 1px solid var(--accent-line);
+  border-radius: var(--radius); padding: 24px 26px; margin: 2.2em 0;
+  text-align: center;
+}
+.guide .cta p {
+  margin: 0 0 16px; font-size: 17.5px; line-height: 1.55;
+  color: var(--ink); font-weight: 600;
+}
+.guide .cta .big {
+  display: inline-flex; align-items: center; gap: 10px; background: var(--cta);
+  color: #fff; text-decoration: none; font-weight: 800; font-size: 21px;
+  letter-spacing: -.01em; padding: 14px 30px; border-radius: 999px;
+  box-shadow: 0 3px 14px rgba(4, 120, 87, .3); transition: .15s;
+}
+.guide .cta .big:hover { background: var(--cta-dk); transform: translateY(-1px); }
+.guide .cta .sub {
+  display: block; margin-top: 11px; font-size: 13.5px;
+  color: var(--muted); font-weight: 500;
+}
+.guide .cta .sub a { color: var(--accent-ink); }
+
+/* ---------- FAQ ---------- */
+.guide .faq { margin-top: 2.4em; }
+.guide .faq .qa { border-top: 1px solid var(--line); padding: 20px 0; }
+.guide .faq .qa:last-child { border-bottom: 1px solid var(--line); }
+.guide .faq .q {
+  font-size: 17.5px; font-weight: 730; color: var(--ink);
+  margin: 0 0 .5em; letter-spacing: -.01em;
+}
+.guide .faq .a { margin: 0; color: var(--body); }
+
+/* ---------- keep reading ---------- */
+.guide .related {
+  border-top: 1px solid var(--line); margin-top: 52px; padding-top: 34px;
+}
+.guide .related h2 {
+  font-size: 1.28rem; font-weight: 780; color: var(--ink);
+  margin: 0 0 18px; letter-spacing: -.015em;
+}
+.guide .rgrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+/* These cards live inside .body, so they need to outrank its `a` rule — which
+   would otherwise underline the titles and stretch them to prose line-height. */
+.guide .body .rcard {
+  display: block; text-decoration: none; color: inherit; line-height: 1.35;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 16px 18px; transition: .14s; background: #fff;
+}
+.guide .rcard:hover {
+  border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px);
+}
+.guide .rcard .k {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--accent-ink); display: block; margin-bottom: 6px;
+}
+.guide .rcard .t {
+  display: block; font-weight: 700; color: var(--ink); font-size: 15.5px;
+  line-height: 1.35; letter-spacing: -.01em;
+}
+
+/* ---------- hub ---------- */
+.guide .hero {
+  padding: 52px 0 40px; border-bottom: 1px solid var(--line); margin-bottom: 36px;
+}
+.guide .hero h1 {
+  font-size: clamp(2.1rem, 1.5rem + 2.6vw, 3.2rem); line-height: 1.1;
+  letter-spacing: -.03em; font-weight: 800; color: var(--ink);
+  margin: 0 0 16px; max-width: 19ch;
+}
+.guide .hero p {
+  font-size: 19.5px; color: var(--muted); max-width: 62ch;
+  margin: 0 0 26px; line-height: 1.6;
+}
+.guide .sec { margin: 44px 0 0; }
+.guide .sec h2 {
+  font-size: 1.34rem; font-weight: 790; letter-spacing: -.018em;
+  color: var(--ink); margin: 0 0 6px;
+}
+.guide .sec p.n { color: var(--muted); font-size: 15.5px; margin: 0 0 20px; }
+.guide .cgrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(292px, 1fr));
+  gap: 15px;
+}
+.guide .ccard {
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 22px 24px; background: #fff; transition: .14s;
+}
+.guide .ccard:hover {
+  border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px);
+}
+.guide .ccard .k {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .09em;
+  text-transform: uppercase; color: var(--accent-ink); margin-bottom: 9px;
+}
+.guide .ccard h3 {
+  font-size: 18px; font-weight: 750; color: var(--ink); margin: 0 0 8px;
+  line-height: 1.32; letter-spacing: -.015em;
+}
+.guide .ccard p {
+  font-size: 14.5px; color: var(--muted); margin: 0 0 14px;
+  line-height: 1.55; flex: 1;
+}
+.guide .ccard .rt { font-size: 13px; color: var(--muted); font-weight: 600; }
+.guide .feat {
+  background: linear-gradient(135deg, var(--brand), var(--brand-dk));
+  border-color: var(--brand-dk); color: #fff;
+}
+.guide .feat .k { color: #6ee7b7; }
+.guide .feat h3 { color: #fff; font-size: 21px; }
+.guide .feat p { color: #d1d5db; }
+.guide .feat .rt { color: #6ee7b7; }
+.guide .feat:hover {
+  transform: translateY(-2px); box-shadow: 0 10px 30px rgba(17, 24, 39, .3);
+}
+
+/* ---------- disclaimer under the article ---------- */
+.guide .disclaim {
+  border-top: 1px solid var(--line); margin-top: 40px; padding: 22px 0 0;
+  font-size: 14px; color: var(--muted); line-height: 1.6; max-width: 70ch;
+}
+
+@media (max-width: 960px) {
+  /* minmax(0,1fr) rather than a bare 1fr, matching the desktop rule: a bare 1fr
+     floors the track at min-content, which would let any wide element that is
+     not inside a .tw scroll wrapper widen the page. */
+  .guide .grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  /* Not sticky here, so nothing to clip against — let it size to its content. */
+  .guide .toc {
+    position: static; margin: 0 0 30px; display: block; max-height: none;
+  }
+  .guide .toc ol { overflow-y: visible; }
+}
+@media (max-width: 640px) {
+  .guide { font-size: 17px; }
+  .guide .shell { padding: 0 17px; }
+  .guide .answer { padding: 19px 20px; }
+  .guide .answer p { font-size: 17.5px; }
+  .guide .cta { padding: 20px 18px; }
+  .guide .cta .big {
+    font-size: 19px; padding: 13px 22px; width: 100%; justify-content: center;
+  }
+  .guide .body th, .guide .body td { padding: 10px 12px; }
+  .guide h1.title, .guide h1.title.long { max-width: none; }
+}
+@media print {
+  .guide .toc, .guide .related, .guide .callbtn { display: none !important; }
+  .guide { font-size: 11.5pt; color: #000; }
+  .guide .grid { display: block; }
+  .guide .answer, .guide .cta { border: 1px solid #999; background: #fff !important; }
+  .guide .body a::after {
+    content: " (" attr(href) ")"; font-size: 9pt; color: #555; word-break: break-all;
+  }
+  .guide .body a[href^="#"]::after, .guide .crumb a::after { content: ""; }
+  .guide .body h2 { page-break-after: avoid; }
+  .guide .tw, .guide .faq .qa { page-break-inside: avoid; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .guide * { transition: none !important; }
+  html { scroll-behavior: auto !important; }
+}

@@ -1,0 +1,183 @@
+{
+ "title": "Your First Pest Control Visit: What to Expect",
+ "description": "What happens during your first pest control visit — how long it takes, safety for kids and pets, and whether you need to leave the house.",
+ "slug": "first-pest-control-visit-guide",
+ "kind": "Hiring Guide",
+ "h1": "Your First Pest Control Visit: What to Expect",
+ "long_title": true,
+ "dek": "What happens during your first pest control visit — how long it takes, safety for kids and pets, and whether you need to leave the house.",
+ "read_time": "7 min",
+ "words": "1,575",
+ "answer": "A first pest control visit usually takes 30–60 minutes for a general inspection and treatment, longer for larger homes or specific problems like termites or bed bugs. Most treatments are safe for kids and pets once dry (often 1–2 hours), and you typically don't need to leave the house — though the technician may ask you to clear certain areas first. If you rent, loop in your landlord or property manager before you book, since they usually have to authorize treatment.",
+ "toc": [
+  {
+   "id": "how-long-does-a-first-pest-control-visit-take",
+   "label": "How long does a first pest control visit take?"
+  },
+  {
+   "id": "is-pest-control-safe-for-kids-and-pets",
+   "label": "Is pest control safe for kids and pets?"
+  },
+  {
+   "id": "do-you-need-to-leave-the-house-during-treatment",
+   "label": "Do you need to leave the house during treatment?"
+  },
+  {
+   "id": "how-should-you-prepare-for-your-first-visit",
+   "label": "How should you prepare for your first visit?"
+  },
+  {
+   "id": "who-has-to-approve-the-treatment",
+   "label": "Who has to approve the treatment?"
+  },
+  {
+   "id": "what-happens-after-the-technician-leaves",
+   "label": "What happens after the technician leaves?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "what-questions-should-you-ask-before-your-first-appointment",
+   "label": "What questions should you ask before your first appointment?"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "termite-inspection-what-happens",
+   "kind": "Hiring Guide",
+   "title": "Termite Inspection &amp; Treatment: What Happens"
+  },
+  {
+   "slug": "pest-inspection-when-buying-home",
+   "kind": "Hiring Guide",
+   "title": "Pest Inspections When Buying a Home: What to Know"
+  },
+  {
+   "slug": "termite-treatment-cost",
+   "kind": "Cost Guide",
+   "title": "Termite Treatment Cost: 2026 Price Guide"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Your First Pest Control Visit: How Long It Takes, Safety for Kids and Pets, and Whether You Need to Leave",
+   "description": "What happens during your first pest control visit — how long it takes, safety for kids and pets, and whether you need to leave the house.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/first-pest-control-visit-guide"
+   },
+   "url": "__DOMAIN__/guides/first-pest-control-visit-guide"
+  },
+  {
+   "@type": "HowTo",
+   "name": "How to prepare for your first pest control visit",
+   "step": [
+    {
+     "@type": "HowToStep",
+     "name": "Clear access to baseboards and corners",
+     "text": "Move furniture, boxes, and clutter away from walls where possible so the technician can treat entry points."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Clear kitchen counters and under-sink cabinets",
+     "text": "These are common treatment spots and should be accessible for the technician."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Secure pets and pet food",
+     "text": "Put away pet food and water bowls and keep pets in a room that isn't being treated."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Note problem areas in advance",
+     "text": "Write down where you've seen pests so you can point the technician there directly."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Cover fish tanks and disable air pumps if instructed",
+     "text": "Some pest control products are harmful to aquatic life, so ask the technician whether tanks need to be covered."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Plan for re-entry time",
+     "text": "Confirm with the technician when it will be safe for kids and pets to return to treated rooms."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "If you rent, involve your landlord first",
+     "text": "Loop in your landlord or property manager before the visit, since they usually have to authorize treatment on a rental property."
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How long does a first pest control visit usually take?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most general pest control visits take 30 to 60 minutes. Specialty visits — termite inspections, bed bug treatments, or larger homes — can take longer, sometimes up to a few hours, so it's worth asking your specific timeframe when you book."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it safe to stay home during pest control treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, for most standard treatments you can stay home, though you may be asked to leave the treated room briefly. More intensive treatments like whole-home fumigation or bed bug heat treatment may require leaving the house for a set period — ask ahead of time."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "When can kids and pets go back into a treated room?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "This depends on the specific product used, but it's often one to two hours once treatments have dried. Always ask your technician for the exact re-entry time for the products applied in your home that day."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need to clean before the pest control technician arrives?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You don't need to deep clean, but clearing access to baseboards, corners, and under-sink cabinets helps the technician treat problem areas more thoroughly. A quick declutter of the areas where you've seen pests is the most useful prep step."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "I rent — can I book pest control myself?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sometimes, but check with your landlord or property manager first, since they typically have to authorize treatment on a property they own. In 7,799 calls where we could see the outcome, renters got an appointment scheduled 23.8% of the time versus 36.6% for people living in a home they own — usually a sign-off problem, not a service problem. Many leases also make pest control the landlord's responsibility, so raising it with them first can save you both time and money."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What if I still see bugs after the first treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It's common to see some pests for several days after treatment as the product works through the colony. If pests are still active well beyond the timeframe your technician gave you, call the company back — most plans include a free follow-up visit."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/first-pest-control-visit-guide#faq"
+  }
+ ]
+}
