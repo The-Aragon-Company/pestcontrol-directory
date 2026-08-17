@@ -1,0 +1,131 @@
+{
+ "title": "Wasp & Hornet Nest Removal Cost Guide",
+ "description": "How much does wasp or hornet nest removal cost? See prices by nest location and type, plus what actually affects your quote.",
+ "slug": "wasp-nest-removal-cost",
+ "kind": "Cost Guide",
+ "h1": "Wasp &amp; Hornet Nest Removal Cost Guide",
+ "long_title": true,
+ "dek": "How much does wasp or hornet nest removal cost? See prices by nest location and type, plus what actually affects your quote.",
+ "read_time": "6 min",
+ "words": "1,430",
+ "answer": "Most homeowners pay $300–$700 to remove a wasp or hornet nest, with published industry averages around $525. Small, easy-to-reach exterior nests can run as low as $100–$200, while yellowjacket nests concealed underground or inside walls often reach $500–$1,200 because of the extra access work and labor involved.",
+ "toc": [
+  {
+   "id": "what-factors-affect-wasp-nest-removal-cost",
+   "label": "What factors affect wasp nest removal cost?"
+  },
+  {
+   "id": "how-much-does-nest-removal-cost-by-location-and-type",
+   "label": "How much does nest removal cost by location and type?"
+  },
+  {
+   "id": "what-s-included-at-each-price-level",
+   "label": "What's included at each price level?"
+  },
+  {
+   "id": "is-it-worth-paying-a-pro-to-remove-a-wasp-nest",
+   "label": "Is it worth paying a pro to remove a wasp nest?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "pest-control-call-study",
+   "kind": "Original Research",
+   "title": "What 18,941 Pest Control Calls Reveal"
+  },
+  {
+   "slug": "what-to-expect-pest-inspection",
+   "kind": "Hiring Guide",
+   "title": "What to Expect During a Pest Inspection"
+  },
+  {
+   "slug": "questions-to-ask-pest-control-company",
+   "kind": "Hiring Guide",
+   "title": "15 Questions to Ask Before Hiring Pest Control"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Wasp & Hornet Nest Removal Cost Guide",
+   "description": "How much does wasp or hornet nest removal cost? See prices by nest location and type, plus what actually affects your quote.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "about": "Wasp and hornet nest removal cost",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/wasp-nest-removal-cost"
+   },
+   "url": "__DOMAIN__/guides/wasp-nest-removal-cost",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much does it cost to remove a wasp nest from a house?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most homeowners pay $100–$500, depending on where the nest is located. Easy-to-reach exterior nests are on the lower end, while nests in walls, attics, or high rooflines cost more due to added labor and equipment."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is hornet nest removal more expensive than wasp nest removal?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It can be, since hornets are more aggressive and often require extra protective equipment and more careful timing. The bigger cost driver, though, is usually nest location rather than species alone."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I remove a wasp nest myself to save money?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "For a small, low, easily reached nest, some homeowners do it themselves with store-bought sprays, though this carries real sting risk. For nests in walls, attics, or high locations, or for larger colonies, professional removal is strongly recommended."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why do nests inside walls cost more to remove?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Treating a nest inside a wall void or attic often requires locating the exact spot, sometimes opening a small access point, and using specialized application methods to reach insects a surface spray can't. This added time and equipment increases the cost."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Will the wasps come back after removal?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "If the nest and queen are fully treated, wasps generally won't rebuild in that exact spot, though new wasps may build a nest elsewhere on the property in future seasons. Many companies offer a short-term guarantee if activity continues after treatment."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is bee removal priced the same as wasp removal?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not usually. Because honeybees are important pollinators, many companies use live-removal and relocation services for bees rather than extermination, which can be priced differently than standard wasp or hornet treatment. Published ranges put beehive removal at $135–$1,065, with most homeowners paying around $445, versus about $300–$700 for a typical wasp nest. Some local beekeepers will even relocate a honeybee swarm for free, so ask before you pay."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/wasp-nest-removal-cost#faq"
+  }
+ ]
+}

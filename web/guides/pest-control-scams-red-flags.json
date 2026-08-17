@@ -1,0 +1,132 @@
+{
+ "title": "Pest Control Scams and Red Flags to Watch For",
+ "description": "Common pest control scams and red flags—scare tactics, unsolicited inspectors, and pressure contracts—and how to protect yourself before hiring.",
+ "slug": "pest-control-scams-red-flags",
+ "kind": "Hiring Guide",
+ "h1": "Pest Control Scams and Red Flags to Watch For",
+ "long_title": true,
+ "dek": "Common pest control scams and red flags—scare tactics, unsolicited inspectors, and pressure contracts—and how to protect yourself before hiring.",
+ "read_time": "6 min",
+ "words": "1,359",
+ "answer": "Common pest control scams include unsolicited door-to-door \"inspectors\" pushing urgent repairs, scare tactics that exaggerate a minor problem into an emergency, and high-pressure sales for long-term contracts you can't easily cancel. Protect yourself by never signing on the spot, always verifying licenses independently, and getting a second opinion before agreeing to expensive work.",
+ "toc": [
+  {
+   "id": "what-are-the-most-common-pest-control-scam-tactics",
+   "label": "What are the most common pest control scam tactics?"
+  },
+  {
+   "id": "why-do-unsolicited-inspectors-show-up-at-my-door",
+   "label": "Why do unsolicited \"inspectors\" show up at my door?"
+  },
+  {
+   "id": "how-do-scare-tactics-work-in-pest-control-sales",
+   "label": "How do scare tactics work in pest control sales?"
+  },
+  {
+   "id": "what-should-i-watch-for-in-pest-control-contracts",
+   "label": "What should I watch for in pest control contracts?"
+  },
+  {
+   "id": "what-are-some-other-warning-signs-worth-knowing",
+   "label": "What are some other warning signs worth knowing?"
+  },
+  {
+   "id": "how-can-i-verify-a-company-before-letting-them-into-my-home",
+   "label": "How can I verify a company before letting them into my home?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "pest-control-contracts-explained",
+   "kind": "Hiring Guide",
+   "title": "Pest Control Contracts: Guarantees &amp; Cancellation"
+  },
+  {
+   "slug": "first-pest-control-visit-guide",
+   "kind": "Hiring Guide",
+   "title": "Your First Pest Control Visit: What to Expect"
+  },
+  {
+   "slug": "termite-inspection-what-happens",
+   "kind": "Hiring Guide",
+   "title": "Termite Inspection &amp; Treatment: What Happens"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Pest Control Scams and Red Flags to Watch For",
+   "description": "Common pest control scams and red flags—scare tactics, unsolicited inspectors, and pressure contracts—and how to protect yourself before hiring.",
+   "articleSection": "hiring-guide",
+   "about": "Pest control scams and red flags",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/pest-control-scams-red-flags"
+   },
+   "url": "__DOMAIN__/guides/pest-control-scams-red-flags",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is it ever legitimate for a pest control company to show up unannounced?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It's uncommon for reputable companies to cold-knock offering free inspections, though some do run legitimate door-to-door marketing in certain areas. The key difference is whether they pressure you to act immediately — a legitimate company will let you verify their license and get other quotes without pushback."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What should I do if I already signed a contract I regret?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Start with the contract itself and look for a cancellation or right-of-rescission clause, which many service contracts include for a short window after signing. Many states also give consumers a few business days to cancel contracts signed during door-to-door or high-pressure sales, though the rules and the window vary by state and by contract type. If the clause isn't clear, your state's consumer protection office can tell you what applies to you."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I know if a quoted price is reasonable?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Compare it against at least one other quote for the same problem, and check typical industry cost ranges for that pest. A price far below or dramatically above the norm is worth a second look either way."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are all long-term pest control contracts a scam?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No, recurring plans are standard in the industry and often save money over time for ongoing prevention. The concern is specifically contracts with unclear terms, harsh cancellation penalties, or pressure to sign before you've had time to read them."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What's the best way to report a suspected pest control scam?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Your state's pesticide regulatory agency and your state attorney general's consumer protection office are both good places to file a complaint. Agency names vary by state — searching \"[your state] attorney general consumer complaint\" will get you to the right form. You can also report to the Better Business Bureau."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/pest-control-scams-red-flags#faq"
+  }
+ ]
+}

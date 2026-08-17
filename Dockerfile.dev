@@ -1,0 +1,25 @@
+# Local development image. Source is bind-mounted by docker-compose.yml, so
+# nothing app-related is COPY'd here — only the deps get baked in, which keeps
+# `docker compose up` fast after the first build.
+#
+# The production image is the plain `Dockerfile` (gunicorn, source baked in).
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Don't litter the bind-mounted source tree with container-built .pyc files,
+# and keep log output unbuffered so `docker compose logs -f` is live.
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+COPY requirements-web.txt .
+RUN pip install --no-cache-dir -r requirements-web.txt
+
+EXPOSE 8080
+
+# Flask's dev server: auto-reloads on edits and shows the debugger on errors.
+# Deliberately no `watchdog` install — its inotify watcher misses writes made on
+# the Windows host through a bind mount, whereas Werkzeug's default stat-polling
+# reloader picks them up.
+CMD ["flask", "--app", "web.app", "run", \
+     "--host", "0.0.0.0", "--port", "8080", "--debug"]

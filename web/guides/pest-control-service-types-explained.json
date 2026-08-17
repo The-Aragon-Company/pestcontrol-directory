@@ -1,0 +1,136 @@
+{
+ "title": "Pest Control Service Types Explained",
+ "description": "Learn the difference between one-time, recurring, exclusion, and trapping pest control services—and which one actually fits your problem.",
+ "slug": "pest-control-service-types-explained",
+ "kind": "Hiring Guide",
+ "h1": "Pest Control Service Types Explained",
+ "long_title": true,
+ "dek": "Learn the difference between one-time, recurring, exclusion, and trapping pest control services—and which one actually fits your problem.",
+ "read_time": "7 min",
+ "words": "1,508",
+ "answer": "Pest control services generally fall into four categories: one-time treatments for a single, isolated problem; recurring (scheduled) plans for ongoing prevention; exclusion work that seals up entry points; and trapping for rodents or wildlife that need live capture. Which one you need depends on the pest, how bad the problem is, and whether it keeps coming back.",
+ "toc": [
+  {
+   "id": "what-is-one-time-pest-control-treatment",
+   "label": "What is one-time pest control treatment?"
+  },
+  {
+   "id": "what-is-recurring-pest-control-service",
+   "label": "What is recurring pest control service?"
+  },
+  {
+   "id": "what-is-exclusion-service-and-how-is-it-different",
+   "label": "What is exclusion service, and how is it different?"
+  },
+  {
+   "id": "what-is-trapping-and-when-do-you-need-it",
+   "label": "What is trapping, and when do you need it?"
+  },
+  {
+   "id": "which-service-type-do-you-actually-need",
+   "label": "Which service type do you actually need?"
+  },
+  {
+   "id": "who-provides-each-type-of-service",
+   "label": "Who provides each type of service?"
+  },
+  {
+   "id": "how-much-do-these-service-types-typically-cost",
+   "label": "How much do these service types typically cost?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "diy-vs-professional-pest-control",
+   "kind": "Hiring Guide",
+   "title": "DIY vs Professional Pest Control: Honest Comparison"
+  },
+  {
+   "slug": "how-to-vet-pest-control-company",
+   "kind": "Hiring Guide",
+   "title": "How to Vet a Pest Control Company Before Hiring"
+  },
+  {
+   "slug": "pest-control-scams-red-flags",
+   "kind": "Hiring Guide",
+   "title": "Pest Control Scams and Red Flags to Watch For"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Pest Control Service Types Explained",
+   "description": "Learn the difference between one-time, recurring, exclusion, and trapping pest control services—and which one actually fits your problem.",
+   "articleSection": "hiring-guide",
+   "about": "Types of pest control services",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/pest-control-service-types-explained"
+   },
+   "url": "__DOMAIN__/guides/pest-control-service-types-explained",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Do I need a recurring plan, or is one-time treatment enough?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It depends on whether your problem is a one-off or a pattern. A single wasp nest or an ant trail after a rainstorm is usually a one-time fix. If you're seeing the same pests every season, or in a region known for heavy pest pressure, a recurring plan usually costs less over a year and keeps problems from building up."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I combine service types, like exclusion and trapping?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, and for rodent or wildlife problems it's often recommended. Exclusion seals the entry points while trapping removes what's already inside — doing only one usually means the problem returns."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is exclusion covered under a regular pest control plan?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sometimes, but not always. Some companies include basic exclusion as part of a recurring plan, while more extensive sealing work is billed separately. Always ask what's included before you sign anything."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I know if I need a specialist instead of a general pest control company?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "If you're dealing with termites, bed bugs, or wildlife like raccoons and bats, look specifically for a company that lists that specialty. General pest techs handle common household bugs well, but structural pests and larger animals often require licensed specialists. In our analysis of 18,941 homeowner calls, 19.3% of wildlife calls, 11.2% of wasp and hornet calls, 10.6% of termite calls, and 10.3% of bed bug calls reached a company that doesn't handle that pest, compared with 3.8% for rodents and 3.8% for cockroaches. Ask whether they handle your specific pest before you book."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How long does trapping take to fully solve a rodent problem?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It varies with the size of the infestation, but plan for multiple visits over one to a few weeks rather than a single appointment. Pairing trapping with exclusion work tends to resolve the problem faster and keeps it from recurring."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/pest-control-service-types-explained#faq"
+  }
+ ]
+}

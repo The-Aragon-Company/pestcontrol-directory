@@ -1,0 +1,179 @@
+{
+ "title": "How to Vet a Pest Control Company Before Hiring",
+ "description": "How to check a pest control company's reviews, license, and insurance before hiring—including where to look up licenses in your state.",
+ "slug": "how-to-vet-pest-control-company",
+ "kind": "Hiring Guide",
+ "h1": "How to Vet a Pest Control Company Before Hiring",
+ "long_title": true,
+ "dek": "How to check a pest control company&#x27;s reviews, license, and insurance before hiring—including where to look up licenses in your state.",
+ "read_time": "6 min",
+ "words": "1,454",
+ "answer": "Before hiring a pest control company, check four things: that they actually handle your specific pest, an active state pesticide applicator license (verifiable through your state's pesticide regulatory agency), current general liability insurance, and recent reviews that mention the specific service you need. In our analysis of 18,941 calls from homeowners to pest control companies, 19.3% of people calling about wildlife — and roughly 1 in 10 calling about termites, bed bugs, or wasps — reached a company that doesn't do that type of work at all. A legitimate company will give you license and insurance details without hesitation.",
+ "toc": [
+  {
+   "id": "why-does-licensing-matter-for-pest-control",
+   "label": "Why does licensing matter for pest control?"
+  },
+  {
+   "id": "how-do-i-check-if-a-pest-control-company-is-licensed",
+   "label": "How do I check if a pest control company is licensed?"
+  },
+  {
+   "id": "what-insurance-should-a-pest-control-company-carry",
+   "label": "What insurance should a pest control company carry?"
+  },
+  {
+   "id": "how-do-i-actually-check-licenses-and-insurance-step-by-step",
+   "label": "How do I actually check licenses and insurance? (step by step)"
+  },
+  {
+   "id": "do-they-actually-handle-your-kind-of-pest",
+   "label": "Do they actually handle your kind of pest?"
+  },
+  {
+   "id": "how-should-i-read-online-reviews",
+   "label": "How should I read online reviews?"
+  },
+  {
+   "id": "what-other-signals-suggest-a-company-is-trustworthy",
+   "label": "What other signals suggest a company is trustworthy?"
+  },
+  {
+   "id": "what-questions-should-i-ask-before-booking",
+   "label": "What questions should I ask before booking?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "pest-control-scams-red-flags",
+   "kind": "Hiring Guide",
+   "title": "Pest Control Scams and Red Flags to Watch For"
+  },
+  {
+   "slug": "pest-control-contracts-explained",
+   "kind": "Hiring Guide",
+   "title": "Pest Control Contracts: Guarantees &amp; Cancellation"
+  },
+  {
+   "slug": "first-pest-control-visit-guide",
+   "kind": "Hiring Guide",
+   "title": "Your First Pest Control Visit: What to Expect"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "How to Vet a Pest Control Company Before Hiring",
+   "description": "How to check a pest control company's reviews, license, and insurance before hiring—including where to look up licenses in your state.",
+   "articleSection": "hiring-guide",
+   "about": "Vetting pest control companies",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/how-to-vet-pest-control-company"
+   },
+   "url": "__DOMAIN__/guides/how-to-vet-pest-control-company",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "HowTo",
+   "name": "How to check a pest control company's license and insurance",
+   "step": [
+    {
+     "@type": "HowToStep",
+     "name": "Ask for license numbers",
+     "text": "Ask for the company's business license number and the technician's applicator license number before scheduling, either by phone or in writing."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Look up the license",
+     "text": "Look up the license on your state's pesticide regulatory agency website to confirm it's active, not expired or suspended."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Request a certificate of insurance",
+     "text": "Request a certificate of insurance showing general liability (and workers' comp, if they have employees) coverage."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Confirm coverage is current",
+     "text": "Confirm the coverage is current, not expired — certificates of insurance list effective and expiration dates."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Save copies of documents",
+     "text": "Save copies of both the license confirmation and the certificate of insurance in case you need them later for a dispute or insurance claim."
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How do I find my state's pesticide license lookup tool?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Search '[your state name] pesticide applicator license lookup' or check your state's department of agriculture website — most states host this under agriculture, environmental protection, or consumer affairs. The technician's license number makes the search faster."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What if a company refuses to share their license number?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Treat it as a red flag. A licensed, legitimate company has no reason to withhold a license number since it's public information anyway. Move on to a different provider."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I know a company actually handles my specific pest?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ask before you book. Across 18,941 homeowner calls to pest control companies that we analyzed, 19.3% of wildlife callers and roughly 1 in 10 termite, bed bug, and wasp callers reached a company that doesn't do that type of work — compared with just 3.8% for cockroaches and 3.8% for mice and rats. Name your pest up front and confirm they treat it."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does having insurance mean the company is trustworthy?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Insurance is one important piece, not a guarantee of quality, but a company without it is a much bigger risk if something goes wrong. Combine insurance and license checks with recent reviews for a fuller picture."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How recent should the reviews I check be?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Focus on reviews from the last 6 to 12 months when possible. Pest control companies change staff and management over time, so older reviews may not reflect current service quality."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it normal for a pest control company to require a contract?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Recurring service plans often come with a contract, which is normal, but you should fully understand the cancellation terms, pricing, and guarantee before signing."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/how-to-vet-pest-control-company#faq"
+  }
+ ]
+}

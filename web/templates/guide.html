@@ -1,67 +1,68 @@
+{# One guide article. Metadata comes from web/guides/<slug>.json, the prose from
+   templates/guides/<slug>.html — both produced by scripts/import_guides.py. #}
 {% extends "base.html" %}
-{% block title %}{{ g.title }} | {{ SITE_NAME }}{% endblock %}
-{% block description %}{{ g.description }}{% endblock %}
-{% block canonical %}/guides/{{ g.slug }}{% endblock %}
+{% block title %}{{ guide.title }}{% endblock %}
+{% block description %}{{ guide.description }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block body_bg %}bg-white{% endblock %}
+{% block head_css %}<link rel="stylesheet" href="/static/css/guides.css">{% endblock %}
+{% block head_extra %}
+<script type="application/ld+json">{{ jsonld|safe }}</script>
+{% endblock %}
 
 {% block content %}
-<div class="bg-gradient-to-br from-primary to-gradient text-white">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <nav class="text-sm text-white/70 mb-3"><a href="/" class="hover:text-white">Home</a> / <a href="/guides" class="hover:text-white">Guides</a> / <span class="text-white">{{ g.title }}</span></nav>
-    <h1 class="text-3xl md:text-4xl font-extrabold">{{ g.title }}</h1>
+<div class="guide">
+ <div class="shell">
+  <nav class="crumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><i>/</i><a href="/guides">Guides</a><i>/</i><span>{{ guide.title }}</span>
+  </nav>
+  <span class="eyebrow">{{ guide.kind }}</span>
+  <h1 class="title{{ ' long' if guide.long_title }}">{{ guide.h1|safe }}</h1>
+  <p class="dek">{{ guide.dek|safe }}</p>
+  <div class="meta">
+    <span><b>{{ guide.read_time }}</b> read</span><span class="dot"></span>
+    <span>{{ guide.words }} words</span><span class="dot"></span><span>Updated monthly</span>
   </div>
+  <div class="answer">
+    <span class="lbl">The short answer</span>
+    <p>{{ guide.answer|safe }}</p>
+    <a class="callbtn" href="tel:{{ CTA_PHONE }}">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>{{ CTA_PHONE_DISPLAY }}</a>
+    <span class="sub">Free, 24/7 &mdash; connects you with an available local pro in
+      seconds, or <a href="/search">find a pro near you</a>.</span>
+  </div>
+
+  <div class="grid">
+   <aside class="toc" aria-label="On this page">
+     <h2>On this page</h2>
+     <ol>{% for s in guide.toc %}<li><a href="#{{ s.id }}">{{ s.label|safe }}</a></li>{% endfor %}</ol>
+   </aside>
+
+   <main class="body" id="main">
+    {% include "guides/" ~ guide.slug ~ ".html" %}
+
+    {% if guide.related %}
+    <section class="related">
+      <h2>Keep reading</h2>
+      <div class="rgrid">
+        {% for r in guide.related %}
+        <a class="rcard" href="/guides/{{ r.slug }}">
+          <span class="k">{{ r.kind }}</span><span class="t">{{ r.title|safe }}</span></a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <p class="disclaim">Our guides are informational and general in nature. They are not
+    legal, insurance, financial or real-estate advice. Costs shown are typical published
+    industry ranges and vary by region, property size and severity &mdash; always get a
+    quote for your own home.</p>
+   </main>
+  </div>
+ </div>
 </div>
 
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  {% if body.intro %}<p class="text-lg text-gray-700 leading-relaxed mb-8">{{ body.intro }}</p>{% endif %}
-
-  {% for s in body.sections %}
-  <section class="mb-8">
-    <h2 class="text-2xl font-bold text-gray-900 mb-3">{{ s.heading }}</h2>
-    <p class="text-gray-700 leading-relaxed">{{ s.content }}</p>
-  </section>
-  {% endfor %}
-
-  <!-- CTA into the directory -->
-  <div class="bg-primary/5 border border-primary/10 rounded-2xl p-6 my-10 text-center">
-    <p class="font-semibold text-gray-900">Need a professional?</p>
-    <p class="text-gray-600 text-sm mt-1">Compare local {{ g.category|lower }} providers with reviews and ratings.</p>
-    <a href="/category/{{ cat_slug(g.category) }}" class="inline-block mt-4 bg-primary hover:bg-primaryDark text-white font-semibold px-6 py-2.5 rounded-xl">Find {{ g.category }} pros</a>
-  </div>
-
-  {% if body.faq %}
-  <section class="mb-10">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4">Frequently asked questions</h2>
-    <div class="space-y-3">
-      {% for f in body.faq %}
-      <details class="bg-white border rounded-xl p-4"><summary class="font-semibold cursor-pointer">{{ f.q }}</summary><p class="mt-2 text-gray-600 text-sm">{{ f.a }}</p></details>
-      {% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
-  {% if others %}
-  <h2 class="text-xl font-bold text-gray-900 mb-4">More guides</h2>
-  <div class="grid sm:grid-cols-2 gap-3">
-    {% for o in others %}<a href="/guides/{{ o.slug }}" class="flex items-center gap-2 bg-white border rounded-lg px-4 py-3 text-sm hover:border-primary hover:text-primary"><i class="fas fa-book text-primary/60"></i> {{ o.title }}</a>{% endfor %}
-  </div>
-  {% endif %}
-</div>
-
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":{{ g.title|tojson }},
-"description":{{ g.description|tojson }},"author":{"@type":"Organization","name":{{ SITE_NAME|tojson }}},
-"publisher":{"@type":"Organization","name":{{ SITE_NAME|tojson }}},"mainEntityOfPage":"{{ DOMAIN }}/guides/{{ g.slug }}"}
-</script>
-{% if body.faq %}
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{% for f in body.faq %}{"@type":"Question","name":{{ f.q|tojson }},"acceptedAnswer":{"@type":"Answer","text":{{ f.a|tojson }}}}{{ "," if not loop.last }}{% endfor %}]}
-</script>
-{% endif %}
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-{"@type":"ListItem","position":1,"name":"Home","item":"{{ DOMAIN }}/"},
-{"@type":"ListItem","position":2,"name":"Guides","item":"{{ DOMAIN }}/guides"},
-{"@type":"ListItem","position":3,"name":{{ g.title|tojson }},"item":"{{ DOMAIN }}/guides/{{ g.slug }}"}]}
-</script>
 {% endblock %}

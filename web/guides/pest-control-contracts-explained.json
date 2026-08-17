@@ -1,0 +1,142 @@
+{
+ "title": "Pest Control Contracts: Guarantees & Cancellation",
+ "description": "Understand pest control contracts before you sign — guarantees, cancellation terms, service windows, and what's standard vs. a red flag.",
+ "slug": "pest-control-contracts-explained",
+ "kind": "Hiring Guide",
+ "h1": "Pest Control Contracts: Guarantees &amp; Cancellation",
+ "long_title": true,
+ "dek": "Understand pest control contracts before you sign — guarantees, cancellation terms, service windows, and what&#x27;s standard vs. a red flag.",
+ "read_time": "7 min",
+ "words": "1,578",
+ "answer": "Most pest control contracts include a service guarantee (free re-treatments if pests return between visits), a defined service window (monthly, quarterly, or one-time), and a cancellation clause — often requiring 30 days' written notice. Read the guarantee terms and cancellation policy closely before signing, since these vary more between companies than the price does.",
+ "toc": [
+  {
+   "id": "what-s-actually-in-a-pest-control-contract",
+   "label": "What's actually in a pest control contract?"
+  },
+  {
+   "id": "how-do-pest-control-guarantees-work",
+   "label": "How do pest control guarantees work?"
+  },
+  {
+   "id": "what-are-standard-cancellation-terms",
+   "label": "What are standard cancellation terms?"
+  },
+  {
+   "id": "what-s-a-normal-service-window-monthly-quarterly-or-one-time",
+   "label": "What's a normal service window — monthly, quarterly, or one-time?"
+  },
+  {
+   "id": "why-do-some-jobs-come-with-an-agreement-and-others-don-t",
+   "label": "Why do some jobs come with an agreement and others don't?"
+  },
+  {
+   "id": "what-should-you-watch-out-for-before-signing",
+   "label": "What should you watch out for before signing?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "what-if-you-already-signed-something-you-regret",
+   "label": "What if you already signed something you regret?"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "first-pest-control-visit-guide",
+   "kind": "Hiring Guide",
+   "title": "Your First Pest Control Visit: What to Expect"
+  },
+  {
+   "slug": "termite-inspection-what-happens",
+   "kind": "Hiring Guide",
+   "title": "Termite Inspection &amp; Treatment: What Happens"
+  },
+  {
+   "slug": "pest-inspection-when-buying-home",
+   "kind": "Hiring Guide",
+   "title": "Pest Inspections When Buying a Home: What to Know"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Pest Control Contracts Explained: Guarantees, Cancellation Terms, and What's Standard",
+   "description": "Understand pest control contracts before you sign — guarantees, cancellation terms, service windows, and what's standard vs. a red flag.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/pest-control-contracts-explained"
+   },
+   "url": "__DOMAIN__/guides/pest-control-contracts-explained"
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is a pest control contract legally binding?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, once signed it's a legal agreement, but most residential pest contracts are consumer-friendly month-to-month arrangements after the first service, not long-term commitments. Read the term length and cancellation section before signing so you know exactly what you're agreeing to."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I have to sign a contract to get pest control service?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Many companies offer one-time treatments with no contract at all, which is a good option for a single, contained problem. Ongoing contracts are typically for preventive service or persistent pest pressure, not a requirement for every job."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why does a bat or squirrel job come with an agreement when a snake removal doesn't?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Because they're different kinds of work. Animals living in your attic or walls need an inspection, sealing, and a follow-up visit — the things a service agreement covers. A one-time removal is a single trip with nothing to schedule after it. In a separate set of 12,960 calls we analyzed, structural wildlife jobs like bats (33.6%), squirrels (29.7%), and raccoons (28.2%) far more often ended with an appointment being booked than one-off calls about snakes (7.1%) or dead animals (4.2%)."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens if I move before my contract ends?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most companies will let you cancel or transfer service if you're relocating — ask about this specifically, since it's not always spelled out in the standard contract language. Some plans transfer to the new homeowner instead."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are pest control guarantees worth paying extra for?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Often yes, if the guarantee includes free re-treatment visits, since a single extra visit can otherwise cost as much as the guarantee itself. Compare what's covered, not just whether a guarantee exists — the details determine the value."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can a pest control company raise my price mid-contract?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Standard contracts should lock in pricing for the stated term; if a price increases before renewal, that should require your agreement. If your contract doesn't address this, ask the company directly and get the answer in writing."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/pest-control-contracts-explained#faq"
+  }
+ ]
+}

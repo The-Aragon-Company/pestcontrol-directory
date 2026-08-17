@@ -1,0 +1,178 @@
+{
+ "title": "What to Expect During a Pest Inspection",
+ "description": "Learn what happens during a professional pest inspection, from arrival to report to quote, so you walk in knowing exactly what's next.",
+ "slug": "what-to-expect-pest-inspection",
+ "kind": "Hiring Guide",
+ "h1": "What to Expect During a Pest Inspection",
+ "long_title": true,
+ "dek": "Learn what happens during a professional pest inspection, from arrival to report to quote, so you walk in knowing exactly what&#x27;s next.",
+ "read_time": "8 min",
+ "words": "1,719",
+ "answer": "A professional pest inspection usually takes 30 to 90 minutes. The inspector walks your property inside and out, checking common trouble spots like kitchens, bathrooms, attics, basements, and the foundation for live pests, droppings, damage, and moisture problems. You'll get a written report of what they found and a treatment quote before they leave — no pressure to decide on the spot.",
+ "toc": [
+  {
+   "id": "how-long-does-a-pest-inspection-take",
+   "label": "How long does a pest inspection take?"
+  },
+  {
+   "id": "what-happens-when-the-inspector-arrives",
+   "label": "What happens when the inspector arrives?"
+  },
+  {
+   "id": "which-areas-of-the-home-get-inspected",
+   "label": "Which areas of the home get inspected?"
+  },
+  {
+   "id": "what-tools-do-inspectors-use",
+   "label": "What tools do inspectors use?"
+  },
+  {
+   "id": "what-s-in-the-inspection-report",
+   "label": "What's in the inspection report?"
+  },
+  {
+   "id": "how-does-the-quote-process-work-after-the-inspection",
+   "label": "How does the quote process work after the inspection?"
+  },
+  {
+   "id": "how-should-you-prepare-for-the-inspection",
+   "label": "How should you prepare for the inspection?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "what-questions-should-you-ask-during-the-inspection",
+   "label": "What questions should you ask during the inspection?"
+  },
+  {
+   "id": "frequently-asked-questions",
+   "label": "Frequently asked questions"
+  }
+ ],
+ "related": [
+  {
+   "slug": "questions-to-ask-pest-control-company",
+   "kind": "Hiring Guide",
+   "title": "15 Questions to Ask Before Hiring Pest Control"
+  },
+  {
+   "slug": "how-to-get-best-results-pest-control",
+   "kind": "Hiring Guide",
+   "title": "How to Get the Best Results From Pest Control"
+  },
+  {
+   "slug": "tips-for-booking-pest-control",
+   "kind": "Hiring Guide",
+   "title": "Tips for Booking a Pest Control Service"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "What to Expect During a Pest Inspection",
+   "description": "Learn what happens during a professional pest inspection, from arrival to report to quote, so you walk in knowing exactly what's next.",
+   "articleSection": "hiring-guide",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/what-to-expect-pest-inspection"
+   },
+   "url": "__DOMAIN__/guides/what-to-expect-pest-inspection",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "HowTo",
+   "name": "What Happens During a Pest Inspection",
+   "step": [
+    {
+     "@type": "HowToStep",
+     "name": "Arrival and walkthrough discussion",
+     "text": "The inspector arrives, asks what pest activity you've noticed, and explains the areas they plan to check."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Interior inspection",
+     "text": "The inspector checks kitchens, bathrooms, basements or crawlspaces, and attics for signs of pests, droppings, damage, and moisture."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Exterior inspection",
+     "text": "The inspector examines the foundation, siding, eaves, and yard perimeter for entry points and conducive conditions."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Report review",
+     "text": "The inspector shares a written report identifying findings, evidence, and conducive conditions, often with photos."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Quote and next steps",
+     "text": "You receive a written treatment quote with options and no obligation to decide immediately."
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is a pest inspection free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It depends on the company. Many offer a free general inspection as a way to quote treatment work. Specialized inspections — like a termite letter needed for a home sale — more often carry a fee. If you don't have an urgent problem, it's worth calling around, since a free inspection is a low-risk way to get a professional opinion."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need to be home during the inspection?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes, in most cases. The inspector will need access to interior areas like the kitchen, bathrooms, attic, and crawlspace, and it helps to be there to answer questions and point out problem areas."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Will the inspector treat the pest problem the same day?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Sometimes, but not always. Many companies separate inspection and treatment into two visits, especially for larger jobs like termite treatment, while simpler issues may be treated the same day."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What if the inspector finds termites?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You'll get a detailed report on the extent of damage and a treatment plan, which may involve a specialized termite company. Termite treatment often requires follow-up visits to confirm the colony is eliminated."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How often should I schedule a pest inspection?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "For most homes, an annual inspection is a reasonable baseline, with more frequent visits in high-risk termite areas or homes that have had recurring problems."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens if I decide not to move forward with treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Nothing. A legitimate company will give you the report and quote and let you decide on your own timeline, with no pressure to commit on the spot."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/what-to-expect-pest-inspection#faq"
+  }
+ ]
+}

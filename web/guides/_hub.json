@@ -1,0 +1,182 @@
+{
+ "title": "Pest Control Guides — National Pest Directory",
+ "description": "Practical guides for homeowners: what pest control costs, what needs a professional, and how to hire well.",
+ "h1": "Straight answers before you call a pest control company",
+ "dek": "Guides built from real outcomes — what a visit costs, what actually needs a professional, and how to avoid wasting an afternoon on the wrong call.",
+ "sections": [
+  {
+   "h2": "Start here",
+   "note": "Our original analysis of 18,941 homeowner calls to pest control companies.",
+   "cards": [
+    {
+     "slug": "pest-control-call-study",
+     "featured": true,
+     "kind": "Original Research",
+     "title": "What 18,941 Pest Control Calls Reveal",
+     "desc": "We analyzed 18,941 real calls from homeowners to pest control companies. What separates a call that gets an appointment from one that goes nowhere.",
+     "read_time": "11 min read"
+    }
+   ]
+  },
+  {
+   "h2": "Hiring &amp; what to expect",
+   "note": "Choosing a company, preparing for a visit, and knowing what's normal.",
+   "cards": [
+    {
+     "slug": "what-to-expect-pest-inspection",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "What to Expect During a Pest Inspection",
+     "desc": "Learn what happens during a professional pest inspection, from arrival to report to quote, so you walk in knowing exactly what&#x27;s next.",
+     "read_time": "8 min read"
+    },
+    {
+     "slug": "questions-to-ask-pest-control-company",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "15 Questions to Ask Before Hiring Pest Control",
+     "desc": "Use these 15 questions on licensing, insurance, guarantees, chemicals, and pricing to vet a pest control company before you hire one.",
+     "read_time": "7 min read"
+    },
+    {
+     "slug": "how-to-get-best-results-pest-control",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "How to Get the Best Results From Pest Control",
+     "desc": "Learn how to prep before, act during, and follow up after a pest control visit to get the best results and keep pests from coming back.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "tips-for-booking-pest-control",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Tips for Booking a Pest Control Service",
+     "desc": "Learn when to book pest control, how seasonal demand affects wait times, what info to have ready, and when to treat it as an emergency.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "pest-control-service-types-explained",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Pest Control Service Types Explained",
+     "desc": "Learn the difference between one-time, recurring, exclusion, and trapping pest control services—and which one actually fits your problem.",
+     "read_time": "7 min read"
+    },
+    {
+     "slug": "diy-vs-professional-pest-control",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "DIY vs Professional Pest Control: Honest Comparison",
+     "desc": "DIY vs professional pest control compared honestly—cost, effectiveness, and when store-bought products work versus when to call a pro.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "how-to-vet-pest-control-company",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "How to Vet a Pest Control Company Before Hiring",
+     "desc": "How to check a pest control company&#x27;s reviews, license, and insurance before hiring—including where to look up licenses in your state.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "pest-control-scams-red-flags",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Pest Control Scams and Red Flags to Watch For",
+     "desc": "Common pest control scams and red flags—scare tactics, unsolicited inspectors, and pressure contracts—and how to protect yourself before hiring.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "pest-control-contracts-explained",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Pest Control Contracts: Guarantees &amp; Cancellation",
+     "desc": "Understand pest control contracts before you sign — guarantees, cancellation terms, service windows, and what&#x27;s standard vs. a red flag.",
+     "read_time": "7 min read"
+    },
+    {
+     "slug": "first-pest-control-visit-guide",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Your First Pest Control Visit: What to Expect",
+     "desc": "What happens during your first pest control visit — how long it takes, safety for kids and pets, and whether you need to leave the house.",
+     "read_time": "7 min read"
+    },
+    {
+     "slug": "termite-inspection-what-happens",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Termite Inspection &amp; Treatment: What Happens",
+     "desc": "What happens during a termite inspection and treatment, and why acting fast matters — termites cause damage the longer they&#x27;re left alone.",
+     "read_time": "9 min read"
+    },
+    {
+     "slug": "pest-inspection-when-buying-home",
+     "featured": false,
+     "kind": "Hiring Guide",
+     "title": "Pest Inspections When Buying a Home: What to Know",
+     "desc": "Pest inspections when buying a home — what&#x27;s covered, who typically pays, and what the report means for your purchase. General info, not legal advice.",
+     "read_time": "7 min read"
+    }
+   ]
+  },
+  {
+   "h2": "What it costs",
+   "note": "Typical published industry ranges, what moves the price, and when paying a pro is worth it.",
+   "cards": [
+    {
+     "slug": "termite-treatment-cost",
+     "featured": false,
+     "kind": "Cost Guide",
+     "title": "Termite Treatment Cost: 2026 Price Guide",
+     "desc": "How much does termite treatment cost? See typical price ranges by treatment type and severity, what drives the price, and how to get a fair quote.",
+     "read_time": "7 min read"
+    },
+    {
+     "slug": "bed-bug-extermination-cost",
+     "featured": false,
+     "kind": "Cost Guide",
+     "title": "Bed Bug Extermination Cost: Heat vs. Chemical Guide",
+     "desc": "How much does bed bug extermination cost? Compare heat treatment vs. chemical treatment prices, per-room factors, and what to expect.",
+     "read_time": "7 min read"
+    },
+    {
+     "slug": "pest-control-cost",
+     "featured": false,
+     "kind": "Cost Guide",
+     "title": "Pest Control Cost: One-Time vs. Quarterly Plans",
+     "desc": "How much does pest control cost? Compare one-time visit prices vs. quarterly plans and see what actually drives your quote up or down.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "mice-exterminator-cost",
+     "featured": false,
+     "kind": "Cost Guide",
+     "title": "Mice &amp; Rat Exterminator Cost Guide",
+     "desc": "How much does a mice or rat exterminator cost? See prices for inspection, trapping, and exclusion work, plus what drives your quote.",
+     "read_time": "6 min read"
+    },
+    {
+     "slug": "wasp-nest-removal-cost",
+     "featured": false,
+     "kind": "Cost Guide",
+     "title": "Wasp &amp; Hornet Nest Removal Cost Guide",
+     "desc": "How much does wasp or hornet nest removal cost? See prices by nest location and type, plus what actually affects your quote.",
+     "read_time": "6 min read"
+    }
+   ]
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "CollectionPage",
+   "name": "National Pest Directory Guides",
+   "url": "__DOMAIN__/guides",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  }
+ ]
+}

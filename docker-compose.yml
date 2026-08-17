@@ -1,0 +1,32 @@
+# Local dev: `docker compose up` -> http://localhost:8080
+#
+# Source is bind-mounted, so edits to web/app.py, templates, and static assets
+# are picked up live (no rebuild). Rebuild only when requirements-web.txt
+# changes: `docker compose up --build`.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    volumes:
+      # The app resolves ROOT as the parent of web/, then adds scraper/ to
+      # sys.path and reads data/pestcontrol.db, so all three must be present.
+      - ./web:/app/web
+      - ./scraper:/app/scraper
+      - ./scripts:/app/scripts
+      # app.py opens the DB with mode=ro&immutable=1, so mounting it read-only
+      # matches how it's actually used and protects the local copy.
+      - ./data:/app/data:ro
+    environment:
+      # Absolute URLs in canonicals/sitemap/OG point at the container, so
+      # copy-pasting a sitemap URL in local testing actually resolves.
+      DOMAIN: http://localhost:8080
+      # Blank in dev: no ad requests, no analytics hits, no GSC token.
+      ADSENSE_CLIENT: ""
+      GA_ID: ""
+      GSC_VERIFICATION: ""
+    # Flask's reloader forwards SIGINT properly; this just avoids the 10s wait
+    # if it ever doesn't.
+    stop_grace_period: 3s

@@ -1,0 +1,131 @@
+{
+ "title": "Pest Control Cost: One-Time vs. Quarterly Plans",
+ "description": "How much does pest control cost? Compare one-time visit prices vs. quarterly plans and see what actually drives your quote up or down.",
+ "slug": "pest-control-cost",
+ "kind": "Cost Guide",
+ "h1": "Pest Control Cost: One-Time vs. Quarterly Plans",
+ "long_title": true,
+ "dek": "How much does pest control cost? Compare one-time visit prices vs. quarterly plans and see what actually drives your quote up or down.",
+ "read_time": "6 min",
+ "words": "1,367",
+ "answer": "Most homeowners pay $100–$260 for a one-time pest control visit, or $100–$150 per visit ($400–$600 a year) on a quarterly maintenance plan. Prices depend on the pest, home size, and whether you need a single fix or ongoing prevention.",
+ "toc": [
+  {
+   "id": "what-factors-affect-pest-control-cost",
+   "label": "What factors affect pest control cost?"
+  },
+  {
+   "id": "one-time-treatment-vs-quarterly-plan-which-costs-less",
+   "label": "One-time treatment vs. quarterly plan: which costs less?"
+  },
+  {
+   "id": "what-s-included-at-each-price-level",
+   "label": "What's included at each price level?"
+  },
+  {
+   "id": "is-it-worth-paying-for-a-pest-control-plan",
+   "label": "Is it worth paying for a pest control plan?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "mice-exterminator-cost",
+   "kind": "Cost Guide",
+   "title": "Mice &amp; Rat Exterminator Cost Guide"
+  },
+  {
+   "slug": "wasp-nest-removal-cost",
+   "kind": "Cost Guide",
+   "title": "Wasp &amp; Hornet Nest Removal Cost Guide"
+  },
+  {
+   "slug": "pest-control-call-study",
+   "kind": "Original Research",
+   "title": "What 18,941 Pest Control Calls Reveal"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Pest Control Cost: One-Time vs. Quarterly Plans",
+   "description": "How much does pest control cost? Compare one-time visit prices vs. quarterly plans and see what actually drives your quote up or down.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "about": "Pest control cost",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/pest-control-cost"
+   },
+   "url": "__DOMAIN__/guides/pest-control-cost",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much does pest control cost per month?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Monthly pest control plans typically cost $30–$50 a month, though this varies by home size, pest pressure, and region. Quarterly plans often work out cheaper per year for homes without heavy pest activity."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is a one-time pest treatment or a plan cheaper?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A one-time visit costs more upfront ($100–$260) but nothing after. A quarterly plan costs less per visit ($100–$150) but adds up over the year — usually $150–$400 total. Plans tend to be the better value if you've had more than one pest issue in the past year."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What's usually included in a standard pest control visit?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most standard visits include an inspection, exterior perimeter treatment, and targeted treatment of any visible pest activity, like ant trails or spider webs. Interior treatment, rodent stations, and specialty pests like termites or bed bugs are often separate."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do pest control companies require a contract?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Some plans require a minimum commitment (often one year), while others are month-to-month with no lock-in. Always ask about cancellation terms before signing."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why did my pest control quote seem so much higher than I expected?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Quotes can jump based on home size, severity of the problem, and whether interior treatment or specialty pests like termites, bed bugs, or rodents are involved. If a quote feels off, ask the company to break down exactly what's included."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I cancel a quarterly pest control plan anytime?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It depends on the company. Some plans are contract-free and cancel anytime, while others require notice or have an early termination fee. Always confirm this detail before you sign up."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/pest-control-cost#faq"
+  }
+ ]
+}

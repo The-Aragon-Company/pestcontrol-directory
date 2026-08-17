@@ -25,10 +25,11 @@ import db as dbmod  # noqa: E402  (schema + slugify live here)
 
 app = Flask(__name__)
 app.config["SITE_NAME"] = "National Pest Directory"
-# Canonical host for sitemap/canonicals/OG. Override with env DOMAIN when a
-# custom domain is attached (no trailing slash).
+# Canonical host for sitemap/canonicals/OG/JSON-LD. Override with env DOMAIN.
+# Stored without a trailing slash, since every use appends an absolute path —
+# rstrip so a DOMAIN set as ".../" can't produce "https://host//guides".
 app.config["DOMAIN"] = os.environ.get(
-    "DOMAIN", "https://pestcontrol-directory-sigma.vercel.app")
+    "DOMAIN", "https://nationalpestdirectory.com").rstrip("/")
 app.config["ADSENSE_CLIENT"] = os.environ.get("ADSENSE_CLIENT", "")  # ca-pub-XXXX
 app.config["GA_ID"] = os.environ.get("GA_ID", "")                    # G-XXXXXXXX
 # Google Search Console verification token (the string in the meta-tag method).
@@ -313,25 +314,61 @@ def categories():
     return render_template("categories.html", rows=rows)
 
 
+# Guides are hand-authored long-form content, imported by
+# scripts/import_guides.py into metadata (web/guides/<slug>.json) plus a prose
+# partial (templates/guides/<slug>.html) that guide.html renders on base.html.
+GUIDES_DIR = Path(__file__).resolve().parent / "guides"
+
+
+def _load_guides():
+    """{slug: metadata} for the articles, plus the hub. Read once at import —
+    this is deploy-time content, and the serverless filesystem is read-only."""
+    articles, hub = {}, None
+    for f in sorted(GUIDES_DIR.glob("*.json")):
+        data = json.loads(f.read_text(encoding="utf-8"))
+        if f.stem == "_hub":
+            hub = data
+        else:
+            articles[f.stem] = data
+    return articles, hub
+
+
+GUIDES, GUIDES_HUB = _load_guides()
+# Whitelist for <slug>, so a request can never reach an arbitrary template.
+GUIDE_SLUGS = frozenset(GUIDES)
+
+
+def _jsonld(nodes, path):
+    """Authored JSON-LD -> one @graph, with __DOMAIN__ resolved and a
+    BreadcrumbList (which the importer strips) rebuilt for this URL."""
+    base = app.config["DOMAIN"]
+    crumbs = [("Home", "/"), ("Guides", "/guides")]
+    if path != "/guides":
+        crumbs.append((GUIDES[path.rsplit("/", 1)[1]]["title"], path))
+    graph = list(nodes) + [{
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": i, "name": name,
+             "item": base + url}
+            for i, (name, url) in enumerate(crumbs, 1)],
+    }]
+    doc = {"@context": "https://schema.org", "@graph": graph}
+    return json.dumps(doc, ensure_ascii=False).replace("__DOMAIN__", base)
+
+
 @app.route("/guides")
 def guides():
-    rows = get_db().execute(
-        "SELECT slug, title, description, category FROM guides "
-        "ORDER BY title").fetchall()
-    return render_template("guides.html", rows=rows)
+    return render_template("guides.html", hub=GUIDES_HUB,
+                           jsonld=_jsonld(GUIDES_HUB["jsonld"], "/guides"))
 
 
 @app.route("/guides/<slug>")
 def guide(slug):
-    row = get_db().execute(
-        "SELECT * FROM guides WHERE slug = ?", (slug,)).fetchone()
-    if not row:
+    if slug not in GUIDE_SLUGS:
         abort(404)
-    body = json.loads(row["body"]) if row["body"] else {}
-    others = get_db().execute(
-        "SELECT slug, title FROM guides WHERE slug != ? ORDER BY RANDOM() LIMIT 6",
-        (slug,)).fetchall()
-    return render_template("guide.html", g=row, body=body, others=others)
+    g_ = GUIDES[slug]
+    return render_template("guide.html", guide=g_,
+                           jsonld=_jsonld(g_["jsonld"], f"/guides/{slug}"))
 
 
 # abbrev + full-name -> 2-letter code, for parsing "City, State" input.
@@ -415,8 +452,8 @@ def sitemap():
                        f"WHERE category IS NOT NULL AND {LIVE}"):
         urls.append((f"{base}/category/{slugify(r['category'])}", "0.8", "weekly"))
     urls.append((base + "/guides", "0.7", "weekly"))
-    for r in d.execute("SELECT slug FROM guides"):
-        urls.append((f"{base}/guides/{r['slug']}", "0.7", "monthly"))
+    for slug in sorted(GUIDE_SLUGS):
+        urls.append((f"{base}/guides/{slug}", "0.7", "monthly"))
     for r in d.execute(f"SELECT DISTINCT state FROM listings WHERE {LIVE}"):
         urls.append((f"{base}/state/{r['state'].lower()}", "0.7", "weekly"))
     for r in d.execute(f"SELECT DISTINCT city, state FROM listings WHERE {LIVE}"):

@@ -1,0 +1,131 @@
+{
+ "title": "Mice & Rat Exterminator Cost Guide",
+ "description": "How much does a mice or rat exterminator cost? See prices for inspection, trapping, and exclusion work, plus what drives your quote.",
+ "slug": "mice-exterminator-cost",
+ "kind": "Cost Guide",
+ "h1": "Mice &amp; Rat Exterminator Cost Guide",
+ "long_title": false,
+ "dek": "How much does a mice or rat exterminator cost? See prices for inspection, trapping, and exclusion work, plus what drives your quote.",
+ "read_time": "6 min",
+ "words": "1,386",
+ "answer": "Most homeowners pay $150–$500 for mice or rat extermination, covering an inspection plus trapping and initial removal, with published industry averages around $395. Exclusion work — sealing up the entry points rodents are using — is usually quoted separately and adds $500–$3,000, depending on how many gaps, vents, or holes need repair.",
+ "toc": [
+  {
+   "id": "what-factors-affect-mice-and-rat-exterminator-cost",
+   "label": "What factors affect mice and rat exterminator cost?"
+  },
+  {
+   "id": "how-much-does-each-part-of-rodent-control-cost",
+   "label": "How much does each part of rodent control cost?"
+  },
+  {
+   "id": "what-s-included-at-each-price-level",
+   "label": "What's included at each price level?"
+  },
+  {
+   "id": "is-it-worth-paying-a-pro-for-mice-or-rats",
+   "label": "Is it worth paying a pro for mice or rats?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "wasp-nest-removal-cost",
+   "kind": "Cost Guide",
+   "title": "Wasp &amp; Hornet Nest Removal Cost Guide"
+  },
+  {
+   "slug": "pest-control-call-study",
+   "kind": "Original Research",
+   "title": "What 18,941 Pest Control Calls Reveal"
+  },
+  {
+   "slug": "what-to-expect-pest-inspection",
+   "kind": "Hiring Guide",
+   "title": "What to Expect During a Pest Inspection"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Mice & Rat Exterminator Cost Guide",
+   "description": "How much does a mice or rat exterminator cost? See prices for inspection, trapping, and exclusion work, plus what drives your quote.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "about": "Mice and rat exterminator cost",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/mice-exterminator-cost"
+   },
+   "url": "__DOMAIN__/guides/mice-exterminator-cost",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much does it cost to get rid of mice in a house?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most homeowners pay $150–$500 for inspection and trapping to clear a mouse infestation. If exclusion work is needed, total cost often rises to $300–$1,500 depending on how many gaps need repair."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is rat extermination more expensive than mice extermination?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Generally, yes. Rats are larger, more trap-shy, and often require more extensive exclusion work, which can push the total cost higher than a comparable mouse job."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need exclusion work, or is trapping enough?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Trapping alone removes the rodents currently inside, but if entry points aren't sealed, new rodents typically get in within weeks or months. Exclusion work is what actually prevents the problem from repeating."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many visits does it take to get rid of mice?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most light-to-moderate infestations clear up in 2–4 visits over a few weeks. Larger infestations or those involving rats may take longer, especially if exclusion repairs are also needed."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I do rodent exclusion myself to save money?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Simple, obvious gaps can sometimes be sealed with basic materials, but finding every entry point takes a trained eye. Missing even one gap often means the infestation returns, costing you more in the long run."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does pest control cover damage caused by rodents, like chewed wiring?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No — pest control companies remove the rodents and seal entry points, but they typically don't cover or repair damage like chewed wires or insulation. That's usually a separate contractor. Insurance often won't help either: standard HO-3 homeowners policies typically exclude vermin and rodent damage, usually grouping mice, rats, squirrels, raccoons, and bats together. There's a limited exception — if rodent activity causes a covered secondary peril, like a fire from chewed wiring, the fire damage may be covered even though the chewed wiring isn't. Coverage varies by policy and insurer, so check your own policy."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/mice-exterminator-cost#faq"
+  }
+ ]
+}

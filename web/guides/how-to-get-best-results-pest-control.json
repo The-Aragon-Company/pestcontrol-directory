@@ -1,0 +1,165 @@
+{
+ "title": "How to Get the Best Results From Pest Control",
+ "description": "Learn how to prep before, act during, and follow up after a pest control visit to get the best results and keep pests from coming back.",
+ "slug": "how-to-get-best-results-pest-control",
+ "kind": "Hiring Guide",
+ "h1": "How to Get the Best Results From Pest Control",
+ "long_title": true,
+ "dek": "Learn how to prep before, act during, and follow up after a pest control visit to get the best results and keep pests from coming back.",
+ "read_time": "6 min",
+ "words": "1,417",
+ "answer": "To get the best results from professional pest control, clean and declutter treated areas before the visit, follow the technician's prep instructions exactly (like clearing cabinets or vacating rooms), stay out of treated areas for the recommended time, and keep every scheduled follow-up visit. Make sure the property owner can approve the work, too — in our analysis of 18,941 homeowner calls, callers who confirmed they owned the home were about three times more likely to get an appointment scheduled (36.0%) than callers where ownership never came up (11.6%). Most treatments work in stages, and skipping steps is the top reason pests come back.",
+ "toc": [
+  {
+   "id": "why-does-prep-matter-so-much",
+   "label": "Why does prep matter so much?"
+  },
+  {
+   "id": "what-should-you-do-before-the-technician-arrives",
+   "label": "What should you do before the technician arrives?"
+  },
+  {
+   "id": "what-should-you-do-during-the-visit",
+   "label": "What should you do during the visit?"
+  },
+  {
+   "id": "what-should-you-do-right-after-treatment",
+   "label": "What should you do right after treatment?"
+  },
+  {
+   "id": "why-do-follow-up-visits-matter",
+   "label": "Why do follow-up visits matter?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "how-do-you-know-if-the-treatment-is-actually-working",
+   "label": "How do you know if the treatment is actually working?"
+  },
+  {
+   "id": "frequently-asked-questions",
+   "label": "Frequently asked questions"
+  }
+ ],
+ "related": [
+  {
+   "slug": "tips-for-booking-pest-control",
+   "kind": "Hiring Guide",
+   "title": "Tips for Booking a Pest Control Service"
+  },
+  {
+   "slug": "pest-control-service-types-explained",
+   "kind": "Hiring Guide",
+   "title": "Pest Control Service Types Explained"
+  },
+  {
+   "slug": "diy-vs-professional-pest-control",
+   "kind": "Hiring Guide",
+   "title": "DIY vs Professional Pest Control: Honest Comparison"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "How to Get the Best Results From Pest Control",
+   "description": "Learn how to prep before, act during, and follow up after a pest control visit to get the best results and keep pests from coming back.",
+   "articleSection": "hiring-guide",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/how-to-get-best-results-pest-control"
+   },
+   "url": "__DOMAIN__/guides/how-to-get-best-results-pest-control",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "HowTo",
+   "name": "How to Get the Best Results From a Pest Control Treatment",
+   "step": [
+    {
+     "@type": "HowToStep",
+     "name": "Prepare before the visit",
+     "text": "Clear cabinets, vacuum floors, move furniture from walls, and secure pets and food based on your technician's instructions. Make sure the property owner is available to approve the work, since treatment can't proceed without the owner's go-ahead."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Cooperate during the visit",
+     "text": "Point out where you've seen activity, ask about reentry times, and stay out of treated areas until cleared."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Follow after-care instructions",
+     "text": "Avoid cleaning treated surfaces immediately and monitor for continued activity over the following days."
+    },
+    {
+     "@type": "HowToStep",
+     "name": "Attend all follow-up visits",
+     "text": "Keep every scheduled follow-up, since many pests require multiple treatments to fully resolve."
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How long after pest control treatment can I clean my house?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "This depends on the product and area treated, so ask your technician directly. As a general rule, avoid mopping or wiping treated baseboards for at least a few days, but cleaning untreated areas is usually fine right away."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why am I still seeing bugs after pest control treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Some die-off happens gradually as pests contact the treatment, so seeing a few after the visit isn't unusual. If activity hasn't decreased after the window your technician gave you, call the company back."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need to leave the house during pest control treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Usually not for standard treatments, though you may need to stay out of specific treated rooms for a set time. Some severe infestation treatments do require leaving the property temporarily."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many pest control visits does it usually take to solve a problem?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It depends on the pest. A general ant or roach issue might resolve in one or two visits, while termites, bed bugs, and some rodent problems commonly require a series of visits over weeks or months."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it my fault if pests come back after treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not necessarily. Some pests are naturally harder to eliminate in one round, and outdoor conditions can reintroduce pests regardless of your effort, though skipping prep or follow-ups does reduce effectiveness."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Should I keep doing my own DIY treatments alongside professional service?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ask your technician first. Some DIY sprays and repellents can interfere with professional-grade products or make pests avoid a treated area instead of contacting it."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/how-to-get-best-results-pest-control#faq"
+  }
+ ]
+}

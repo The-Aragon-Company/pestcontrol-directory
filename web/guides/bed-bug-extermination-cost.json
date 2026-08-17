@@ -1,0 +1,131 @@
+{
+ "title": "Bed Bug Extermination Cost: Heat vs. Chemical Guide",
+ "description": "How much does bed bug extermination cost? Compare heat treatment vs. chemical treatment prices, per-room factors, and what to expect.",
+ "slug": "bed-bug-extermination-cost",
+ "kind": "Cost Guide",
+ "h1": "Bed Bug Extermination Cost: Heat vs. Chemical Guide",
+ "long_title": true,
+ "dek": "How much does bed bug extermination cost? Compare heat treatment vs. chemical treatment prices, per-room factors, and what to expect.",
+ "read_time": "7 min",
+ "words": "1,469",
+ "answer": "Most homeowners pay between $300 and $1,500 to get rid of bed bugs, depending on treatment type and how many rooms are affected. Chemical treatments typically run $270–$775 per room and need two to four visits, while heat treatments run $400–$900 per room but often solve the problem in a single visit.",
+ "toc": [
+  {
+   "id": "what-factors-affect-bed-bug-extermination-cost",
+   "label": "What factors affect bed bug extermination cost?"
+  },
+  {
+   "id": "heat-treatment-vs-chemical-treatment-cost",
+   "label": "Heat treatment vs. chemical treatment cost"
+  },
+  {
+   "id": "what-s-included-at-each-price-level",
+   "label": "What's included at each price level?"
+  },
+  {
+   "id": "is-it-worth-paying-a-pro-for-bed-bugs",
+   "label": "Is it worth paying a pro for bed bugs?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "faq",
+   "label": "FAQ"
+  }
+ ],
+ "related": [
+  {
+   "slug": "pest-control-cost",
+   "kind": "Cost Guide",
+   "title": "Pest Control Cost: One-Time vs. Quarterly Plans"
+  },
+  {
+   "slug": "mice-exterminator-cost",
+   "kind": "Cost Guide",
+   "title": "Mice &amp; Rat Exterminator Cost Guide"
+  },
+  {
+   "slug": "wasp-nest-removal-cost",
+   "kind": "Cost Guide",
+   "title": "Wasp &amp; Hornet Nest Removal Cost Guide"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "Bed Bug Extermination Cost: Heat vs. Chemical Guide",
+   "description": "How much does bed bug extermination cost? Compare heat treatment vs. chemical treatment prices, per-room factors, and what to expect.",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "about": "Bed bug extermination cost",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/bed-bug-extermination-cost"
+   },
+   "url": "__DOMAIN__/guides/bed-bug-extermination-cost",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How much does it cost to treat one room for bed bugs?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A single room chemical treatment typically costs $100–$400 per visit, though most rooms need 2–3 visits. Heat treatment for one room usually runs $250–$450, but is often more effective in a single visit."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is heat treatment better than chemical treatment for bed bugs?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Heat treatment tends to be more thorough since it reaches every hiding spot in a room, including eggs, in one visit. Chemical treatment costs less per visit but usually requires multiple rounds to fully break the breeding cycle."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why is bed bug extermination so expensive?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Bed bugs hide deep in furniture, seams, and wall voids, so treatment requires specialized equipment or multiple precise chemical applications. The multi-visit process and thorough prep work both add to labor cost compared to simpler pest jobs."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I have to throw away my mattress if I have bed bugs?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You usually don't have to throw out your mattress. Many pros treat mattresses directly or use encasements, which is typically cheaper than replacing it. Ask your technician what they recommend before you buy anything new."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Will my landlord pay for bed bug treatment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "In many states, landlords are responsible for bed bug treatment in rental units, especially in multi-unit buildings where bugs can spread between apartments. Check your local tenant laws or lease agreement to confirm your specific situation."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many treatments does it usually take to get rid of bed bugs?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Chemical treatment plans typically involve 2–3 visits over 4–6 weeks to catch newly hatched eggs. Heat treatment often resolves the infestation in a single visit, though a follow-up inspection is still a good idea."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/bed-bug-extermination-cost#faq"
+  }
+ ]
+}

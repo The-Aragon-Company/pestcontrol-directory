@@ -1,0 +1,147 @@
+{
+ "title": "15 Questions to Ask Before Hiring Pest Control",
+ "description": "Use these 15 questions on licensing, insurance, guarantees, chemicals, and pricing to vet a pest control company before you hire one.",
+ "slug": "questions-to-ask-pest-control-company",
+ "kind": "Hiring Guide",
+ "h1": "15 Questions to Ask Before Hiring Pest Control",
+ "long_title": true,
+ "dek": "Use these 15 questions on licensing, insurance, guarantees, chemicals, and pricing to vet a pest control company before you hire one.",
+ "read_time": "7 min",
+ "words": "1,519",
+ "answer": "Before hiring a pest control company, ask about their state license number, proof of insurance, what's covered under their guarantee, exactly which products they plan to use, and how their pricing works (one-time vs. contract). Start by confirming they actually handle your specific pest — in our analysis of 18,941 homeowner calls, roughly 1 in 10 to 1 in 5 people with a wildlife, termite, bed bug, or wasp problem reached a company that doesn't do that work at all. A company that answers clearly and in writing is one you can trust; hesitation or vague answers are a warning sign.",
+ "toc": [
+  {
+   "id": "ask-this-before-all-15-do-you-handle-my-pest",
+   "label": "Ask this before all 15: do you handle my pest?"
+  },
+  {
+   "id": "is-the-company-properly-licensed",
+   "label": "Is the company properly licensed?"
+  },
+  {
+   "id": "is-the-company-insured",
+   "label": "Is the company insured?"
+  },
+  {
+   "id": "what-does-the-guarantee-actually-cover",
+   "label": "What does the guarantee actually cover?"
+  },
+  {
+   "id": "what-chemicals-and-methods-will-they-use",
+   "label": "What chemicals and methods will they use?"
+  },
+  {
+   "id": "how-does-pricing-work",
+   "label": "How does pricing work?"
+  },
+  {
+   "id": "what-should-you-ask-about-the-process-itself",
+   "label": "What should you ask about the process itself?"
+  },
+  {
+   "id": "when-to-call-a-professional",
+   "label": "When to call a professional"
+  },
+  {
+   "id": "how-do-you-know-if-a-company-is-legit-before-you-even-call",
+   "label": "How do you know if a company is legit before you even call?"
+  },
+  {
+   "id": "frequently-asked-questions",
+   "label": "Frequently asked questions"
+  }
+ ],
+ "related": [
+  {
+   "slug": "how-to-get-best-results-pest-control",
+   "kind": "Hiring Guide",
+   "title": "How to Get the Best Results From Pest Control"
+  },
+  {
+   "slug": "tips-for-booking-pest-control",
+   "kind": "Hiring Guide",
+   "title": "Tips for Booking a Pest Control Service"
+  },
+  {
+   "slug": "pest-control-service-types-explained",
+   "kind": "Hiring Guide",
+   "title": "Pest Control Service Types Explained"
+  }
+ ],
+ "jsonld": [
+  {
+   "@type": "Article",
+   "headline": "15 Questions to Ask Before Hiring Pest Control",
+   "description": "Use these 15 questions on licensing, insurance, guarantees, chemicals, and pricing to vet a pest control company before you hire one.",
+   "articleSection": "hiring-guide",
+   "author": {
+    "@type": "Organization",
+    "name": "National Pest Directory"
+   },
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "__DOMAIN__/guides/questions-to-ask-pest-control-company"
+   },
+   "url": "__DOMAIN__/guides/questions-to-ask-pest-control-company",
+   "publisher": {
+    "@type": "Organization",
+    "name": "National Pest Directory",
+    "telephone": "+1-866-338-0533"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How do I verify a pest control company's license?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most states have an online lookup tool through their department of agriculture, pesticide regulatory agency, or professional licensing board where you can confirm the license number a company gave you is active."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What's a reasonable guarantee period for pest control?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "This varies by pest and company, so it's worth asking directly rather than assuming. Get the guarantee terms in writing, including which pests and situations are covered."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Should I be worried if a company won't put their quote in writing?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. A written quote is standard practice and protects both you and the company. If a technician resists giving you anything on paper, get a second quote elsewhere."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do I need to sign a long-term contract for pest control?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not necessarily. Many pest problems can be handled with a one-time treatment, while others benefit from a recurring service plan. Ask about both options before choosing."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is it normal for a technician not to know exactly what chemical they're using?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. A trained technician should be able to tell you the general product type and whether it's EPA-registered, even without memorizing the exact formulation."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What if I ask these questions and the company gets defensive?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "That reaction is useful information on its own. A professional, licensed company is used to answering these questions and shouldn't be bothered by a homeowner doing due diligence."
+     }
+    }
+   ],
+   "@id": "__DOMAIN__/guides/questions-to-ask-pest-control-company#faq"
+  }
+ ]
+}
