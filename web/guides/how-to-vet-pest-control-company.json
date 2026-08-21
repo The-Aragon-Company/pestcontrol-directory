@@ -8,6 +8,7 @@
  "dek": "How to check a pest control company&#x27;s reviews, license, and insurance before hiring—including where to look up licenses in your state.",
  "read_time": "6 min",
  "words": "1,454",
+ "author": "Nick Davies",
  "answer": "Before hiring a pest control company, check four things: that they actually handle your specific pest, an active state pesticide applicator license (verifiable through your state's pesticide regulatory agency), current general liability insurance, and recent reviews that mention the specific service you need. In our analysis of 18,941 calls from homeowners to pest control companies, 19.3% of people calling about wildlife — and roughly 1 in 10 calling about termites, bed bugs, or wasps — reached a company that doesn't do that type of work at all. A legitimate company will give you license and insurance details without hesitation.",
  "toc": [
   {
@@ -76,8 +77,8 @@
    "articleSection": "hiring-guide",
    "about": "Vetting pest control companies",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",

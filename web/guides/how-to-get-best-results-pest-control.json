@@ -8,6 +8,7 @@
  "dek": "Learn how to prep before, act during, and follow up after a pest control visit to get the best results and keep pests from coming back.",
  "read_time": "6 min",
  "words": "1,417",
+ "author": "Nick Davies",
  "answer": "To get the best results from professional pest control, clean and declutter treated areas before the visit, follow the technician's prep instructions exactly (like clearing cabinets or vacating rooms), stay out of treated areas for the recommended time, and keep every scheduled follow-up visit. Make sure the property owner can approve the work, too — in our analysis of 18,941 homeowner calls, callers who confirmed they owned the home were about three times more likely to get an appointment scheduled (36.0%) than callers where ownership never came up (11.6%). Most treatments work in stages, and skipping steps is the top reason pests come back.",
  "toc": [
   {
@@ -67,8 +68,8 @@
    "description": "Learn how to prep before, act during, and follow up after a pest control visit to get the best results and keep pests from coming back.",
    "articleSection": "hiring-guide",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",

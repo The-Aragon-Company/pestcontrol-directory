@@ -8,6 +8,7 @@
  "dek": "We analyzed 18,941 real calls from homeowners to pest control companies. What separates a call that gets an appointment from one that goes nowhere.",
  "read_time": "11 min",
  "words": "2,474",
+ "author": "Nick Davies",
  "answer": "We analyzed 18,941 calls from homeowners to pest control companies between January and July 2026. Across the 7,799 calls where we could identify the pest and see the outcome, 24.6% ended with an appointment being scheduled. The three things that mattered most weren't price or location — they were whether the caller owned the property, whether they could name their pest, and whether the company actually handled that kind of work.",
  "toc": [
   {
@@ -80,8 +81,8 @@
    "articleSection": "Research Study",
    "keywords": "pest control call data study, pest control statistics, pest control appointment rate, pest control industry data",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "publisher": {
     "@type": "Organization",

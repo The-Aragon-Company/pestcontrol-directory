@@ -8,6 +8,7 @@
  "dek": "How much does a mice or rat exterminator cost? See prices for inspection, trapping, and exclusion work, plus what drives your quote.",
  "read_time": "6 min",
  "words": "1,386",
+ "author": "Nick Davies",
  "answer": "Most homeowners pay $150–$500 for mice or rat extermination, covering an inspection plus trapping and initial removal, with published industry averages around $395. Exclusion work — sealing up the entry points rodents are using — is usually quoted separately and adds $500–$3,000, depending on how many gaps, vents, or holes need repair.",
  "toc": [
   {
@@ -58,8 +59,8 @@
    "headline": "Mice & Rat Exterminator Cost Guide",
    "description": "How much does a mice or rat exterminator cost? See prices for inspection, trapping, and exclusion work, plus what drives your quote.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "about": "Mice and rat exterminator cost",
    "mainEntityOfPage": {

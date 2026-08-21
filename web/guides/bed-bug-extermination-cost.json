@@ -8,6 +8,7 @@
  "dek": "How much does bed bug extermination cost? Compare heat treatment vs. chemical treatment prices, per-room factors, and what to expect.",
  "read_time": "7 min",
  "words": "1,469",
+ "author": "Nick Davies",
  "answer": "Most homeowners pay between $300 and $1,500 to get rid of bed bugs, depending on treatment type and how many rooms are affected. Chemical treatments typically run $270–$775 per room and need two to four visits, while heat treatments run $400–$900 per room but often solve the problem in a single visit.",
  "toc": [
   {
@@ -58,8 +59,8 @@
    "headline": "Bed Bug Extermination Cost: Heat vs. Chemical Guide",
    "description": "How much does bed bug extermination cost? Compare heat treatment vs. chemical treatment prices, per-room factors, and what to expect.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "about": "Bed bug extermination cost",
    "mainEntityOfPage": {

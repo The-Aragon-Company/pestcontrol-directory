@@ -37,6 +37,9 @@ DEST = WEB / "guides"                      # metadata (JSON)
 PROSE = WEB / "templates" / "guides"       # prose partials (Jinja)
 
 AUTHORED_HOST = "https://nationalpestdirectory.com"
+# Byline the template prints and the Article JSON-LD credits; the authored
+# files carry no author of their own.
+AUTHOR = "Nick Davies"
 # What the authored CTAs hardcode, swapped for the app's CTA_PHONE config.
 AUTHORED_TEL = "+18663380533"
 AUTHORED_TEL_DISPLAY = "(866) 338-0533"
@@ -77,6 +80,8 @@ def _jsonld(html, src):
             if node.get("@type") == "BreadcrumbList":
                 continue      # template emits this, with the real DOMAIN
             node.pop("@context", None)
+            if node.get("@type") == "Article":
+                node["author"] = {"@type": "Person", "name": AUTHOR}
             out.append(node)
     return json.loads(json.dumps(out).replace(AUTHORED_HOST, "__DOMAIN__"))
 
@@ -122,6 +127,7 @@ def guide(src):
         "dek": _one(r'<p class="dek">(.*?)</p>', html, "dek", src),
         "read_time": _one(r"<b>(.*?)</b>", meta, "read time", src),
         "words": _one(r"<span>([\d,]+) words</span>", meta, "word count", src),
+        "author": AUTHOR,
         "answer": _one(r'<div class="answer">.*?<p>(.*?)</p>', html,
                        "answer box", src),
         # h2s carry ids already; regenerating beats hand-maintaining the nav

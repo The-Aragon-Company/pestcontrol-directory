@@ -8,6 +8,7 @@
  "dek": "Learn what happens during a professional pest inspection, from arrival to report to quote, so you walk in knowing exactly what&#x27;s next.",
  "read_time": "8 min",
  "words": "1,719",
+ "author": "Nick Davies",
  "answer": "A professional pest inspection usually takes 30 to 90 minutes. The inspector walks your property inside and out, checking common trouble spots like kitchens, bathrooms, attics, basements, and the foundation for live pests, droppings, damage, and moisture problems. You'll get a written report of what they found and a treatment quote before they leave — no pressure to decide on the spot.",
  "toc": [
   {
@@ -75,8 +76,8 @@
    "description": "Learn what happens during a professional pest inspection, from arrival to report to quote, so you walk in knowing exactly what's next.",
    "articleSection": "hiring-guide",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",

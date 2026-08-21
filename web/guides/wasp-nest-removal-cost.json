@@ -8,6 +8,7 @@
  "dek": "How much does wasp or hornet nest removal cost? See prices by nest location and type, plus what actually affects your quote.",
  "read_time": "6 min",
  "words": "1,430",
+ "author": "Nick Davies",
  "answer": "Most homeowners pay $300–$700 to remove a wasp or hornet nest, with published industry averages around $525. Small, easy-to-reach exterior nests can run as low as $100–$200, while yellowjacket nests concealed underground or inside walls often reach $500–$1,200 because of the extra access work and labor involved.",
  "toc": [
   {
@@ -58,8 +59,8 @@
    "headline": "Wasp & Hornet Nest Removal Cost Guide",
    "description": "How much does wasp or hornet nest removal cost? See prices by nest location and type, plus what actually affects your quote.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "about": "Wasp and hornet nest removal cost",
    "mainEntityOfPage": {

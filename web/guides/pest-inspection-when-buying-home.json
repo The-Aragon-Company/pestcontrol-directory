@@ -8,6 +8,7 @@
  "dek": "Pest inspections when buying a home — what&#x27;s covered, who typically pays, and what the report means for your purchase. General info, not legal advice.",
  "read_time": "7 min",
  "words": "1,635",
+ "author": "Nick Davies",
  "answer": "A pest inspection for a home purchase (often called a wood-destroying insect or organism report) checks for termites, wood-boring beetles, carpenter ants, and existing damage before closing. Who pays varies by state, loan type, and negotiation between buyer and seller. The report itself doesn't approve or deny a sale — it gives you facts to negotiate repairs, request treatment, or walk away.",
  "toc": [
   {
@@ -66,8 +67,8 @@
    "headline": "Pest Inspections When Buying a Home: What's Covered, Who Pays, and What the Report Means",
    "description": "Pest inspections when buying a home — what's covered, who typically pays, and what the report means for your purchase. General info, not legal advice.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "publisher": {
     "@type": "Organization",
