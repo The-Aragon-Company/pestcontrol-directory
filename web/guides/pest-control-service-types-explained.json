@@ -8,6 +8,7 @@
  "dek": "Learn the difference between one-time, recurring, exclusion, and trapping pest control services—and which one actually fits your problem.",
  "read_time": "7 min",
  "words": "1,508",
+ "author": "Nick Davies",
  "answer": "Pest control services generally fall into four categories: one-time treatments for a single, isolated problem; recurring (scheduled) plans for ongoing prevention; exclusion work that seals up entry points; and trapping for rodents or wildlife that need live capture. Which one you need depends on the pest, how bad the problem is, and whether it keeps coming back.",
  "toc": [
   {
@@ -72,8 +73,8 @@
    "articleSection": "hiring-guide",
    "about": "Types of pest control services",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",

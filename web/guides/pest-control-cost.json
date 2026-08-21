@@ -8,6 +8,7 @@
  "dek": "How much does pest control cost? Compare one-time visit prices vs. quarterly plans and see what actually drives your quote up or down.",
  "read_time": "6 min",
  "words": "1,367",
+ "author": "Nick Davies",
  "answer": "Most homeowners pay $100–$260 for a one-time pest control visit, or $100–$150 per visit ($400–$600 a year) on a quarterly maintenance plan. Prices depend on the pest, home size, and whether you need a single fix or ongoing prevention.",
  "toc": [
   {
@@ -58,8 +59,8 @@
    "headline": "Pest Control Cost: One-Time vs. Quarterly Plans",
    "description": "How much does pest control cost? Compare one-time visit prices vs. quarterly plans and see what actually drives your quote up or down.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "about": "Pest control cost",
    "mainEntityOfPage": {

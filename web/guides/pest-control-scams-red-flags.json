@@ -8,6 +8,7 @@
  "dek": "Common pest control scams and red flags—scare tactics, unsolicited inspectors, and pressure contracts—and how to protect yourself before hiring.",
  "read_time": "6 min",
  "words": "1,359",
+ "author": "Nick Davies",
  "answer": "Common pest control scams include unsolicited door-to-door \"inspectors\" pushing urgent repairs, scare tactics that exaggerate a minor problem into an emergency, and high-pressure sales for long-term contracts you can't easily cancel. Protect yourself by never signing on the spot, always verifying licenses independently, and getting a second opinion before agreeing to expensive work.",
  "toc": [
   {
@@ -68,8 +69,8 @@
    "articleSection": "hiring-guide",
    "about": "Pest control scams and red flags",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",

@@ -8,6 +8,7 @@
  "dek": "How much does termite treatment cost? See typical price ranges by treatment type and severity, what drives the price, and how to get a fair quote.",
  "read_time": "7 min",
  "words": "1,475",
+ "author": "Nick Davies",
  "answer": "Most homeowners pay between $275 and $1,600 for termite treatment, with published industry averages landing around $750 for a standard home. Spot treatments can run as low as $250–$500, while whole-house fumigation (tenting) for a serious infestation typically runs $2,000–$8,000 depending on home size and severity.",
  "toc": [
   {
@@ -58,8 +59,8 @@
    "headline": "Termite Treatment Cost: 2026 Price Guide",
    "description": "How much does termite treatment cost? See typical price ranges by treatment type and severity, what drives the price, and how to get a fair quote.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "about": "Termite treatment cost",
    "mainEntityOfPage": {

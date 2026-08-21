@@ -8,6 +8,7 @@
  "dek": "Learn when to book pest control, how seasonal demand affects wait times, what info to have ready, and when to treat it as an emergency.",
  "read_time": "6 min",
  "words": "1,457",
+ "author": "Nick Davies",
  "answer": "Book pest control as soon as you notice a problem rather than waiting for it to get worse — most pests multiply quickly. Spring and summer are peak demand seasons with longer wait times, so book early if you can. Have your address, the pest you've seen, and how long it's been going on ready when you call, and treat stinging insects, active termite swarms, or severe infestations as same-day emergencies.",
  "toc": [
   {
@@ -67,8 +68,8 @@
    "description": "Learn when to book pest control, how seasonal demand affects wait times, what info to have ready, and when to treat it as an emergency.",
    "articleSection": "hiring-guide",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",

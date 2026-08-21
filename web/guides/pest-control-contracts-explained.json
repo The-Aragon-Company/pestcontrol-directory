@@ -8,6 +8,7 @@
  "dek": "Understand pest control contracts before you sign — guarantees, cancellation terms, service windows, and what&#x27;s standard vs. a red flag.",
  "read_time": "7 min",
  "words": "1,578",
+ "author": "Nick Davies",
  "answer": "Most pest control contracts include a service guarantee (free re-treatments if pests return between visits), a defined service window (monthly, quarterly, or one-time), and a cancellation clause — often requiring 30 days' written notice. Read the guarantee terms and cancellation policy closely before signing, since these vary more between companies than the price does.",
  "toc": [
   {
@@ -70,8 +71,8 @@
    "headline": "Pest Control Contracts Explained: Guarantees, Cancellation Terms, and What's Standard",
    "description": "Understand pest control contracts before you sign — guarantees, cancellation terms, service windows, and what's standard vs. a red flag.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "publisher": {
     "@type": "Organization",

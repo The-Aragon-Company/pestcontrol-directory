@@ -8,6 +8,7 @@
  "dek": "What happens during your first pest control visit — how long it takes, safety for kids and pets, and whether you need to leave the house.",
  "read_time": "7 min",
  "words": "1,575",
+ "author": "Nick Davies",
  "answer": "A first pest control visit usually takes 30–60 minutes for a general inspection and treatment, longer for larger homes or specific problems like termites or bed bugs. Most treatments are safe for kids and pets once dry (often 1–2 hours), and you typically don't need to leave the house — though the technician may ask you to clear certain areas first. If you rent, loop in your landlord or property manager before you book, since they usually have to authorize treatment.",
  "toc": [
   {
@@ -70,8 +71,8 @@
    "headline": "Your First Pest Control Visit: How Long It Takes, Safety for Kids and Pets, and Whether You Need to Leave",
    "description": "What happens during your first pest control visit — how long it takes, safety for kids and pets, and whether you need to leave the house.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "publisher": {
     "@type": "Organization",

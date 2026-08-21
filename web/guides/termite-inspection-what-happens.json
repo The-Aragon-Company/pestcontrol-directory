@@ -8,6 +8,7 @@
  "dek": "What happens during a termite inspection and treatment, and why acting fast matters — termites cause damage the longer they&#x27;re left alone.",
  "read_time": "9 min",
  "words": "1,962",
+ "author": "Nick Davies",
  "answer": "A termite inspection involves a licensed technician checking your home's interior, exterior, crawl space, attic, and foundation for mud tubes, damaged wood, and live termites, usually taking 45–90 minutes. If termites are found, treatment (liquid soil treatment or bait stations) typically follows within days — termites cause ongoing structural damage, so speed matters more than with most other pests.",
  "toc": [
   {
@@ -66,8 +67,8 @@
    "headline": "What Happens During a Termite Inspection and Treatment (and Why Speed Matters)",
    "description": "What happens during a termite inspection and treatment, and why acting fast matters — termites cause damage the longer they're left alone.",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "publisher": {
     "@type": "Organization",

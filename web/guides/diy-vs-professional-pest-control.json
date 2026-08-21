@@ -8,6 +8,7 @@
  "dek": "DIY vs professional pest control compared honestly—cost, effectiveness, and when store-bought products work versus when to call a pro.",
  "read_time": "6 min",
  "words": "1,450",
+ "author": "Nick Davies",
  "answer": "DIY pest control works well for small, isolated problems like a few ants, a single wasp nest, or occasional spiders — and it costs less upfront. Professional pest control is worth it for infestations, structural pests like termites, health-risk pests like bed bugs or rodents, and any problem that keeps coming back despite your own efforts.",
  "toc": [
   {
@@ -68,8 +69,8 @@
    "articleSection": "hiring-guide",
    "about": "DIY vs professional pest control",
    "author": {
-    "@type": "Organization",
-    "name": "National Pest Directory"
+    "@type": "Person",
+    "name": "Nick Davies"
    },
    "mainEntityOfPage": {
     "@type": "WebPage",
