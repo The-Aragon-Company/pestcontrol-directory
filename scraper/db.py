@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS listings (
     maps_url    TEXT,
     cid         TEXT,           -- google place CID, used for dedup
     scraped_at  TEXT DEFAULT (datetime('now')),
-    -- maintenance columns (see scraper/refresh.py)
+    -- maintenance columns (see the verify pass in scraper/scrape.py)
     status       TEXT NOT NULL DEFAULT 'active',  -- active | closed | gone
     refreshed_at TEXT,           -- last successful re-check, NULL = never
     refresh_fails INTEGER NOT NULL DEFAULT 0      -- consecutive failed re-checks
@@ -110,31 +110,29 @@ def connect():
     return conn
 
 
-def upsert(conn, row: dict) -> bool:
-    """Insert a listing. Returns True if new, False if duplicate (by cid or slug)."""
-    if is_junk(row.get("name")):
-        return False
+def _find(cur, row):
+    """The (id, status) of the row this scraped place already occupies, or None.
+
+    CID is Google's own place id, so it matches first. The name+city+state
+    fallback catches rows with a missing or changed CID — e.g. the same
+    business returned under two different category searches.
+    """
+    if row.get("cid"):
+        hit = cur.execute("SELECT id, status FROM listings WHERE cid = ?",
+                          (row["cid"],)).fetchone()
+        if hit:
+            return hit
+    return cur.execute(
+        "SELECT id, status FROM listings WHERE lower(name)=lower(?) "
+        "AND city=? AND state=?",
+        (row.get("name"), row.get("city"), row.get("state"))).fetchone()
+
+
+def _insert(cur, row: dict):
     base = slugify(row.get("name", "") or "unknown")
     if row.get("city"):
         base = f"{base}-{slugify(row['city'])}"
     slug, n = base, 1
-    cur = conn.cursor()
-
-    # dedup on CID first
-    if row.get("cid"):
-        cur.execute("SELECT 1 FROM listings WHERE cid = ?", (row["cid"],))
-        if cur.fetchone():
-            return False
-
-    # dedup on name+city+state (catches dupes with missing/different CIDs,
-    # e.g. the same business returned under two category searches)
-    cur.execute("SELECT 1 FROM listings WHERE lower(name)=lower(?) "
-                "AND city=? AND state=?",
-                (row.get("name"), row.get("city"), row.get("state")))
-    if cur.fetchone():
-        return False
-
-    # ensure unique slug
     while True:
         cur.execute("SELECT 1 FROM listings WHERE slug = ?", (slug,))
         if not cur.fetchone():
@@ -145,8 +143,8 @@ def upsert(conn, row: dict) -> bool:
     cur.execute(
         """INSERT INTO listings
            (name, slug, category, city, state, address, phone, website,
-            lat, lng, rating, reviews, hours, maps_url, cid)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+            lat, lng, rating, reviews, hours, maps_url, cid, refreshed_at)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now'))""",
         (
             row.get("name"), slug, row.get("category"), row.get("city"),
             row.get("state"), row.get("address"), row.get("phone"),
@@ -155,7 +153,44 @@ def upsert(conn, row: dict) -> bool:
             row.get("maps_url"), row.get("cid"),
         ),
     )
-    conn.commit()
+
+
+def upsert_or_refresh(conn, row: dict) -> str:
+    """Record a place the crawler just opened.
+
+    New places are inserted; ones we already have are re-verified in place, so
+    a discovery pass doubles as the maintenance pass — a listing is stale only
+    if the crawler hasn't laid eyes on it. A row previously retired as closed
+    or gone that turns up alive in Maps again is reinstated.
+
+    Returns 'junk' | 'new' | 'updated' | 'same'.
+    """
+    if is_junk(row.get("name")):
+        return "junk"
+    cur = conn.cursor()
+    hit = _find(cur, row)
+    if hit is None:
+        _insert(cur, row)
+        conn.commit()
+        return "new"
+
+    listing_id, status = hit
+    changed = apply_refresh(conn, listing_id, row)
+    if status != "active":
+        mark_status(conn, listing_id, "active")
+        changed = changed or ["status"]
+    return "updated" if changed else "same"
+
+
+def retire_if_known(conn, row: dict) -> bool:
+    """Mark a place Maps reports as permanently closed. True if we had it.
+
+    A closed business we've never listed is simply not worth inserting.
+    """
+    hit = _find(conn.cursor(), row)
+    if hit is None:
+        return False
+    mark_status(conn, hit[0], "closed")
     return True
 
 
@@ -176,7 +211,8 @@ def status_counts(conn) -> dict:
 
 # ------------------------------------------------------------------ refresh
 # Fields a re-check is allowed to overwrite. Deliberately excluded:
-#   slug             — permanent URL, must stay stable for SEO
+#   slug             — internal unique key; nothing links to it now that
+#                      /listing/<slug> is retired, so leave it alone
 #   category         — derived from the search query, not the place page
 #   city / state     — derived from the target job; Maps address text is noisier
 #   cid              — the identity we matched on
@@ -240,8 +276,9 @@ def mark_status(conn, listing_id: int, status: str):
 def note_failure(conn, listing_id: int, max_fails: int = 3) -> bool:
     """Record a failed re-check. Returns True once the row is retired as gone.
 
-    One bad page load is noise; three in a row across three weekly runs means
-    the place URL no longer resolves.
+    One bad page load is noise. Because the verify pass works oldest-first, a
+    listing is only re-checked once per full turnover of the DB, so three fails
+    in a row means the place URL genuinely stopped resolving weeks apart.
     """
     cur = conn.cursor()
     cur.execute("UPDATE listings SET refresh_fails = refresh_fails + 1 "

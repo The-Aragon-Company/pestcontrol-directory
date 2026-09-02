@@ -8,7 +8,7 @@ scrape Google Maps → store in DB → render thousands of SEO pages with Flask.
 ```
 pestcontrol-directory/
 ├── scraper/            # data harvester (BUILT)
-│   ├── scrape.py       # Playwright Google Maps scraper -> SQLite
+│   ├── scrape.py       # Playwright Google Maps scraper + verifier -> SQLite
 │   ├── db.py           # schema + slugify + dedup upsert
 │   ├── targets.py      # categories x cities to search
 │   └── export.py       # dump DB to CSV/JSON
@@ -69,8 +69,10 @@ PCD_MAX_CITIES=300 python scraper/scrape.py      # largest 300 cities only
 pip install -r requirements-web.txt
 python web/app.py            # http://127.0.0.1:5000
 ```
-Routes: `/`, `/listing/<slug>`, `/<state>/<city>`, `/category/<slug>`, `/cities`,
-`/categories`, `/search`, `/sitemap.xml`, `/robots.txt`, `POST /quote`.
+Routes: `/`, `/<state>/<city>`, `/category/<slug>`, `/cities`, `/categories`,
+`/guides`, `/guides/<slug>`, `/search`, `/sitemap.xml`, `/robots.txt`,
+`POST /quote`. There are no per-listing pages: a listing is rendered as a card
+on its city and category pages.
 Set domain / AdSense / GA in the `app.config` block at the top of `web/app.py`.
 
 ## SEO content (Gemini)
@@ -89,7 +91,21 @@ python scraper/clean.py       # drop big-box chains + no-contact ghosts
 ```
 New scrapes are filtered automatically (see `JUNK_NAMES` in `scraper/db.py`).
 
+Accuracy is maintained by the verify pass built into `scrape.py`, which runs
+after every discovery batch. It reopens the least-recently-checked listings by
+their Google CID — not by search rank, so it still finds places that dropped
+out of Maps results — rewrites changed phone/site/rating data, and hides
+businesses reported permanently closed. Three consecutive failed re-checks
+retire a listing as `gone`. Closed and gone rows stay in the DB for audit but
+never render.
+
+```bash
+python scraper/scrape.py --no-discover --verify 50   # verification only
+python scraper/scrape.py --verify 0                  # discovery only
+```
+
 ## Deploy (pick one — all free tier)
+- **Vercel** (live setup): serverless Flask via `api/index.py` + `vercel.json`.
 - **Render**: push repo, New > Blueprint (uses `render.yaml`). Easiest.
 - **Railway / Fly.io**: uses the `Procfile` / `Dockerfile`.
 - **Any VPS + Docker**: `docker build -t pcd . && docker run -p 8080:8080 pcd`
@@ -97,6 +113,14 @@ New scrapes are filtered automatically (see `JUNK_NAMES` in `scraper/db.py`).
 
 The scraped `data/pestcontrol.db` is committed back by the Actions workflows,
 so the deploy host always has fresh data straight from the repo.
+
+On Vercel that hand-off needs one secret. Commits pushed by a workflow using
+the default `GITHUB_TOKEN` do **not** raise `push` events, so **scrape-pestcontrol**
+calls **deploy** directly at the end of a run. That workflow POSTs to a Vercel
+deploy hook, so add repo secret `VERCEL_DEPLOY_HOOK` (Settings > Secrets and
+variables > Actions) with a hook URL from Vercel's Project > Settings > Git >
+Deploy Hooks, pointed at `main`. Without it the deploy job fails loudly and the
+site keeps serving the last DB it built.
 
 ## Remaining polish
 - [ ] Compile Tailwind to `/static/css/output.css` (now Play CDN — fine for dev)
