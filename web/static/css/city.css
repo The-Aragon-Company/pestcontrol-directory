@@ -1,0 +1,380 @@
+/* City page — ranked "best pest control in <city>" layout, scoped under
+   .citypage so it cannot touch the rest of the site. Chrome (masthead, footer)
+   is gone: base.html owns that. Only templates/city.html links this sheet.
+
+   Loads AFTER Tailwind's output.css, so anything the preflight resets (list
+   markers, heading sizes, link colour) is restated explicitly here.
+
+   Palette: primary #112231 navy is the ink and the colour of every call
+   button; secondary #047857 emerald fills the call bar and carries links and
+   hover states. Rank medals (gold/silver/bronze) and the amber star are kept,
+   since those colours carry meaning rather than brand. */
+.citypage {
+  --bg: #f7f9fc; --surface: #fff; --border: #e4e9f1;
+  --text: #112231; --text-muted: #5b6a7d; --body: #3a4658;
+
+  --primary: #112231; --primary-dark: #0a1622; --primary-tint: #eef1f5;
+  --secondary: #047857; --secondary-dark: #065f46; --secondary-tint: #ecfdf5;
+
+  --success: #047857; --success-bg: #ecfdf5;
+  --star: #f5a623; --star-empty: #d8dfe9;
+  --rank-1: #c9971f; --rank-2: #8b96a8; --rank-3: #b26a3b;
+
+  --radius: 12px;
+  --shadow: 0 1px 2px rgba(17, 34, 49, .04), 0 1px 3px rgba(17, 34, 49, .06);
+
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding-bottom: 24px;
+}
+.citypage * { box-sizing: border-box; }
+.citypage a { color: var(--secondary); text-decoration: none; }
+.citypage a:hover { text-decoration: underline; }
+.citypage :focus-visible { outline: 3px solid var(--secondary); outline-offset: 2px; border-radius: 4px; }
+.citypage img { display: block; max-width: 100%; }
+.citypage .shell { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.citypage .muted { color: var(--text-muted); }
+.citypage .dot { color: #c7ceda; margin: 0 5px; }
+
+/* Only city pages link this sheet, so these bare rules are page-scoped.
+   base.html's header is sticky and 64px tall; the jump nav parks under it, so
+   anchor jumps have to clear both. */
+html { scroll-behavior: smooth; scroll-padding-top: 118px; }
+/* base.html stretches <main> to fill a short viewport, so body has to carry the
+   same wash as .citypage or a white band shows above the footer. */
+body { background: #f7f9fc; }
+
+/* ---------- Breadcrumb ---------- */
+.citypage .breadcrumb { font-size: 12.5px; color: var(--text-muted); padding-top: 14px; }
+.citypage .breadcrumb a { color: var(--text-muted); }
+.citypage .breadcrumb .sep { margin: 0 6px; color: #c7ceda; }
+.citypage .breadcrumb .current { color: var(--text); font-weight: 600; }
+
+/* ---------- Hero (compressed: one ranked card above the mobile fold) ---------- */
+.citypage .hero { padding: 10px 0 4px; }
+.citypage h1 {
+  font-size: 31px; line-height: 1.14; margin: 6px 0 8px;
+  letter-spacing: -.01em; font-weight: 800; color: var(--text);
+}
+.citypage .hero .lede { font-size: 15.5px; color: var(--text-muted); max-width: 660px; margin: 0 0 14px; }
+.citypage .updated {
+  font-size: 12px; color: var(--text-muted); font-weight: 600;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+
+/* Quick facts strip */
+.citypage .facts {
+  display: flex; gap: 0; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; margin: 0 0 14px;
+}
+.citypage .fact { flex: 1; padding: 10px 14px; border-right: 1px solid var(--border); }
+.citypage .fact:last-child { border-right: none; }
+.citypage .fact b { display: block; font-size: 17px; line-height: 1.2; }
+.citypage .fact span {
+  font-size: 11.5px; color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: .04em; font-weight: 600;
+}
+
+/* Call bar (primary monetizable action) */
+.citypage .call-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 22px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+  border-radius: var(--radius); padding: 16px 20px; box-shadow: var(--shadow); margin-bottom: 14px;
+}
+.citypage .call-bar-h { color: #fff; font-size: 17px; font-weight: 800; margin: 0 0 2px; }
+/* .9 not .86: emerald is lighter than the navy this sat on before, and .86
+   white lands at 4.49:1 — just under AA for body text. */
+.citypage .call-bar-s { color: rgba(255, 255, 255, .9); font-size: 13.5px; margin: 0; max-width: 520px; }
+.citypage .call-bar .big-call {
+  background: #fff; color: var(--primary); flex: 0 0 auto; padding: 12px 20px;
+  border-radius: 9px; font-size: 16px; font-weight: 800; display: inline-flex;
+  align-items: center; gap: 9px; min-height: 48px; white-space: nowrap;
+}
+.citypage .call-bar .big-call:hover { background: var(--primary-tint); text-decoration: none; }
+.citypage .call-bar .big-call small {
+  display: block; font-size: 11px; font-weight: 600; opacity: .72; letter-spacing: .03em;
+}
+
+/* ---------- Category jump nav ----------
+   Parks directly under base.html's sticky header (h-16 + 1px border = 65px).
+   That header is sticky inside a body Tailwind caps at h-full, so its containing
+   block is one viewport tall and it slides away for good past the first screen,
+   leaving this nav floating below an empty 65px strip. The script at the foot of
+   city.html tracks the header's real bottom edge and overrides `top` inline,
+   dropping the nav to 0 once the header is gone; this value is the no-JS
+   fallback. */
+.citypage .jumpnav-wrap {
+  background: var(--surface); border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border); position: sticky; top: 65px; z-index: 30; margin-top: 4px;
+}
+.citypage .jumpnav {
+  max-width: 1120px; margin: 0 auto; padding: 8px 24px; display: flex; gap: 8px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.citypage .jumpnav::-webkit-scrollbar { display: none; }
+.citypage .jumpnav a {
+  flex: 0 0 auto; font-size: 13px; font-weight: 600; color: var(--text-muted);
+  background: var(--bg); border: 1px solid var(--border); padding: 7px 13px;
+  border-radius: 999px; white-space: nowrap;
+}
+.citypage .jumpnav a:hover { text-decoration: none; border-color: var(--secondary); color: var(--secondary); }
+
+/* ---------- Sections ---------- */
+.citypage .body { max-width: 1120px; margin: 0 auto; padding: 20px 24px 8px; }
+.citypage .category-section { margin-bottom: 34px; scroll-margin-top: 118px; }
+.citypage .category-head {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  margin-bottom: 12px; padding-bottom: 9px; border-bottom: 1px solid var(--border);
+}
+.citypage .category-head h2 { font-size: 19px; margin: 0; font-weight: 700; }
+.citypage .category-head .count { font-size: 12.5px; color: var(--text-muted); font-weight: 700; white-space: nowrap; }
+.citypage .sort-note { font-size: 12.5px; color: var(--text-muted); margin: -4px 0 12px; }
+.citypage .sort-note a { font-weight: 600; }
+.citypage .see-all { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 700; }
+
+.citypage .rank-list { display: flex; flex-direction: column; gap: 10px; list-style: none; margin: 0; padding: 0; }
+
+.citypage .rank-card {
+  display: grid; grid-template-columns: 34px 46px 1fr auto; align-items: center; gap: 14px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 13px 16px; box-shadow: var(--shadow);
+}
+.citypage .rank-card:hover { border-color: #cbd6ea; }
+.citypage .rank-num { font-size: 17px; font-weight: 800; color: var(--text-muted); text-align: center; }
+.citypage .rank-list > li:nth-child(1) .rank-num { color: var(--rank-1); }
+.citypage .rank-list > li:nth-child(2) .rank-num { color: var(--rank-2); }
+.citypage .rank-list > li:nth-child(3) .rank-num { color: var(--rank-3); }
+.citypage .logo-circle,
+.citypage .logo-img { width: 46px; height: 46px; border-radius: 10px; }
+.citypage .logo-circle {
+  background: var(--secondary-tint); color: var(--secondary-dark); display: flex;
+  align-items: center; justify-content: center; font-weight: 800; font-size: 15px;
+}
+.citypage .logo-img { object-fit: contain; background: #fff; border: 1px solid var(--border); padding: 3px; }
+
+.citypage .listing-main { min-width: 0; }
+.citypage .listing-name-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.citypage .listing-name { font-size: 16px; font-weight: 700; color: var(--text); }
+.citypage .pill {
+  font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px;
+  letter-spacing: .03em; text-transform: uppercase; white-space: nowrap;
+}
+.citypage .pill-top { background: var(--success-bg); color: var(--success); }
+.citypage .listing-meta {
+  font-size: 13.5px; color: var(--text-muted); margin-top: 3px; display: flex;
+  align-items: center; flex-wrap: wrap; gap: 2px;
+}
+.citypage .cat-tag { color: var(--secondary-dark); font-weight: 600; }
+.citypage .rating-num { font-weight: 800; color: var(--text); font-size: 13.5px; margin: 0 5px 0 6px; }
+
+/* Fractional stars: the gold layer is clipped to rating/5, so 4.8 does not
+   render as a perfect 5.0. */
+.citypage .stars {
+  position: relative; display: inline-block; font-size: 13px; letter-spacing: 1.5px;
+  line-height: 1; white-space: nowrap;
+}
+.citypage .stars-empty { color: var(--star-empty); }
+.citypage .stars-fill { position: absolute; top: 0; left: 0; overflow: hidden; color: var(--star); }
+
+.citypage .listing-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.citypage .call-btn {
+  background: var(--primary); color: #fff; border-radius: 9px; padding: 11px 16px;
+  min-height: 46px; font-size: 15px; font-weight: 800; display: inline-flex;
+  align-items: center; justify-content: center; gap: 8px; white-space: nowrap;
+}
+.citypage .call-btn:hover { background: var(--primary-dark); text-decoration: none; }
+.citypage .call-btn .ico { width: 16px; height: 16px; flex: 0 0 auto; }
+.citypage .site-link { font-size: 12.5px; font-weight: 600; color: var(--text-muted); }
+.citypage .site-link:hover { color: var(--secondary); }
+
+.citypage .s-short { display: none; }
+@media (max-width: 640px) {
+  .citypage .s-long { display: none; }
+  .citypage .s-short { display: inline; }
+  .citypage .breadcrumb { padding-top: 10px; font-size: 12px; }
+  .citypage .updated { display: none; }
+  .citypage .hero { padding: 6px 0 2px; }
+  .citypage h1 { font-size: 24px; margin: 2px 0 6px; }
+  .citypage .hero .lede { font-size: 14.5px; margin-bottom: 12px; }
+  /* compact single-line facts strip */
+  .citypage .facts { margin-bottom: 11px; }
+  .citypage .fact { display: flex; align-items: baseline; gap: 5px; padding: 7px 9px; }
+  .citypage .fact.fact-opt { display: none; }
+  .citypage .fact b { font-size: 14px; display: inline; }
+  .citypage .fact span { font-size: 10.5px; white-space: nowrap; letter-spacing: 0; }
+  .citypage .sort-note { font-size: 12px; margin: -2px 0 9px; }
+  .citypage .call-bar { flex-direction: column; align-items: stretch; gap: 11px; padding: 12px 14px; }
+  .citypage .call-bar-h { font-size: 15.5px; }
+  .citypage .call-bar-s { max-width: none; font-size: 12.5px; line-height: 1.42; }
+  .citypage .badge247 {
+    display: block; width: -moz-fit-content; width: fit-content;
+    margin: 0 0 7px; vertical-align: baseline;
+  }
+  .citypage .call-bar .big-call {
+    font-size: 15px; padding: 11px 16px; min-height: 46px; justify-content: center; width: 100%;
+  }
+  .citypage .body { padding: 16px 16px 8px; }
+  .citypage .shell { padding: 0 16px; }
+  .citypage .jumpnav { padding: 8px 16px; }
+  .citypage .category-head { margin-bottom: 10px; padding-bottom: 8px; }
+  .citypage .category-head h2 { font-size: 18px; }
+  .citypage .rank-card { grid-template-columns: 22px 38px 1fr; gap: 9px; padding: 11px 12px; }
+  .citypage .logo-circle,
+  .citypage .logo-img { width: 38px; height: 38px; border-radius: 9px; }
+  .citypage .logo-circle { font-size: 13px; }
+  .citypage .listing-name { font-size: 15.5px; }
+  .citypage .listing-meta { font-size: 13px; }
+  /* the category tag is redundant inside a category section on narrow screens */
+  .citypage .listing-meta .cat-tag,
+  .citypage .listing-meta .dot { display: none; }
+  .citypage .listing-actions {
+    grid-column: 1/-1; flex-direction: row; align-items: center; gap: 10px;
+    margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);
+  }
+  .citypage .call-btn { flex: 1; min-height: 48px; font-size: 15.5px; }
+  .citypage .site-link { flex: 0 0 auto; }
+  .citypage .call-btn .call-label { display: none; }
+}
+
+/* ---------- 24/7 emphasis ----------
+   The base badge sits on the emerald call bar, where a white overlay would take
+   white 11px text down to ~3.8:1 — under AA. A dark overlay instead reads as a
+   deep-green chip and clears 7:1. The -solid variant sits on the navy banner,
+   where the light overlay is already fine. */
+.citypage .badge247 {
+  display: inline-block; background: rgba(0, 0, 0, .18); color: #fff; font-size: 11px;
+  font-weight: 800; letter-spacing: .06em; text-transform: uppercase; padding: 3px 9px;
+  border-radius: 999px; margin-right: 9px; vertical-align: 2px;
+}
+.citypage .badge247-solid { background: rgba(255, 255, 255, .16); margin: 0 0 12px; vertical-align: baseline; }
+
+/* ---------- Bottom CTA banner (scroll-depth catch) ---------- */
+.citypage .cta-banner {
+  background: linear-gradient(140deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border-radius: var(--radius); padding: 34px 32px; margin: 0 0 30px; text-align: center;
+  box-shadow: var(--shadow); scroll-margin-top: 118px;
+}
+.citypage .cta-banner h2 { color: #fff; font-size: 24px; margin: 0 0 8px; letter-spacing: -.01em; font-weight: 800; }
+.citypage .cta-banner p { color: rgba(255, 255, 255, .86); font-size: 15px; margin: 0 auto 20px; max-width: 60ch; }
+.citypage .cta-banner-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 11px;
+  background: #fff; color: var(--primary-dark); padding: 15px 30px; border-radius: 10px;
+  font-size: 21px; font-weight: 800; min-height: 56px;
+}
+.citypage .cta-banner-btn:hover { background: var(--primary-tint); text-decoration: none; }
+.citypage .cta-banner-btn small { display: block; font-size: 11.5px; font-weight: 700; opacity: .72; letter-spacing: .03em; }
+.citypage .cta-banner-fine {
+  font-size: 12.5px; color: rgba(255, 255, 255, .62) !important;
+  margin: 16px auto 0 !important; max-width: none !important;
+}
+@media (max-width: 640px) {
+  .citypage .cta-banner { padding: 26px 18px; }
+  .citypage .cta-banner h2 { font-size: 21px; }
+  .citypage .cta-banner p { font-size: 14px; margin-bottom: 18px; }
+  .citypage .cta-banner-btn { width: 100%; font-size: 19px; padding: 14px 18px; }
+}
+
+/* ---------- Long-form local content ---------- */
+.citypage .localcopy {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 24px 26px; margin-bottom: 30px; scroll-margin-top: 118px;
+}
+.citypage .localcopy h2 { font-size: 20px; margin: 0 0 12px; font-weight: 700; }
+.citypage .localcopy h3 { font-size: 15.5px; margin: 20px 0 6px; font-weight: 700; }
+.citypage .localcopy p { font-size: 14.5px; color: var(--body); margin: 0 0 12px; max-width: 75ch; }
+.citypage .localcopy ul { font-size: 14.5px; color: var(--body); margin: 0 0 12px; padding-left: 20px; list-style: disc; }
+.citypage .localcopy li { margin-bottom: 5px; }
+
+/* ---------- FAQ ---------- */
+.citypage .faq { margin-bottom: 30px; scroll-margin-top: 118px; }
+.citypage .faq h2 { font-size: 20px; margin: 0 0 12px; font-weight: 700; }
+.citypage .faq-item {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  margin-bottom: 8px; box-shadow: var(--shadow);
+}
+.citypage .faq-item summary {
+  cursor: pointer; padding: 14px 16px; font-size: 15px; font-weight: 700;
+  list-style: none; display: flex; justify-content: space-between; gap: 12px;
+}
+.citypage .faq-item summary::-webkit-details-marker { display: none; }
+.citypage .faq-item summary:after { content: "+"; color: var(--secondary); font-weight: 800; font-size: 18px; line-height: 1; }
+.citypage .faq-item[open] summary:after { content: "\2212"; }
+.citypage .faq-a { padding: 0 16px 15px; font-size: 14.5px; color: var(--body); }
+.citypage .faq-a p { margin: 0; max-width: 75ch; }
+
+/* ---------- Nearby ---------- */
+.citypage .nearby { margin-bottom: 34px; }
+.citypage .nearby h2 { font-size: 17px; margin: 0 0 10px; font-weight: 700; }
+.citypage .nearby-links { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.citypage .nearby-links a {
+  display: inline-block; font-size: 13px; font-weight: 600; background: var(--surface);
+  border: 1px solid var(--border); padding: 7px 12px; border-radius: 999px; color: var(--text);
+}
+.citypage .nearby-links a:hover { border-color: var(--secondary); color: var(--secondary); text-decoration: none; }
+
+/* ---------- Sticky mobile call bar ---------- */
+.citypage .stickycall { display: none; }
+@media (max-width: 768px) {
+  .citypage .stickycall {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+    background: var(--surface); border-top: 1px solid var(--border);
+    box-shadow: 0 -2px 12px rgba(17, 34, 49, .10);
+    padding: 9px 14px calc(9px + env(safe-area-inset-bottom)); gap: 10px; align-items: center;
+  }
+  .citypage .stickycall .sc-copy { flex: 1; min-width: 0; }
+  .citypage .stickycall .sc-copy b { display: block; font-size: 13.5px; line-height: 1.25; }
+  .citypage .stickycall .sc-copy span { font-size: 11.5px; color: var(--text-muted); }
+  .citypage .stickycall .sc-btn {
+    flex: 0 0 auto; background: var(--primary); color: #fff; font-weight: 800; font-size: 15px;
+    padding: 12px 16px; border-radius: 9px; min-height: 48px; display: inline-flex;
+    align-items: center; gap: 8px;
+  }
+  .citypage .stickycall .sc-btn:hover { background: var(--primary-dark); text-decoration: none; }
+  .citypage .stickycall .sc-btn .ico { width: 16px; height: 16px; }
+  /* clear the fixed bar; page-scoped because only city.html links this sheet */
+  body { padding-bottom: 78px; }
+}
+
+/* ---------- Lead form ----------
+   Commented out along with the markup in templates/city.html. Restore both
+   together when the lead endpoint is live.
+
+.citypage .leadform {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 22px; margin: 0 0 34px; display: grid;
+  grid-template-columns: 1fr 1.15fr; gap: 26px; align-items: start; scroll-margin-top: 118px;
+}
+.citypage .leadform h2 { font-size: 20px; margin: 0 0 8px; font-weight: 700; }
+.citypage .leadform p { font-size: 14px; color: var(--text-muted); margin: 0 0 10px; }
+.citypage .lf-trust {
+  font-size: 12.5px; color: var(--text-muted); display: flex; flex-direction: column;
+  gap: 5px; margin: 0; padding: 0; list-style: none;
+}
+.citypage .lf-trust li:before { content: "\2713"; color: var(--success); font-weight: 800; margin-right: 7px; }
+.citypage .lf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.citypage .lf-grid .full { grid-column: 1/-1; }
+.citypage .leadform label {
+  display: block; font-size: 12px; font-weight: 700; color: var(--text-muted);
+  margin-bottom: 4px; text-transform: uppercase; letter-spacing: .03em;
+}
+.citypage .leadform input,
+.citypage .leadform select {
+  width: 100%; padding: 11px 12px; font-size: 15px; border: 1px solid #cbd5e1;
+  border-radius: 9px; background: #fff; color: var(--text); min-height: 46px;
+}
+.citypage .leadform input:focus,
+.citypage .leadform select:focus { outline: 2px solid var(--primary); outline-offset: 0; border-color: var(--primary); }
+.citypage .lf-submit {
+  width: 100%; background: var(--primary); color: #fff; border: none; border-radius: 9px;
+  padding: 14px; font-size: 16px; font-weight: 800; cursor: pointer; min-height: 50px;
+}
+.citypage .lf-submit:hover { background: var(--primary-dark); }
+.citypage .lf-or { font-size: 13.5px; color: var(--text-muted); margin: 12px 0 0; }
+.citypage .lf-or a { font-weight: 800; }
+.citypage .lf-fine { font-size: 11.5px; color: var(--text-muted); margin: 8px 0 0; }
+@media (max-width: 768px) {
+  .citypage .leadform { grid-template-columns: 1fr; padding: 18px; }
+  .citypage .lf-grid { grid-template-columns: 1fr; }
+}
+*/

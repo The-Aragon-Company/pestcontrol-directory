@@ -104,7 +104,7 @@
           {% else %}
           <div class="favicon-fallback"><i class="fa-solid fa-shield-halved"></i></div>
           {% endif %}
-          <h4><a href="/listing/{{ l.slug }}">{{ l.name }}</a></h4>
+          <h4>{{ l.name }}</h4>
         </div>
         <p class="city"><a href="/{{ l.state|lower }}/{{ l.city|slugify }}">{{ l.city }}, {{ l.state }}</a></p>
         <p class="desc">{{ l.category or 'Pest control' }} services in {{ l.city }}, {{ l.state }}. Trusted local pros offering inspections, treatment and prevention.</p>

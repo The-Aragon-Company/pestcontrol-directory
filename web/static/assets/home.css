@@ -80,9 +80,10 @@
 .home .listing-card .favicon-fallback{width:28px;height:28px;border-radius:6px;flex-shrink:0;
   background:rgba(17,34,49,0.08);color:var(--navy-soft);display:flex;align-items:center;
   justify-content:center;font-size:12px}
-.home .listing-card h4{font-size:14.5px;margin:0;font-weight:600;min-width:0}
-.home .listing-card h4 a{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.home .listing-card h4 a:hover{text-decoration:underline}
+/* Name is plain text since /listing/<slug> pages were retired, so the
+   truncation that used to sit on the anchor lives on the h4 now. */
+.home .listing-card h4{font-size:14.5px;margin:0;font-weight:600;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .home .listing-card .city{font-size:12px;color:var(--navy-soft);margin:0 0 8px}
 .home .listing-card .city a:hover{text-decoration:underline}
 .home .listing-card .desc{font-size:12.5px;color:var(--navy-soft);line-height:1.5;margin:0 0 10px;
