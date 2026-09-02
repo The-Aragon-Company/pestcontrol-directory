@@ -18,8 +18,10 @@
 {% endif %}
 {% endmacro %}
 
+{# Compact card for the category / search / state grids. /listing/<slug> pages
+   were retired, so the name is plain text and the secondary action links to the
+   provider's own site — the city page is the ranked leaf now. #}
 {% macro card(l) %}
-<!-- Logo Compact Card Layout (reference clone) -->
 <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border border-gray-100">
   <div class="p-4">
     <div class="flex items-start space-x-4">
@@ -36,9 +38,7 @@
       <!-- Content -->
       <div class="flex-1 min-w-0">
         <div class="flex items-start mb-2">
-          <h3 class="text-lg font-heading font-semibold text-gray-900 flex-1 min-w-0 mr-3">
-            <a href="/listing/{{ l.slug }}" class="hover:text-primary block truncate">{{ l.name }}</a>
-          </h3>
+          <h3 class="text-lg font-heading font-semibold text-gray-900 flex-1 min-w-0 mr-3 truncate">{{ l.name }}</h3>
           {% if l.rating and l.rating >= 4.8 %}
           <span class="bg-primary text-white px-2 py-1 rounded-full text-xs font-medium flex-shrink-0">
             <i class="fas fa-star mr-1"></i><span class="hidden sm:inline">Top Rated</span></span>
@@ -74,7 +74,9 @@
         <!-- Category badge + View -->
         <div class="flex items-center justify-between">
           {% if l.category %}<span class="bg-gray-100 text-gray-700 px-2.5 py-1 rounded-full text-xs font-medium">{{ l.category }}</span>{% else %}<span></span>{% endif %}
-          <a href="/listing/{{ l.slug }}" class="text-primary font-semibold text-sm hover:underline">View <i class="fas fa-arrow-right text-xs ml-0.5"></i></a>
+          {% if l.website %}<a href="{{ l.website }}" target="_blank" rel="nofollow noopener" class="text-primary font-semibold text-sm hover:underline">Website <i class="fas fa-arrow-up-right-from-square text-xs ml-0.5"></i></a>
+          {% elif l.phone %}<a href="tel:{{ l.phone|trim }}" class="text-primary font-semibold text-sm hover:underline">Call <i class="fas fa-phone text-xs ml-0.5"></i></a>
+          {% else %}<span></span>{% endif %}
         </div>
       </div>
     </div>

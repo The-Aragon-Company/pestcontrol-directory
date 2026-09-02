@@ -1,67 +1,416 @@
-{% extends "base.html" %}
-{% from "_macros.html" import card, pager %}
-{% block title %}Pest Control in {{ city }}, {{ state }} ({{ total }} pros){% if pg.page>1 %} — Page {{ pg.page }}{% endif %} | {{ SITE_NAME }}{% endblock %}
-{% block description %}Compare {{ total }} top-rated pest control & exterminator services in {{ city }}, {{ state }}. Reviews, phone numbers, and direct contact.{% endblock %}
-{% block canonical %}/{{ state|lower }}/{{ cat_slug(city) }}{% endblock %}
-{% block head_extra %}
-  {% if pg.has_prev %}<link rel="prev" href="{{ DOMAIN }}{{ base_url }}{% if pg.page>2 %}?page={{ pg.page-1 }}{% endif %}">{% endif %}
-  {% if pg.has_next %}<link rel="next" href="{{ DOMAIN }}{{ base_url }}?page={{ pg.page+1 }}">{% endif %}
-{% endblock %}
+{# City page — "Best pest control in <City>, <ST>", one ranked block per service
+   category. Data comes from the city() route in web/app.py; styling from
+   static/css/city.css (scoped under .citypage). Chrome is base.html's.
 
-{% block content %}
-<div class="bg-gradient-to-br from-primary to-gradient text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <nav class="text-sm text-white/70 mb-3"><a href="/" class="hover:text-white">Home</a> / <a href="/state/{{ state|lower }}" class="hover:text-white">{{ STATE_NAMES.get(state, state) }}</a> / <span class="text-white">{{ city }}, {{ state }}</span></nav>
-    <h1 class="text-3xl md:text-4xl font-extrabold">Pest Control in {{ city }}, {{ state }}</h1>
-    <p class="mt-2 text-white/90">{{ total }} trusted local pros &middot; verified reviews &middot; call direct</p>
-  </div>
-</div>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  {% if pg.page==1 %}
-  <div class="grid lg:grid-cols-3 gap-8 mb-10">
-    <div class="lg:col-span-2">
-      {% if copy and copy.intro %}<p class="text-gray-700 leading-relaxed">{{ copy.intro }}</p>{% endif %}
-    </div>
-    <aside>
-      <div class="bg-white rounded-xl border border-gray-200 p-5">
-        <h2 class="font-heading font-bold text-secondary mb-4">Quick facts</h2>
-        <dl class="space-y-2.5 text-sm">
-          <div class="flex justify-between"><dt class="text-gray-500">Providers</dt><dd class="font-semibold">{{ total }}</dd></div>
-          {% if facts.avg %}<div class="flex justify-between"><dt class="text-gray-500">Avg rating</dt><dd class="font-semibold"><i class="fas fa-star text-amber-400"></i> {{ facts.avg }}</dd></div>{% endif %}
-          <div class="flex justify-between"><dt class="text-gray-500">Total reviews</dt><dd class="font-semibold">{{ "{:,}".format(facts.reviews) }}</dd></div>
-        </dl>
-        {% if facts.top %}
-        <h3 class="font-semibold text-sm mt-5 mb-2 text-gray-700">Top-rated pick</h3>
-        <a href="/listing/{{ facts.top.slug }}" class="block text-primary hover:underline text-sm">{{ facts.top.name }}</a>
-        {% if facts.top.rating %}<div class="text-xs text-gray-400 mt-0.5"><i class="fas fa-star text-amber-400"></i> {{ facts.top.rating }} ({{ facts.top.reviews }} reviews)</div>{% endif %}
-        {% endif %}
-        {% if facts.services %}
-        <h3 class="font-semibold text-sm mt-5 mb-2 text-gray-700">Services here</h3>
-        <ul class="flex flex-wrap gap-1.5">
-          {% for cat, n in facts.services %}<li><a href="/category/{{ cat_slug(cat) }}" class="inline-block text-xs px-2 py-1 rounded-md bg-gray-100 text-gray-600 hover:text-primary">{{ cat }} ({{ n }})</a></li>{% endfor %}
-        </ul>
-        {% endif %}
-      </div>
-    </aside>
-  </div>
-  {% endif %}
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{% for l in rows %}{{ card(l) }}{% endfor %}</div>
-  {{ pager(pg, base_url) }}
-  {% if copy and copy.faq and pg.page==1 %}
-  <h2 class="text-2xl font-extrabold mt-14 mb-4">Pest control in {{ city }} — FAQ</h2>
-  <div class="space-y-3 max-w-3xl">{% for f in copy.faq %}<details class="bg-white border rounded-xl p-4"><summary class="font-semibold cursor-pointer">{{ f.q }}</summary><p class="mt-2 text-gray-600 text-sm">{{ f.a }}</p></details>{% endfor %}</div>
-  {% endif %}
-</div>
+   IMPLEMENTATION NOTES
+   1. 24/7 CLAIM: the house number (CTA_PHONE) is presented as answered 24/7 in
+      four places — hero call bar, jump-nav-adjacent hero copy, bottom banner and
+      the sticky mobile bar. CONFIRM the ring tree actually has overnight and
+      weekend coverage before launch: an unanswered 2am call after a "24/7"
+      promise is worse than making no promise at all. Per-listing availability
+      badges are deliberately absent — the only availability claim on the page
+      belongs to the tracked house number.
+   2. HERO / STICKY / BANNER phone is the single directory number (CTA_PHONE).
+      Listing phone numbers are the providers' own. When Ringba DNI arrives,
+      swap the href on .call-btn only — the data-* attributes already carry
+      listing identity.
+   3. All tracking is delegated off [data-track] at the bottom of this file, so
+      new listings need no per-element handler.
+   4. Listing detail pages were retired (they carried a single scraped row and
+      no unique value), so a company name is plain text and the secondary action
+      links to the provider's own site when we have one.
+#}
+{% extends "base.html" %}
+{% from "_macros.html" import phone_icon %}
+
+{% block title %}Best Pest Control in {{ city }}, {{ state }} ({{ facts.shown }} Top Rated Companies) | {{ SITE_NAME }}{% endblock %}
+{% block description %}The {{ facts.shown }} best pest control companies in {{ city }}, {{ state }}, ranked by category using verified review data. Compare ratings and call direct.{% endblock %}
+{% block body_bg %}bg-white{% endblock %}
+{% block head_css %}<link rel="stylesheet" href="/static/css/city.css">{% endblock %}
+
+{% block head_extra %}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
 {"@type":"ListItem","position":1,"name":"Home","item":"{{ DOMAIN }}/"},
 {"@type":"ListItem","position":2,"name":{{ STATE_NAMES.get(state, state)|tojson }},"item":"{{ DOMAIN }}/state/{{ state|lower }}"},
 {"@type":"ListItem","position":3,"name":{{ (city~", "~state)|tojson }},"item":"{{ DOMAIN }}/{{ state|lower }}/{{ cat_slug(city) }}"}]}
 </script>
+{% if facts.shown %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList",
+"name":{{ ("Best Pest Control Companies in "~city~", "~state)|tojson }},
+"numberOfItems":{{ facts.shown }},"itemListElement":[
+{% set ns = namespace(pos=0) %}
+{%- for g in groups %}{% for l in g.rows %}{% set ns.pos = ns.pos + 1 %}
+{"@type":"ListItem","position":{{ ns.pos }},"item":{"@type":"LocalBusiness","name":{{ l.name|tojson }}
+{%- if l.phone %},"telephone":{{ l.phone|trim|tojson }}{% endif %}
+{%- if l.website %},"url":{{ l.website|tojson }}{% endif %},
+"address":{"@type":"PostalAddress","addressLocality":{{ city|tojson }},"addressRegion":{{ state|tojson }},"addressCountry":"US"}
+{%- if l.rating and l.reviews %},"aggregateRating":{"@type":"AggregateRating","ratingValue":{{ l.rating }},"reviewCount":{{ l.reviews }},"bestRating":5}{% endif %},
+"additionalType":{{ g.name|tojson }}}}{{ "," if ns.pos < facts.shown }}
+{%- endfor %}{% endfor %}]}
+</script>
+{% endif %}
 {% if copy and copy.faq %}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {% for f in copy.faq %}{"@type":"Question","name":{{ f.q|tojson }},"acceptedAnswer":{"@type":"Answer","text":{{ f.a|tojson }}}}{{ "," if not loop.last }}{% endfor %}]}
 </script>
 {% endif %}
+{% endblock %}
+
+
+{% block content %}
+<div class="citypage">
+
+<div class="shell">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a><span class="sep">/</span>
+    <a href="/state/{{ state|lower }}">{{ STATE_NAMES.get(state, state) }}</a><span class="sep">/</span>
+    <span class="current">{{ city }}, {{ state }}</span>
+  </nav>
+
+  <div class="hero">
+    <div class="updated">Updated {{ updated }} &middot; {{ city }}, {{ state }}</div>
+    <h1>Best Pest Control Companies in {{ city }}, {{ state }}</h1>
+    <p class="lede">{{ facts.shown }} top-rated provider{{ '' if facts.shown == 1 else 's' }} across
+      {{ facts.services }} service{{ '' if facts.services == 1 else 's' }}, ranked by verified review
+      volume. Call any company direct.</p>
+
+    <div class="facts">
+      <div class="fact"><b>{{ "{:,}".format(facts.providers) }}</b><span><span class="s-long">Providers listed</span><span class="s-short">pros</span></span></div>
+      {% if facts.avg %}<div class="fact"><b>{{ facts.avg }}</b><span><span class="s-long">Avg. rating</span><span class="s-short">avg rating</span></span></div>{% endif %}
+      <div class="fact"><b>{{ "{:,}".format(facts.reviews) }}</b><span><span class="s-long">Verified reviews</span><span class="s-short">reviews</span></span></div>
+      <div class="fact fact-opt"><b>{{ facts.services }}</b><span>Services covered</span></div>
+    </div>
+
+    {% if CTA_PHONE %}
+    <div class="call-bar">
+      <div>
+        <p class="call-bar-h"><span class="badge247">Available 24/7</span>Not sure who to call?</p>
+        <p class="call-bar-s"><span class="s-long">Talk to a live pest specialist any hour, day or
+          night. Describe the problem and they will tell you which type of service you need and
+          connect you with a top-rated {{ city }} pro &mdash; no forms, no waiting.</span><span
+          class="s-short">Talk to a live specialist any hour &mdash; they will tell you what service
+          you need. No forms.</span></p>
+      </div>
+      <a class="big-call" href="tel:{{ CTA_PHONE }}" data-track="call" data-source="hero">
+        {{ phone_icon(18) }}
+        <span>{{ CTA_PHONE_DISPLAY }}<small>Open 24/7 &middot; speak to a specialist now</small></span>
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if groups|length > 1 %}
+<div class="jumpnav-wrap">
+  <nav class="jumpnav" aria-label="Jump to a service">
+    {%- for g in groups %}<a href="#{{ g.slug }}" data-track="jump">{{ g.name }}</a>{% endfor %}
+  </nav>
+</div>
+{% endif %}
+
+<div class="body">
+  <p class="sort-note"><span class="s-long">Ranked by verified review volume in {{ city }} &mdash; the
+    best available signal of how much local work a company does. Star rating is shown separately so
+    you can weigh volume against satisfaction. </span><span class="s-short">Ranked by review volume in
+    {{ city }}. </span>{% if copy and copy.faq %}<a href="#faq">How we rank &rarr;</a>{% endif %}</p>
+
+  {% for g in groups %}
+  <section class="category-section" id="{{ g.slug }}">
+    <div class="category-head">
+      <h2><span class="s-long">Best {{ g.name }} in {{ city }}, {{ state }}</span><span class="s-short">{{ g.name }}</span></h2>
+      <span class="count">{% if g.total > g.rows|length %}Top {{ g.rows|length }} of {{ g.total }}{% else %}{{ g.total }} listed{% endif %}</span>
+    </div>
+    <ol class="rank-list">
+      {% for l in g.rows %}
+      <li class="rank-card" data-listing="{{ l.name }}" data-category="{{ g.name }}"
+          data-rank="{{ loop.index }}" data-phone="{{ l.phone|trim }}">
+        <div class="rank-num" aria-label="Rank {{ loop.index }}">{{ loop.index }}</div>
+        {% if l.website %}
+        <img class="logo-img" src="https://www.google.com/s2/favicons?domain={{ l.website }}&amp;sz=128"
+             alt="" loading="lazy" width="46" height="46"
+             onerror="this.outerHTML='<div class=&quot;logo-circle&quot; aria-hidden=&quot;true&quot;>{{ l.name|initials }}</div>'">
+        {% else %}
+        <div class="logo-circle" aria-hidden="true">{{ l.name|initials }}</div>
+        {% endif %}
+        <div class="listing-main">
+          <div class="listing-name-row">
+            <span class="listing-name">{{ l.name }}</span>
+            {% if loop.first %}<span class="pill pill-top"><span class="s-long">#1 in {{ g.name }}</span><span class="s-short">#1 pick</span></span>{% endif %}
+          </div>
+          <div class="listing-meta">
+            {% if l.rating %}
+            <span class="stars" aria-hidden="true"><span class="stars-empty">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span
+              class="stars-fill" style="width:{{ (l.rating / 5 * 100)|round(1) }}%">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span><span
+              class="rating-num">{{ "%.1f"|format(l.rating) }}</span>
+            {% endif %}
+            {% if l.reviews %}<span class="muted">({{ "{:,}".format(l.reviews) }} reviews)</span>{% endif %}
+            <span class="dot">&middot;</span><a class="cat-tag" href="#{{ g.slug }}">{{ g.name }}</a>
+          </div>
+        </div>
+        <div class="listing-actions">
+          {% if l.phone %}
+          <a class="call-btn" href="tel:{{ l.phone|trim }}" data-track="call" data-source="card">
+            {{ phone_icon(16) }}
+            <span class="call-label">Call</span> <span class="call-num">{{ l.phone|trim }}</span>
+          </a>
+          {% endif %}
+          {% if l.website %}
+          <a class="site-link" href="{{ l.website }}" target="_blank"
+             rel="nofollow noopener" data-track="website">Visit website &rarr;</a>
+          {% elif l.maps_url %}
+          <a class="site-link" href="{{ l.maps_url }}" target="_blank"
+             rel="nofollow noopener" data-track="maps">View on Google Maps &rarr;</a>
+          {% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    {% if g.total > g.rows|length %}
+    <a class="see-all" href="{{ url_for('search', category=g.name, city=city ~ ', ' ~ state) }}"
+       data-track="see_all" data-category="{{ g.name }}">See all {{ g.total }}
+      {# "Exterminators" is already a plural noun; "termite control" et al need
+         one, or the link reads "see all 10 exterminators companies". #}
+      {{ g.name|lower }}{{ '' if g.name.endswith('s') else ' companies' }}
+      in {{ city }} &rarr;</a>
+    {% endif %}
+  </section>
+
+  {#
+  <!-- LEAD FORM — commented out until the lead endpoint exists. Restore this
+       block together with the .leadform rules in static/css/city.css, and point
+       the submit handler at the real POST target. It belongs right after the
+       first category section: that is where it catches users who scanned the
+       top options and did not dial. -->
+  {% if loop.first %}
+  <section class="leadform" id="get-quotes">
+    <div>
+      <h2>Prefer not to call?</h2>
+      <p>Tell us what you are dealing with and we will have matched {{ city }} pros reach out with quotes.</p>
+      <ul class="lf-trust">
+        <li>Free &mdash; no obligation to hire</li>
+        <li>Matched only to top-rated local providers</li>
+        <li>Most homeowners hear back within 1 business hour</li>
+      </ul>
+      <p class="lf-or">In a hurry? <a href="tel:{{ CTA_PHONE }}" data-track="call" data-source="form_module">Call 24/7: {{ CTA_PHONE_DISPLAY }}</a> &mdash; a live specialist answers any hour.</p>
+    </div>
+    <form id="lead-form" novalidate>
+      <div class="lf-grid">
+        <div class="full">
+          <label for="lf-service">What do you need help with?</label>
+          <select id="lf-service" name="service" required>
+            <option value="">Select a service&hellip;</option>
+            {% for c in ALL_CATEGORIES %}<option>{{ c }}</option>{% endfor %}
+            <option>Not sure / something else</option>
+          </select>
+        </div>
+        <div>
+          <label for="lf-zip">ZIP code</label>
+          <input id="lf-zip" name="zip" type="tel" inputmode="numeric" maxlength="5" required>
+        </div>
+        <div>
+          <label for="lf-name">First name</label>
+          <input id="lf-name" name="name" type="text" autocomplete="given-name" required>
+        </div>
+        <div class="full">
+          <label for="lf-phone">Phone</label>
+          <input id="lf-phone" name="phone" type="tel" autocomplete="tel" required>
+        </div>
+        <div class="full">
+          <button class="lf-submit" type="submit">Get free quotes &rarr;</button>
+          <p class="lf-fine">By submitting you agree to be contacted by up to 3 matched providers about your request. <a href="/privacy">Privacy policy</a>.</p>
+        </div>
+      </div>
+    </form>
+  </section>
+  {% endif %}
+  #}
+  {% endfor %}
+
+  {# Long-form local copy sits BELOW the listings: it keeps the SEO body content
+     without pushing the first ranked card off the mobile fold. #}
+  {% if copy and copy.intro %}
+  <section class="localcopy" id="about">
+    <h2>Choosing a pest control company in {{ city }}, {{ state }}</h2>
+    <p>{{ copy.intro }}</p>
+    <h3>What separates a good provider from a cheap one</h3>
+    <ul>
+      <li><b>Licensing.</b> Verify a current {{ STATE_NAMES.get(state, state) }} structural pest
+        control license before signing anything.</li>
+      <li><b>Inspection before pricing.</b> Any company quoting termite or bed bug work over the
+        phone without inspecting is guessing. Reputable providers inspect first, and most inspect free.</li>
+      <li><b>Written scope and warranty.</b> Termite treatments should come with a renewable damage
+        or retreatment warranty. Get the term and the transfer terms in writing.</li>
+      <li><b>Recurring vs. one-time.</b> Quarterly plans cost less per visit and prevent recurrence,
+        but read the cancellation terms &mdash; annual auto-renew contracts are common.</li>
+      <li><b>Pets, kids, and sensitivities.</b> Ask specifically about product classes and re-entry
+        intervals rather than accepting a general "pet-friendly" claim.</li>
+    </ul>
+    <p>Every company on this page carries verified reviews from {{ city }}-area customers. We do not
+      accept payment for ranking position.</p>
+  </section>
+  {% endif %}
+
+  {# Scroll-depth CTA: catches readers who consumed the guide copy and still have not called. #}
+  {% if CTA_PHONE %}
+  <section class="cta-banner" id="talk-to-a-pro">
+    <span class="badge247 badge247-solid">Available 24/7 &middot; 365 days</span>
+    <h2>Still not sure who to call?</h2>
+    <p>Pest problems do not keep business hours. A live specialist answers our line any hour of the
+      day or night, will tell you what kind of treatment your situation actually needs, and can
+      connect you with a top-rated {{ city }} pro on the same call.</p>
+    <a class="cta-banner-btn" href="tel:{{ CTA_PHONE }}" data-track="call" data-source="bottom_banner">
+      {{ phone_icon(20) }}
+      <span>{{ CTA_PHONE_DISPLAY }}<small>Call now &mdash; free, no obligation</small></span>
+    </a>
+    <p class="cta-banner-fine">Free to call &middot; no obligation &middot; we never sell your number</p>
+  </section>
+  {% endif %}
+
+  {% if copy and copy.faq %}
+  <section class="faq" id="faq">
+    <h2>Pest control in {{ city }}, {{ state }} &mdash; frequently asked questions</h2>
+    {% for f in copy.faq %}
+    <details class="faq-item">
+      <summary>{{ f.q }}</summary>
+      <div class="faq-a"><p>{{ f.a }}</p></div>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
+
+  {% if nearby %}
+  <section class="nearby">
+    <h2>Pest control in nearby cities</h2>
+    <ul class="nearby-links">
+      {% for n in nearby %}
+      <li><a href="/{{ n.state|lower }}/{{ cat_slug(n.city) }}">Pest control in {{ n.city }}{% if n.state != state %}, {{ n.state }}{% endif %}</a></li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</div>
+
+{% if CTA_PHONE %}
+<div class="stickycall">
+  <div class="sc-copy">
+    <b>Talk to a pest specialist</b>
+    <span>Open 24/7 &middot; free advice</span>
+  </div>
+  <a class="sc-btn" href="tel:{{ CTA_PHONE }}" data-track="call" data-source="sticky">
+    {{ phone_icon(16) }} Call 24/7
+  </a>
+</div>
+{% endif %}
+
+</div>{# /.citypage #}
+
+<script>
+/* =========================================================================
+   JUMP NAV OFFSET
+   The jump nav parks under base.html's sticky header. That header lives in a
+   body Tailwind caps at h-full, so its sticky containing block is only one
+   viewport tall: past the first screen it slides away for good, and a fixed
+   65px offset would leave the nav floating below an empty strip. Follow the
+   header's real bottom edge instead — which also keeps the nav clear of the
+   header on narrow screens, where a top of 0 would put it behind the header
+   (z-30 against z-50) rather than below it.
+   ========================================================================= */
+(function () {
+  var hdr = document.querySelector('header'),
+      wrap = document.querySelector('.jumpnav-wrap');
+  if (!hdr || !wrap) return;   /* single-category cities render no jump nav */
+  var queued = false;
+  function sync() {
+    queued = false;
+    var edge = hdr.getBoundingClientRect().bottom;
+    wrap.style.top = (edge > 0 ? edge : 0) + 'px';
+  }
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(sync);   /* one rect read per frame, not per event */
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  sync();
+})();
+
+/* =========================================================================
+   GA4 / GTM CLICK TRACKING (delegated — new listings need no extra markup)
+   Every ranked card carries data-listing / data-category / data-rank /
+   data-phone, so GA4 can report:
+     - calls by listing        (event: call_click, param: listing)
+     - calls by rank position  (param: rank)      -> does #1 actually get the calls
+     - calls by category       (param: category)  -> which pest jobs call most
+     - calls by placement      (param: placement: card | hero | sticky | bottom_banner)
+     - website/maps clicks     (events: website_click, maps_click) -> intent leakage
+     - see-all clicks          (event: see_all_click) -> demand for depth
+   Register listing, category, rank and placement as GA4 custom dimensions.
+
+   The site currently loads neither GTM nor gtag.js, so both sinks below are
+   no-ops until one is added. dataLayer is always safe to push to. gtag fires
+   only if the global exists — so if GTM is added later WITH a GA4 config
+   inside it AND gtag.js is also loaded directly, every event double-counts:
+   drop one of the two sinks at that point.
+   ========================================================================= */
+(function () {
+  window.dataLayer = window.dataLayer || [];
+  function track(name, params) {
+    window.dataLayer.push(Object.assign({ event: name }, params));
+    if (typeof window.gtag === 'function') window.gtag('event', name, params);
+  }
+  var CITY = {{ (city ~ ", " ~ state)|tojson }};
+
+  function ctx(el) {
+    var card = el.closest('[data-listing]');
+    return card ? {
+      listing:  card.getAttribute('data-listing'),
+      category: card.getAttribute('data-category'),
+      rank:     Number(card.getAttribute('data-rank')),
+      phone:    card.getAttribute('data-phone')
+    } : {};
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-track]');
+    if (!el) return;
+    var kind = el.getAttribute('data-track');
+    var base = ctx(el);
+    base.page_city = CITY;
+    base.device_type = window.matchMedia('(max-width:768px)').matches ? 'mobile' : 'desktop';
+
+    if (kind === 'call') {
+      base.placement = el.getAttribute('data-source') || 'card';
+      if (!base.phone) base.phone = (el.getAttribute('href') || '').replace('tel:', '');
+      track('call_click', base);
+    } else if (kind === 'website') {
+      track('website_click', base);
+    } else if (kind === 'maps') {
+      track('maps_click', base);
+    } else if (kind === 'see_all') {
+      track('see_all_click', { category: el.getAttribute('data-category'), page_city: CITY });
+    } else if (kind === 'jump') {
+      track('category_jump', { category: el.textContent.trim(), page_city: CITY });
+    }
+  }, true);
+
+  /* Scroll depth: did users ever reach the listings, and then the FAQ? */
+  var seen = {};
+  var marks = [{% if groups %}{ id: {{ groups[0].slug|tojson }}, name: 'first_listing_section' },{% endif %}
+               { id: 'faq', name: 'faq' }];
+  window.addEventListener('scroll', function () {
+    marks.forEach(function (m) {
+      if (seen[m.name]) return;
+      var n = document.getElementById(m.id);
+      if (n && n.getBoundingClientRect().top < window.innerHeight) {
+        seen[m.name] = 1;
+        track('scroll_reach', { section: m.name, page_city: CITY });
+      }
+    });
+  }, { passive: true });
+})();
+</script>
 {% endblock %}

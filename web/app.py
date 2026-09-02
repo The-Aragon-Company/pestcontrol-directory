@@ -10,10 +10,12 @@ Run:
     python web/app.py            # http://127.0.0.1:5000
 """
 import json
+import math
 import os
 import re
 import sqlite3
 import sys
+from datetime import date
 from pathlib import Path
 
 from flask import (Flask, abort, g, redirect, render_template, request,
@@ -53,6 +55,15 @@ STATE_NAMES = {
     "VT": "Vermont", "VA": "Virginia", "WA": "Washington", "WV": "West Virginia",
     "WI": "Wisconsin", "WY": "Wyoming",
 }
+
+# Reading order for the ranked blocks on a city page: broadest, highest-intent
+# service first, niche last. Deliberately NOT sorted by how many providers we
+# scraped — in some metros that puts Wildlife Removal above General Pest Control
+# on a page titled "best pest control". Anything not listed here sorts after,
+# by provider count.
+CATEGORY_ORDER = ("General Pest Control", "Exterminators", "Termite Control",
+                  "Bed Bug Removal", "Rodent Control", "Mosquito Control",
+                  "Wildlife Removal")
 
 CATEGORY_ICONS = {
     "General Pest Control": "fa-bug",
@@ -109,6 +120,16 @@ def slugify(s):
     return dbmod.slugify(s or "")
 
 
+def initials(name, n=2):
+    """'Bulwark Exterminating' -> 'BE'. Monogram for a card with no logo."""
+    words = [w for w in re.split(r"\W+", name or "") if w]
+    if not words:
+        return "?"
+    if len(words) == 1:
+        return words[0][:n].upper()
+    return "".join(w[0] for w in words[:n]).upper()
+
+
 def phone_display(raw):
     """+18663380533 -> (866) 338-0533. Non-US shapes pass through as-is."""
     digits = re.sub(r"\D", "", raw or "")
@@ -124,8 +145,9 @@ def phone_display(raw):
 LIVE = dbmod.ACTIVE
 
 
-# make slugify usable inside macros (which don't inherit context processors)
+# make these usable inside macros (which don't inherit context processors)
 app.jinja_env.filters["slugify"] = slugify
+app.jinja_env.filters["initials"] = initials
 
 
 def content_for(key):
@@ -181,19 +203,10 @@ def home():
                            cats=cats, total=total, sort=sort)
 
 
-@app.route("/listing/<slug>")
-def listing(slug):
-    row = get_db().execute(
-        f"SELECT * FROM listings WHERE slug = ? AND {LIVE}", (slug,)).fetchone()
-    if not row:
-        abort(404)
-    nearby = get_db().execute(
-        f"SELECT * FROM listings WHERE city = ? AND state = ? AND slug != ? "
-        f"AND {LIVE} ORDER BY reviews DESC LIMIT 6",
-        (row["city"], row["state"], slug)).fetchall()
-    copy = content_for(f"listing:{slug}")
-    return render_template("listing.html", l=row, nearby=nearby, copy=copy)
-
+# NOTE: /listing/<slug> was retired. A detail page held one scraped row and no
+# unique value over the city page's ranked card, so it was thin content with a
+# crawl cost of one URL per listing (~24k). City pages are the leaf now; a card's
+# secondary link goes to the provider's own site.
 
 PER_PAGE = 24
 
@@ -245,6 +258,58 @@ def category(slug):
                            facts=facts, base_url=f"/category/{slug}")
 
 
+# A city page shows one ranked block per service category. Categories with more
+# providers than this get a "see all" link into /search rather than a longer
+# list — past ~6 the marginal card earns no clicks and just costs mobile fold.
+PER_CATEGORY = 6
+NEARBY_CITIES = 10
+
+_CENTROIDS = None
+
+
+def _city_centroids():
+    """[(city, state, lat, lng)] for every city we list, cached for the process.
+
+    ~1k cities over 24k listings: one aggregate query, held for the life of the
+    worker, so the nearby-cities block costs arithmetic instead of a table scan
+    on every city pageview. The DB is opened read-only + immutable, so it cannot
+    go stale under us mid-process.
+    """
+    global _CENTROIDS
+    if _CENTROIDS is None:
+        _CENTROIDS = [
+            (r["city"], r["state"], r["lat"], r["lng"])
+            for r in get_db().execute(
+                f"SELECT city, state, AVG(lat) lat, AVG(lng) lng FROM listings "
+                f"WHERE lat IS NOT NULL AND lng IS NOT NULL AND {LIVE} "
+                f"GROUP BY city, state")]
+    return _CENTROIDS
+
+
+def _nearby_cities(city_, state_, limit=NEARBY_CITIES):
+    """The closest other cities we have pages for — any state, since a metro's
+    real neighbours cross state lines (Charlotte NC -> Rock Hill SC).
+
+    Equirectangular approximation: at the scale of "cities within a metro" the
+    error against great-circle distance is far below the gap between ranks, and
+    it avoids a trig call per city.
+    """
+    rows = _city_centroids()
+    here = next((r for r in rows if r[0] == city_ and r[1] == state_), None)
+    if not here:
+        return []
+    lat0, lng0 = here[2], here[3]
+    coslat = math.cos(math.radians(lat0))
+    out = []
+    for c, st, lat, lng in rows:
+        if c == city_ and st == state_:
+            continue
+        dy, dx = lat - lat0, (lng - lng0) * coslat
+        out.append((dx * dx + dy * dy, c, st))
+    out.sort()
+    return [{"city": c, "state": st} for _, c, st in out[:limit]]
+
+
 @app.route("/<state>/<cityslug>")
 def city(state, cityslug):
     state = state.upper()
@@ -257,22 +322,35 @@ def city(state, cityslug):
     if not rows:
         abort(404)
     cname = rows[0]["city"]
-    page = _page()
-    total = len(rows)
-    paged = rows[(page - 1) * PER_PAGE: page * PER_PAGE]
     copy = content_for(f"city:{cityslug}-{state.lower()}")
-    rated = [r["rating"] for r in rows if r["rating"] is not None]
-    svc = {}
+
+    # One ranked block per service, in CATEGORY_ORDER. `rows` is already
+    # review-DESC, so each block inherits that order — the ranking the page
+    # claims. Uncategorised listings have no block but still count as providers.
+    buckets = {}
     for r in rows:
         if r["category"]:
-            svc[r["category"]] = svc.get(r["category"], 0) + 1
-    facts = {"avg": round(sum(rated) / len(rated), 1) if rated else None,
+            buckets.setdefault(r["category"], []).append(r)
+
+    def rank(kv):
+        name, rs = kv
+        idx = CATEGORY_ORDER.index(name) if name in CATEGORY_ORDER else None
+        return (0, idx, 0) if idx is not None else (1, 0, -len(rs))
+
+    groups = [{"name": c, "slug": slugify(c), "rows": rs[:PER_CATEGORY],
+               "total": len(rs)}
+              for c, rs in sorted(buckets.items(), key=rank)]
+
+    rated = [r["rating"] for r in rows if r["rating"] is not None]
+    facts = {"providers": len(rows),
+             "avg": round(sum(rated) / len(rated), 1) if rated else None,
              "reviews": sum(r["reviews"] or 0 for r in rows),
-             "top": rows[0],
-             "services": sorted(svc.items(), key=lambda x: -x[1])}
-    return render_template("city.html", city=cname, state=state, rows=paged,
-                           total=total, copy=copy, pg=_pageinfo(page, total),
-                           facts=facts, base_url=f"/{state.lower()}/{cityslug}")
+             "services": len(groups),
+             "shown": sum(len(g["rows"]) for g in groups)}
+    return render_template("city.html", city=cname, state=state, groups=groups,
+                           facts=facts, copy=copy,
+                           nearby=_nearby_cities(cname, state),
+                           updated=date.today().strftime("%B %Y"))
 
 
 @app.route("/state/<st>")
@@ -439,7 +517,6 @@ def search():
 # ---------------------------------------------------------------- SEO
 @app.route("/sitemap.xml")
 def sitemap():
-    from datetime import date
     d = get_db()
     base = app.config["DOMAIN"]
     today = date.today().isoformat()
@@ -458,9 +535,8 @@ def sitemap():
         urls.append((f"{base}/state/{r['state'].lower()}", "0.7", "weekly"))
     for r in d.execute(f"SELECT DISTINCT city, state FROM listings WHERE {LIVE}"):
         urls.append((f"{base}/{r['state'].lower()}/{slugify(r['city'])}",
-                     "0.7", "weekly"))
-    for r in d.execute(f"SELECT slug FROM listings WHERE {LIVE}"):
-        urls.append((f"{base}/listing/{r['slug']}", "0.6", "monthly"))
+                     "0.8", "weekly"))
+    # No per-listing URLs: /listing/<slug> was retired (see the city route).
     xml = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc, pri, cf in urls:
