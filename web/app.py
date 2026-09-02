@@ -141,7 +141,7 @@ def phone_display(raw):
 
 
 # Closed/gone businesses stay in the DB for audit but must never reach a page.
-# Every listings query below carries this filter — see scraper/refresh.py.
+# Every listings query below carries this filter — see scraper/scrape.py.
 LIVE = dbmod.ACTIVE
 
 

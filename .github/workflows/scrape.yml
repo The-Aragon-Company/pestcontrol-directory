@@ -1,15 +1,17 @@
-name: scrape-pestcontrol (manual)
+name: scrape-pestcontrol
 
-# DISCOVERY OF NEW LISTINGS — NO LONGER SCHEDULED.
+# The one recurring data job: discovery AND maintenance in a single pass.
 #
-# The directory is built out (~24k listings), so the recurring job is now
-# refresh.yml, which re-verifies what we already have. This workflow stays
-# around for deliberate expansion only: new categories in targets.py, a wider
-# city list, or backfilling a region that came up thin. Run it from the
-# Actions tab when you actually want the DB to grow.
+# Every 2 hours the runner takes the next batch of category x city targets,
+# then re-verifies a slice of the least-recently-checked listings by their
+# Google CID. The second half is what scraper/refresh.py used to do weekly —
+# folding it in here means a place that quietly closed gets retired within
+# days instead of a quarter, and one run can't race the other for the DB.
 #
-# The runner's disposable IP touches Google, never yours. Each run does one
-# batch of jobs, advances a saved offset, and commits the DB back to the repo.
+# The runner's disposable IP touches Google, never yours. Each run advances a
+# saved offset and commits the DB back to the repo.
+#
+# Make the repo PUBLIC for unlimited free Actions minutes (private = 2,000/mo).
 
 on:
   workflow_dispatch:          # run manually from the Actions tab
@@ -23,6 +25,11 @@ on:
       offset:
         description: "force a start offset (blank = use saved)"
         default: ""
+      verify:
+        description: "stalest listings to re-verify (0 = discovery only)"
+        default: "200"
+  schedule:
+    - cron: "0 */2 * * *"     # every 2 hours
 
 # never let two DB-writing runs overlap (scrape + content share this group)
 concurrency:
@@ -36,6 +43,8 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
     timeout-minutes: 180
+    outputs:
+      pushed: ${{ steps.commit.outputs.pushed }}
     steps:
       - uses: actions/checkout@v4
 
@@ -61,21 +70,24 @@ jobs:
           echo "total=$TOTAL"   >> "$GITHUB_OUTPUT"
           echo "Batch starts at offset $OFFSET of $TOTAL total jobs"
 
-      - name: Scrape one batch
+      - name: Scrape one batch + verify the stalest listings
         env:
           PCD_CLOUD_CI: "1"     # runner IP is disposable -> bare-IP allowed here
         run: |
           BATCH="${{ github.event.inputs.batch }}"; BATCH=${BATCH:-60}
           MAXR="${{ github.event.inputs.max_results }}"; MAXR=${MAXR:-30}
+          VERIFY="${{ github.event.inputs.verify }}"; VERIFY=${VERIFY:-200}
           python scraper/scrape.py \
             --offset ${{ steps.off.outputs.offset }} \
             --limit "$BATCH" \
-            --max-results "$MAXR"
+            --max-results "$MAXR" \
+            --verify "$VERIFY"
 
       - name: Clean (junk, ghosts, duplicates)
         run: python scraper/clean.py
 
       - name: Advance offset + commit data
+        id: commit
         run: |
           BATCH="${{ github.event.inputs.batch }}"; BATCH=${BATCH:-60}
           NEXT=$(( ${{ steps.off.outputs.offset }} + BATCH ))
@@ -84,14 +96,22 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f data/pestcontrol.db data/.offset
-          COUNT=$(python -c "import sys; sys.path.insert(0,'scraper'); import db; print(db.count(db.connect()))")
-          git commit -m "scrape: batch @${{ steps.off.outputs.offset }} -> total ${COUNT} listings" || echo "nothing to commit"
+          STATS=$(python -c "import sys; sys.path.insert(0,'scraper'); import db; c=db.connect(); print(f'{db.count(c)} live / {db.count_all(c)} total')")
+          if ! git commit -m "scrape: batch @${{ steps.off.outputs.offset }} -> ${STATS}"; then
+            echo "nothing to commit"; echo "pushed=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
           # resilient push: rebase + retry to survive concurrent commits
           for i in 1 2 3 4 5; do
-            git push && break
+            if git push; then echo "pushed=true" >> "$GITHUB_OUTPUT"; exit 0; fi
             echo "push rejected, rebasing (attempt $i)..."
             git pull --rebase --autostash -X theirs origin main || true
             sleep $((RANDOM % 5 + 2))
           done
+          echo "::error::could not push the DB after 5 attempts"; exit 1
 
-# trigger workflow registration
+  # bot pushes don't fire `push`, so ship the new DB explicitly
+  deploy:
+    needs: scrape
+    if: needs.scrape.outputs.pushed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
