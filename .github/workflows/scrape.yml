@@ -9,7 +9,10 @@ name: scrape-pestcontrol
 # days instead of a quarter, and one run can't race the other for the DB.
 #
 # The runner's disposable IP touches Google, never yours. Each run advances a
-# saved offset and commits the DB back to the repo.
+# saved offset and commits the DB back to `dev` — main is protected, so the
+# bot never writes to it. Note the cron still needs this file present on the
+# default branch (main) for the schedule to fire; only the checkout and the
+# commit target are pinned to dev.
 #
 # Make the repo PUBLIC for unlimited free Actions minutes (private = 2,000/mo).
 
@@ -39,6 +42,9 @@ concurrency:
 permissions:
   contents: write             # to push the DB back
 
+env:
+  DATA_BRANCH: dev            # the bot commits here; main is protected
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
@@ -47,6 +53,8 @@ jobs:
       pushed: ${{ steps.commit.outputs.pushed }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: dev            # scheduled runs default to main — force dev
 
       - uses: actions/setup-python@v5
         with:
@@ -102,16 +110,17 @@ jobs:
           fi
           # resilient push: rebase + retry to survive concurrent commits
           for i in 1 2 3 4 5; do
-            if git push; then echo "pushed=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+            if git push origin "HEAD:$DATA_BRANCH"; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"; exit 0
+            fi
             echo "push rejected, rebasing (attempt $i)..."
-            git pull --rebase --autostash -X theirs origin main || true
+            git pull --rebase --autostash -X theirs origin "$DATA_BRANCH" || true
             sleep $((RANDOM % 5 + 2))
           done
-          echo "::error::could not push the DB after 5 attempts"; exit 1
+          echo "::error::could not push the DB to $DATA_BRANCH after 5 attempts"; exit 1
 
-  # bot pushes don't fire `push`, so ship the new DB explicitly
-  deploy:
-    needs: scrape
-    if: needs.scrape.outputs.pushed == 'true'
-    uses: ./.github/workflows/deploy.yml
-    secrets: inherit
+  # No deploy job here on purpose. This used to call deploy.yml directly,
+  # because a bot push to main doesn't fire `push`. Now the batch lands on dev
+  # and the deploy hook still points at main, so calling it here would deploy
+  # main *without* the rows we just committed. The deploy fires when dev
+  # reaches main — see the trigger in deploy.yml.

@@ -8,13 +8,19 @@ name: deploy
 # used and can be deleted.
 #
 # Fires on:
-#   - a human push to main (the `push` trigger below)
-#   - the end of scrape.yml, which calls this workflow directly. It has to:
-#     pushes made with the default GITHUB_TOKEN do NOT fire `push` events, so
-#     the scraper's data commits would otherwise never reach the site.
+#   - main changing (the `push` trigger below) — normally a dev -> main PR
+#     merge, which carries along every scrape/content commit made since the
+#     last one.
+#   - `workflow_call`, for whatever lands dev on main to invoke directly.
 #
-# content.yml commits to the same DB file without deploying, and doesn't need
-# to — the next 2-hourly scrape run deploys main, which carries its copy along.
+# scrape.yml and content.yml no longer call this. They commit to dev, and the
+# hook below points at main, so deploying at the end of a scrape would ship
+# main without the rows that run just wrote.
+#
+# IMPORTANT: pushes made with the default GITHUB_TOKEN do NOT fire `push`
+# events. If dev -> main is ever automated with a token push rather than a
+# merged PR, this workflow will stop firing and that automation must call it
+# via `workflow_call` as its last step.
 
 on:
   push:

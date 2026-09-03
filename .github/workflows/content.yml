@@ -3,6 +3,10 @@ name: generate-content
 # Fills unique Gemini SEO copy for city/category pages, caches it in the DB,
 # commits back. Free. Requires repo secret GEMINI_API_KEY (Settings > Secrets
 # > Actions > New repository secret).
+#
+# Commits land on `dev`, never main — main's ruleset requires a PR through the
+# merge queue and no workflow may bypass it. The cron still needs this file on
+# the default branch to fire; only the checkout and push target are dev.
 
 on:
   workflow_dispatch:
@@ -23,12 +27,17 @@ concurrency:
 permissions:
   contents: write
 
+env:
+  DATA_BRANCH: dev          # the bot commits here; main is protected
+
 jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: dev          # scheduled runs default to main — force dev
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -51,10 +60,15 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -f data/pestcontrol.db
-          git commit -m "content: generate batch of SEO copy" || echo "nothing to commit"
+          if git diff --cached --quiet; then
+            echo "no DB changes to commit"; exit 0
+          fi
+          git commit -m "content: generate batch of SEO copy"
+          # resilient push: rebase + retry to survive concurrent commits
           for i in 1 2 3 4 5; do
-            git push && break
+            if git push origin "HEAD:$DATA_BRANCH"; then exit 0; fi
             echo "push rejected, rebasing (attempt $i)..."
-            git pull --rebase --autostash -X theirs origin main || true
+            git pull --rebase --autostash -X theirs origin "$DATA_BRANCH" || true
             sleep $((RANDOM % 5 + 2))
           done
+          echo "::error::could not push the DB to $DATA_BRANCH after 5 attempts"; exit 1
