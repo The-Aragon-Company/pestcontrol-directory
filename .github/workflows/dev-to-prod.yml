@@ -1,0 +1,113 @@
+name: Merge Dev into Main
+
+# Lands the bots' accumulated dev commits on main, three times a day.
+#
+# main's ruleset requires a PR through the merge queue, so this opens a real PR
+# and asks for it to be merged — it never pushes to main. `gh pr merge` is
+# queue-aware: if required checks are still pending it enables auto-merge, and
+# once they pass the PR is added to the merge queue.
+#
+# CAVEAT: this PR is opened with the default GITHUB_TOKEN, and PRs created that
+# way do NOT trigger workflow runs. If main's ruleset has any required status
+# check, it will never run here and the PR will sit unmerged. If that happens,
+# swap `github.token` below for a PAT / GitHub App token and add `merge_group`
+# as a trigger to whichever workflows are the required checks.
+
+on:
+  schedule:
+    # 13:00, 17:00 and 21:00 UTC daily
+    - cron: "0 13,17,21 * * *"
+
+  # Allows you to manually run the workflow from GitHub
+  workflow_dispatch:
+
+# one merge attempt at a time
+concurrency:
+  group: dev-to-main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge-dev-to-main:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    outputs:
+      merged: ${{ steps.wait.outputs.merged }}
+    steps:
+      # No checkout: every step below is a `gh` API call, and a full clone would
+      # drag down the committed DB for nothing.
+
+      - name: Find or open the dev -> main PR
+        id: pr
+        run: |
+          NUMBER=$(gh pr list --base main --head dev --state open \
+            --json number --jq '.[0].number // empty')
+
+          if [ -n "$NUMBER" ]; then
+            echo "reusing open PR #$NUMBER"
+          elif OUT=$(gh pr create \
+                --base main \
+                --head dev \
+                --title "Scheduled: Merge dev into main" \
+                --body "Automated scheduled merge of dev into main." 2>&1); then
+            NUMBER=$(gh pr list --base main --head dev --state open \
+              --json number --jq '.[0].number // empty')
+            echo "opened PR #$NUMBER"
+          elif printf '%s' "$OUT" | grep -qi 'no commits between'; then
+            # the normal quiet-day case: the bots wrote nothing new to dev
+            echo "dev has nothing new for main — nothing to do"
+            echo "number=" >> "$GITHUB_OUTPUT"
+            exit 0
+          else
+            echo "::error::gh pr create failed: $OUT"
+            exit 1
+          fi
+
+          echo "number=$NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Merge (queue-aware)
+        if: steps.pr.outputs.number != ''
+        run: |
+          PR="${{ steps.pr.outputs.number }}"
+          if OUT=$(gh pr merge "$PR" --merge --delete-branch=false 2>&1); then
+            echo "$OUT"
+          elif printf '%s' "$OUT" | grep -qiE 'already (enabled|queued)|is in the merge queue'; then
+            echo "PR #$PR is already queued — waiting on it"
+          else
+            echo "::error::gh pr merge failed for PR #$PR: $OUT"
+            exit 1
+          fi
+
+      - name: Wait for the merge to land
+        id: wait
+        if: steps.pr.outputs.number != ''
+        run: |
+          PR="${{ steps.pr.outputs.number }}"
+          for i in $(seq 1 60); do
+            STATE=$(gh pr view "$PR" --json state --jq .state)
+            case "$STATE" in
+              MERGED)
+                echo "PR #$PR merged"
+                echo "merged=true" >> "$GITHUB_OUTPUT"; exit 0 ;;
+              CLOSED)
+                echo "::error::PR #$PR was closed without merging"; exit 1 ;;
+            esac
+            sleep 10
+          done
+          # Not a failure: the queue can legitimately take longer than this.
+          echo "::warning::PR #$PR still $STATE after 10 min — leaving it to the queue."
+          echo "::warning::If it lands, deploy.yml still fires on the push to main."
+          echo "merged=false" >> "$GITHUB_OUTPUT"
+
+  # A merge-queue merge should fire `push` on main and trigger deploy.yml on its
+  # own. Calling it here too is belt-and-braces: deploy.yml's `vercel-deploy`
+  # concurrency group has cancel-in-progress, so a double fire costs nothing.
+  deploy:
+    needs: merge-dev-to-main
+    if: needs.merge-dev-to-main.outputs.merged == 'true'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit
