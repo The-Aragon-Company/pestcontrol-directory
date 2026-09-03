@@ -35,11 +35,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
+      # gh normally reads the target repo from the local git remote. There is no
+      # checkout here (a clone would drag down the committed DB for nothing), so
+      # name the repo explicitly or gh fails with "not a git repository".
+      GH_REPO: ${{ github.repository }}
     outputs:
       merged: ${{ steps.wait.outputs.merged }}
     steps:
-      # No checkout: every step below is a `gh` API call, and a full clone would
-      # drag down the committed DB for nothing.
 
       - name: Find or open the dev -> main PR
         id: pr
