@@ -1,118 +1,177 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-  <meta name="description" content="{% block description %}Find trusted local pest control, exterminators, termite, bed bug, rodent, mosquito and wildlife removal services near you.{% endblock %}">
-  {% set _path = request.path %}
-  <link rel="canonical" href="{{ DOMAIN }}{{ _path }}">
-  {% block head_extra %}{% endblock %}
-  <meta name="robots" content="{% block robots %}index, follow{% endblock %}">
-  {% if GSC_VERIFICATION %}<meta name="google-site-verification" content="{{ GSC_VERIFICATION }}">{% endif %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        {{ SITE_NAME }}
+      {% endblock %}
+    </title>
+    <meta name="description"
+      content="{% block description %}
+        Find trusted local pest control, exterminators, termite, bed bug, rodent, mosquito and wildlife removal services near you.
+      {% endblock %}" />
+    {% set _path = request.path %}
+    <link rel="canonical" href="{{ DOMAIN }}{{ _path }}" />
+    {% block head_extra %}
+    {% endblock %}
+    <meta name="robots"
+      content="{% block robots %}
+        index, follow
+      {% endblock %}" />
+    {% if GSC_VERIFICATION %}
+      <meta name="google-site-verification" content="{{ GSC_VERIFICATION }}" />
+    {% endif %}
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-  <meta property="og:site_name" content="{{ SITE_NAME }}">
-  <meta property="og:title" content="{{ self.title() | trim }}">
-  <meta property="og:description" content="{{ self.description() | trim }}">
-  <meta property="og:url" content="{{ DOMAIN }}{{ _path }}">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{{ self.title() | trim }}">
-  <meta name="twitter:description" content="{{ self.description() | trim }}">
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type"
+      content="{% block og_type %}
+        website
+      {% endblock %}" />
+    <meta property="og:site_name" content="{{ SITE_NAME }}" />
+    <meta property="og:title" content="{{ self.title()|trim }}" />
+    <meta property="og:description" content="{{ self.description()|trim }}" />
+    <meta property="og:url" content="{{ DOMAIN }}{{ _path }}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="{{ self.title()|trim }}" />
+    <meta name="twitter:description" content="{{ self.description()|trim }}" />
 
-  <!-- Compiled Tailwind (static, fast — no in-browser compiler) -->
-  <link rel="stylesheet" href="/static/css/output.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>body{font-family:'Inter',sans-serif}
-    .site-logo{height:48px;width:auto;display:block}
-    @media (max-width:420px){.site-logo{height:36px}}
-    /* Footer sits on a dark background, so the logo gets a white plate behind it. */
-    .footer-logo{height:42px;width:auto;display:block}
-  </style>
-  {# page-specific CSS — after Tailwind, so it can override the preflight #}
-  {% block head_css %}{% endblock %}
+    <!-- Compiled Tailwind (static, fast — no in-browser compiler) -->
+    <link rel="stylesheet" href="/static/css/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .site-logo {
+        height: 48px;
+        width: auto;
+        display: block;
+      }
+      @media (max-width: 420px) {
+        .site-logo {
+          height: 36px;
+        }
+      }
+      /* Footer sits on a dark background, so the logo gets a white plate behind it. */
+      .footer-logo {
+        height: 42px;
+        width: auto;
+        display: block;
+      }
+    </style>
+    {# page-specific CSS — after Tailwind, so it can override the preflight #}
+    {% block head_css %}
+    {% endblock %}
 
-  <!-- Favicon (real crawlable files — required for Google Search favicons) -->
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="/static/favicon.png">
-  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-  <meta property="og:image" content="{{ DOMAIN }}/static/og.png">
+    <!-- Favicon (real crawlable files — required for Google Search favicons) -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/static/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/apple-touch-icon.png" />
+    <meta property="og:image" content="{{ DOMAIN }}/static/og.png" />
 
-
-</head>
-{# one background utility, overridable — two competing ones would resolve by
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F22TZ8T84Z"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      
+      gtag('config', 'G-F22TZ8T84Z')
+    </script>
+	
+  </head>
+  {# one background utility, overridable — two competing ones would resolve by
    stylesheet order rather than by what the page asked for #}
-<body class="h-full flex flex-col {% block body_bg %}bg-gray-50{% endblock %} text-gray-900">
-
-<header class="bg-white shadow-sm border-b sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <a href="/" class="flex items-center" aria-label="{{ SITE_NAME }} — home">
-        <img src="/static/logo.png" alt="{{ SITE_NAME }}" width="708" height="144"
-             class="site-logo" fetchpriority="high">
-      </a>
-      <nav class="hidden md:flex items-center space-x-1">
-        <div class="relative group">
-          <button class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-tags mr-1"></i> Services <i class="fas fa-chevron-down text-xs"></i></button>
-          <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 border">
-            {% for c in ALL_CATEGORIES %}
-            <a href="/category/{{ cat_slug(c) }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary">
-              <i class="fa-solid {{ CATEGORY_ICONS.get(c,'fa-bug') }} mr-3"></i>{{ c }}</a>
-            {% endfor %}
-            <div class="border-t my-1"></div>
-            <a href="/categories" class="flex items-center px-4 py-2.5 text-sm text-primary font-semibold"><i class="fas fa-th mr-3"></i> All services</a>
-          </div>
+  <body class="h-full flex flex-col {% block body_bg %}
+      bg-gray-50
+    {% endblock %} text-gray-900">
+    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <a href="/" class="flex items-center" aria-label="{{ SITE_NAME }} — home"><img src="/static/logo.png" alt="{{ SITE_NAME }}" width="708" height="144" class="site-logo" fetchpriority="high" /></a>
+          <nav class="hidden md:flex items-center space-x-1">
+            <div class="relative group">
+              <button class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-tags mr-1"></i> Services <i class="fas fa-chevron-down text-xs"></i></button>
+              <div class="absolute left-0 mt-1 w-64 bg-white rounded-xl shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 border">
+                {% for c in ALL_CATEGORIES %}
+                  <a href="/category/{{ cat_slug(c) }}" class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary"><i class="fa-solid {{ CATEGORY_ICONS.get(c, 'fa-bug') }} mr-3"></i>{{ c }}</a>
+                {% endfor %}
+                <div class="border-t my-1"></div>
+                <a href="/categories" class="flex items-center px-4 py-2.5 text-sm text-primary font-semibold"><i class="fas fa-th mr-3"></i> All services</a>
+              </div>
+            </div>
+            <a href="/cities" class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-city mr-1"></i> Cities</a>
+            <a href="/guides" class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-book mr-1"></i> Guides</a>
+            <a href="/search" class="ml-2 px-4 py-2 rounded-xl bg-primary text-white font-semibold shadow-md hover:bg-primaryDark text-sm"><i class="fas fa-search mr-1"></i> Find a Pro</a>
+          </nav>
         </div>
-        <a href="/cities" class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-city mr-1"></i> Cities</a>
-        <a href="/guides" class="px-3 py-2 rounded-lg text-gray-700 hover:text-primary hover:bg-primary/5 font-medium text-sm"><i class="fas fa-book mr-1"></i> Guides</a>
-        <a href="/search" class="ml-2 px-4 py-2 rounded-xl bg-primary text-white font-semibold shadow-md hover:bg-primaryDark text-sm"><i class="fas fa-search mr-1"></i> Find a Pro</a>
-      </nav>
-    </div>
-  </div>
-</header>
+      </div>
+    </header>
 
-<main class="flex-1">{% block content %}{% endblock %}</main>
+    <main class="flex-1">
+      {% block content %}
+      {% endblock %}
+    </main>
 
-<footer class="bg-gray-900 text-gray-300 mt-16">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-4 gap-8">
-    <div>
-      <a href="/" class="inline-block bg-white rounded-xl px-3 py-2 mb-4" aria-label="{{ SITE_NAME }} — home">
-        <img src="/static/logo.png" alt="{{ SITE_NAME }}" width="708" height="144" class="footer-logo">
-      </a>
-      <p class="text-sm text-gray-400">Find trusted local pest control pros across the USA. Compare reviews and contact pros directly.</p>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-3">Services</h4>
-      <ul class="space-y-1.5 text-sm">
-        {% for c in ALL_CATEGORIES %}<li><a href="/category/{{ cat_slug(c) }}" class="hover:underline">{{ c }}</a></li>{% endfor %}
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-3">Explore</h4>
-      <ul class="space-y-1.5 text-sm">
-        <li><a href="/cities" class="hover:underline">Browse by state</a></li>
-        <li><a href="/categories" class="hover:underline">All services</a></li>
-        <li><a href="/guides" class="hover:underline">Guides</a></li>
-        <li><a href="/search" class="hover:underline">Search</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-white font-semibold mb-3">Top cities</h4>
-      <ul class="space-y-1.5 text-sm">
-        <li><a href="/tx/houston" class="hover:underline">Houston, TX</a></li>
-        <li><a href="/ny/new-york" class="hover:underline">New York, NY</a></li>
-        <li><a href="/fl/miami" class="hover:underline">Miami, FL</a></li>
-        <li><a href="/cities" class="hover:underline">All cities</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="border-t border-gray-800 py-5 text-center text-sm text-gray-500">
-    &copy; {{ 2026 }} {{ SITE_NAME }}. All rights reserved.
-  </div>
-</footer>
-</body>
+    <footer class="bg-gray-900 text-gray-300 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-4 gap-8">
+        <div>
+          <a href="/" class="inline-block bg-white rounded-xl px-3 py-2 mb-4" aria-label="{{ SITE_NAME }} — home"><img src="/static/logo.png" alt="{{ SITE_NAME }}" width="708" height="144" class="footer-logo" /></a>
+          <p class="text-sm text-gray-400">Find trusted local pest control pros across the USA. Compare reviews and contact pros directly.</p>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-3">Services</h4>
+          <ul class="space-y-1.5 text-sm">
+            {% for c in ALL_CATEGORIES %}
+              <li>
+                <a href="/category/{{ cat_slug(c) }}" class="hover:underline">{{ c }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-3">Explore</h4>
+          <ul class="space-y-1.5 text-sm">
+            <li>
+              <a href="/cities" class="hover:underline">Browse by state</a>
+            </li>
+            <li>
+              <a href="/categories" class="hover:underline">All services</a>
+            </li>
+            <li>
+              <a href="/guides" class="hover:underline">Guides</a>
+            </li>
+            <li>
+              <a href="/search" class="hover:underline">Search</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white font-semibold mb-3">Top cities</h4>
+          <ul class="space-y-1.5 text-sm">
+            <li>
+              <a href="/tx/houston" class="hover:underline">Houston, TX</a>
+            </li>
+            <li>
+              <a href="/ny/new-york" class="hover:underline">New York, NY</a>
+            </li>
+            <li>
+              <a href="/fl/miami" class="hover:underline">Miami, FL</a>
+            </li>
+            <li>
+              <a href="/cities" class="hover:underline">All cities</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 py-5 text-center text-sm text-gray-500">&copy; {{ 2026 }} {{ SITE_NAME }}. All rights reserved.</div>
+    </footer>
+  </body>
 </html>
